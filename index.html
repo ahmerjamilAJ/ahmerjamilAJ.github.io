@@ -44,7 +44,7 @@
     </nav>
     <div class="responsive__navbar">
       <div class="brand">
-        <h2>Ahmer Jamil <span> Researcher</span></h2>
+        <h2>Ahmer Jamil </h2>
       </div>
       <div class="links">
         <ul>
@@ -69,7 +69,8 @@
         <div class="title">
           <h1>Hi I am Ahmer</h1>
           <!-- <h2>A Research enthusiast and passionate AI engineering from Pakistan  </h2> -->
-          <h2 style="color: white;">A research enthusiast and passionate AI engineer from Pakistan</h2>
+          <h2 style="color: white;"> <span id="element"></span> </h2>
+          <!-- <h2 style="color: white;">A research enthusiast and passionate AI engineer from Pakistan</h2> -->
 
         </div>
         <!-- <button><i class="fas fa-coffee"></i> Get Started</button> -->
@@ -394,5 +395,12 @@
     <script src="https://unpkg.com/scrollreveal"></script>
     <script src="scripts/script.js"></script>
     <script src="scripts/animation.js"></script>
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+    <script>
+      var typed = new Typed('#element', {
+        strings: ['I am a research Enthusiast,', 'work as an ML engineer,', 'am passionate about LLMs,', 'and dedicated to the fields of security and privacy.'],
+        typeSpeed: 50,
+      });
+    </script>
   </body>
 </html>
