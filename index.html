@@ -1251,7 +1251,11 @@
           <div class="exp-card reveal">
             <h3 class="exp-title">Research Assistant — DebloatBench (SRI • UArizona • LUMS)</h3>
             <p class="exp-meta">Aug 2023 – Aug 2024</p>
-            <p class="exp-desc">A research project in collaboration with Dr. Sazzadur Rehman (Assistant Professor at the University of Arizona), Dr. Ashish Gehani (Principal Computer Scientist at SRI) and Dr Fareed Zaffar (Assistant Professor at Lahore University of Management Sciences). The project provides a unified framework to evaluate a diverse set of container debloaters that can handle the diversity of design and execution environments for container debloating.</p>
+            <p class="exp-desc">A research project in collaboration with Dr. Sazzadur Rehman (Assistant Professor at the
+              University of Arizona), Dr. Ashish Gehani (Principal Computer Scientist at SRI) and Dr Fareed Zaffar
+              (Assistant Professor at Lahore University of Management Sciences). The project provides a unified
+              framework to evaluate a diverse set of container debloaters that can handle the diversity of design and
+              execution environments for container debloating.</p>
           </div>
         </div>
 
@@ -1371,128 +1375,250 @@
     <!-- ========= PROJECTS ========= -->
     <section id="projects" class="wrap">
       <h2 class="section-title">Projects</h2>
-      <p class="sub">Text-only cards from CV. Repo links + expandable notes.</p>
+      <p class="sub">Impact-driven ML & systems work. Repo links + expandable details.</p>
+
       <div class="grid">
+        <!-- SDC Trace → GraphSAGE -->
         <article class="card reveal">
-          <span class="tag">GNN</span><span class="tag">LLVM</span>
-          <h3>SDC Trace → GraphSAGE</h3>
-          <p class="sub">IR parsing → instruction-graph construction → GraphSAGE prediction of silent data corruption
-            for resilient inference.</p>
+          <span class="tag">GNN</span><span class="tag">LLVM</span><span class="tag">Research</span>
+          <h3>SDC Trace → GraphSAGE (Resilience Predictor)</h3>
+          <p class="sub">Modeled LLVM IR as graphs to predict silent data corruption at instruction-level granularity;
+            prioritizes hardening for dependable inference.</p>
           <div class="proj-actions">
             <a class="px-btn px-mini" href="https://github.com/ahmerjamilAJ?tab=repositories&q=GraphSAGE"
               target="_blank" rel="noreferrer noopener">Repo</a>
             <button class="px-btn px-mini more-toggle" type="button">More</button>
           </div>
           <div class="more-box">
-            <p>Prototype to estimate SDC likelihood per-instruction. Built IR parsers, graph builders, trained
-              GraphSAGE, and validated on synthetic fault-injection traces.</p>
+            <p><strong>Stack:</strong> PyTorch Geometric, GraphSAGE, NetworkX, LLVM IR parsers, NumPy, Pandas.</p>
+            <ul>
+              <li>Generated instruction graphs from IR; edges captured data/control dependencies for richer context.
+              </li>
+              <li>Learned node-level risk scores; surfaced top-K vulnerable ops → guided selective hardening.</li>
+              <li>Added offline pipeline (parsing → graph build → training) with reproducible seeds & config.</li>
+              <li><em>Keywords:</em> reliability engineering, DAGs, feature engineering, ablation, ROC/AUC, k-fold CV.
+              </li>
+            </ul>
           </div>
-          <span class="chip3d">research</span>
+          <span class="chip3d">resilience</span>
         </article>
+
+        <!-- LLVM Fault Injection Tooling -->
+        <article class="card reveal">
+          <span class="tag">LLVM</span><span class="tag">HPC</span><span class="tag">Tooling</span>
+          <h3>LLVM Fault-Injection & SDC Modeling</h3>
+          <p class="sub">Built compiler/runtime hooks to inject faults & measure SDC/SDR across HPC kernels; automated
+            labeling & metrics.</p>
+          <div class="proj-actions">
+            <a class="px-btn px-mini" href="https://github.com/ahmerjamilAJ?tab=repositories&q=llvm%20fault"
+              target="_blank" rel="noreferrer noopener">Repo</a>
+            <button class="px-btn px-mini more-toggle" type="button">More</button>
+          </div>
+          <div class="more-box">
+            <p><strong>Stack:</strong> LLVM passes, Clang, Python orchestration, Bash, Docker.</p>
+            <ul>
+              <li>Instruction-class sampling, error masks, and golden-run diffing for quick SDC detection.</li>
+              <li>Produced standardized CSV telemetry → notebooks for rate/coverage, timing overhead, and confidence
+                intervals.</li>
+              <li><em>Keywords:</em> compiler passes, runtime instrumentation, reproducibility, CI-ready scripts.</li>
+            </ul>
+          </div>
+          <span class="chip3d">systems</span>
+        </article>
+
+        <!-- DebloatBench -->
+        <article class="card reveal">
+          <span class="tag">Containers</span><span class="tag">Security</span>
+          <h3>DebloatBench — Unified Evaluation Harness</h3>
+          <p class="sub">Benchmark suite to compare container debloaters on CVE exposure, syscall coverage, size &
+            compatibility.</p>
+          <div class="proj-actions">
+            <a class="px-btn px-mini" href="https://github.com/ahmerjamilAJ?tab=repositories&q=debloatbench"
+              target="_blank" rel="noreferrer noopener">Repo</a>
+            <button class="px-btn px-mini more-toggle" type="button">More</button>
+          </div>
+          <div class="more-box">
+            <p><strong>Stack:</strong> Docker, Linux strace/audit, Python, Pandas, Matplotlib.</p>
+            <ul>
+              <li>Automated “before vs after” runs; tracked breakages, cold-start latency, and attack-surface deltas.
+              </li>
+              <li>Comparative dashboards for CVE counts per base image & syscall heatmaps.</li>
+              <li><em>Keywords:</em> supply-chain security, SBOM, reproducible benchmarking, artifact diffing.</li>
+            </ul>
+          </div>
+          <span class="chip3d">benchmark</span>
+        </article>
+
+        <!-- Azure RAG / PEFT -->
+        <article class="card reveal">
+          <span class="tag">LLM</span><span class="tag">Azure</span><span class="tag">RAG</span>
+          <h3>Enterprise RAG & PEFT on Azure</h3>
+          <p class="sub">Production-ready retrieval-augmented generation with Cognitive Services, vector search, and
+            LoRA adapters for task-specific tuning.</p>
+          <div class="proj-actions">
+            <a class="px-btn px-mini" href="https://github.com/ahmerjamilAJ?tab=repositories&q=azure%20rag"
+              target="_blank" rel="noreferrer noopener">Repo</a>
+            <button class="px-btn px-mini more-toggle" type="button">More</button>
+          </div>
+          <div class="more-box">
+            <p><strong>Stack:</strong> Azure OpenAI, Azure Search/Blob, LangChain/Prompt-flow, PEFT/LoRA, Docker.</p>
+            <ul>
+              <li>Chunking + hybrid retrieval (sparse+dense); guardrails for PII and prompt injection.</li>
+              <li>Tracing & eval harness (faithfulness, context recall, answer quality) with offline test sets.</li>
+              <li><em>Keywords:</em> MLOps, observability, vector stores, red-teaming, governance.</li>
+            </ul>
+          </div>
+          <span class="chip3d">applied</span>
+        </article>
+
+        <!-- Language Classifier -->
         <article class="card reveal">
           <span class="tag">NLP</span><span class="tag">PyTorch</span>
-          <h3>Language Classifier</h3>
-          <p class="sub">Trained across three languages; evaluated baselines in Python/PyTorch with streaming-friendly
-            inference.</p>
+          <h3>Streaming Language Classifier</h3>
+          <p class="sub">Low-latency multi-lingual classifier; distilled models with real-time constraints for edge
+            serve.</p>
           <div class="proj-actions">
             <a class="px-btn px-mini" href="https://github.com/ahmerjamilAJ?tab=repositories&q=language%20classifier"
               target="_blank" rel="noreferrer noopener">Repo</a>
             <button class="px-btn px-mini more-toggle" type="button">More</button>
           </div>
           <div class="more-box">
-            <p>Explores tokenization, class imbalance handling, and distilled models for low-latency serve.</p>
+            <p><strong>Stack:</strong> PyTorch, TorchScript, scikit-learn, FastAPI.</p>
+            <ul>
+              <li>Tokenizer experiments (BPE vs WordPiece); class-imbalance handling; label smoothing.</li>
+              <li>Exported to TorchScript; batched inference; throughput vs accuracy tradeoffs.</li>
+              <li><em>Keywords:</em> distillation, quantization, latency SLOs, A/B testing.</li>
+            </ul>
           </div>
           <span class="chip3d">classification</span>
         </article>
-        <article class="card reveal">
-          <span class="tag">Compilers</span>
-          <h3>YAPL Interpreter</h3>
-          <p class="sub">Custom interpreter via PLY; FSM/CFG/regex with a full Python implementation.</p>
-          <div class="proj-actions">
-            <a class="px-btn px-mini" href="https://github.com/ahmerjamilAJ?tab=repositories&q=YAPL" target="_blank"
-              rel="noreferrer noopener">Repo</a>
-            <button class="px-btn px-mini more-toggle" type="button">More</button>
-          </div>
-          <div class="more-box">
-            <p>Lexing/parsing pipeline, AST construction, and bytecode-like execution with basic optimization passes.
-            </p>
-          </div>
-          <span class="chip3d">systems</span>
-        </article>
+
+        <!-- Knowledge Distillation -->
         <article class="card reveal">
           <span class="tag">DL</span><span class="tag">KD</span>
           <h3>Knowledge Distillation Study</h3>
-          <p class="sub">Compression on CIFAR-10 with multi-student scheme; dense representations vs. soft labels.</p>
+          <p class="sub">CIFAR-10 compression with multi-student KD; systematic ablations over T, depth, and data aug.
+          </p>
           <div class="proj-actions">
             <a class="px-btn px-mini" href="https://github.com/ahmerjamilAJ?tab=repositories&q=distillation"
               target="_blank" rel="noreferrer noopener">Repo</a>
             <button class="px-btn px-mini more-toggle" type="button">More</button>
           </div>
           <div class="more-box">
-            <p>Grid over temperature, teacher capacity, and student depth; ablations on augmentation + label smoothing.
-            </p>
+            <p><strong>Stack:</strong> PyTorch, Albumentations, WandB/Matplotlib.</p>
+            <ul>
+              <li>Teacher-student ensembles; temperature & loss-weight sweeps; early-stopping & checkpointing.</li>
+              <li><em>Keywords:</em> model compression, calibration, robustness, learning curves.</li>
+            </ul>
           </div>
           <span class="chip3d">experiment</span>
         </article>
+
+        <!-- YAPL -->
         <article class="card reveal">
-          <span class="tag">HCI</span><span class="tag">Figma</span>
-          <h3>Afloat</h3>
-          <p class="sub">UX prototype for student mental-health support; research-led flows.</p>
+          <span class="tag">Compilers</span><span class="tag">PL</span>
+          <h3>YAPL — Yet Another Programming Language (Interpreter)</h3>
+          <p class="sub">From grammar to AST to bytecode-like executor; showcases end-to-end compiler pipeline skills.
+          </p>
           <div class="proj-actions">
-            <a class="px-btn px-mini" href="https://github.com/ahmerjamilAJ" target="_blank"
+            <a class="px-btn px-mini" href="https://github.com/ahmerjamilAJ?tab=repositories&q=YAPL" target="_blank"
               rel="noreferrer noopener">Repo</a>
             <button class="px-btn px-mini more-toggle" type="button">More</button>
           </div>
           <div class="more-box">
-            <p>Conducted interviews, produced personas, and translated findings into high-fidelity flows.</p>
+            <p><strong>Stack:</strong> Python, PLY (lex/yacc), unittest.</p>
+            <ul>
+              <li>Lexer/parser, AST nodes, visitors, constant folding & dead-code elimination.</li>
+              <li><em>Keywords:</em> grammars, CFG, tokens, semantic analysis, IR.</li>
+            </ul>
           </div>
-          <span class="chip3d">design</span>
+          <span class="chip3d">systems</span>
         </article>
+
+        <!-- Celebrity Identification -->
         <article class="card reveal">
           <span class="tag">CV</span><span class="tag">Flask</span>
-          <h3>Celebrity Identification</h3>
-          <p class="sub">OpenCV + Haar cascades; wavelet features; GridSearchCV; Flask backend.</p>
+          <h3>Celebrity Identification (Classic CV)</h3>
+          <p class="sub">End-to-end CV pipeline: detection → feature engineering → classification with a lightweight web
+            UI.</p>
           <div class="proj-actions">
             <a class="px-btn px-mini" href="https://github.com/ahmerjamilAJ?tab=repositories&q=celebrity"
               target="_blank" rel="noreferrer noopener">Repo</a>
             <button class="px-btn px-mini more-toggle" type="button">More</button>
           </div>
           <div class="more-box">
-            <p>Classic CV pipeline with face detection → feature engineering → classifier; deployed minimal Flask app.
-            </p>
+            <p><strong>Stack:</strong> OpenCV (Haar), scikit-learn, Flask, Wavelets.</p>
+            <ul>
+              <li>GridSearchCV for model/param selection; simple deployment artifact for demo.</li>
+              <li><em>Keywords:</em> classical ML, feature extraction, evaluation, microservice.</li>
+            </ul>
           </div>
           <span class="chip3d">computer vision</span>
         </article>
+
+        <!-- RAG Bot -->
         <article class="card reveal">
           <span class="tag">LLM</span><span class="tag">RAG</span>
           <h3>Knowledge-Base QA Bot</h3>
-          <p class="sub">ChromaDB retrieval with GPT-3.5 orchestration; simple web UI.</p>
+          <p class="sub">Retrieval-augmented QA with ChromaDB; adds conversation state & lightweight guardrails.</p>
           <div class="proj-actions">
             <a class="px-btn px-mini" href="https://github.com/ahmerjamilAJ?tab=repositories&q=RAG" target="_blank"
               rel="noreferrer noopener">Repo</a>
             <button class="px-btn px-mini more-toggle" type="button">More</button>
           </div>
           <div class="more-box">
-            <p>Embeds docs, maintains conversation state, and executes constrained tool calls for reliable answers.</p>
+            <p><strong>Stack:</strong> Python, ChromaDB, LangChain, FastAPI/Flask.</p>
+            <ul>
+              <li>Chunking & embedding; answer-faithfulness evaluation; simple UI for enterprise demos.</li>
+              <li><em>Keywords:</em> vector search, reranking, grounding, guardrails.</li>
+            </ul>
           </div>
           <span class="chip3d">genai</span>
         </article>
+
+        <!-- Geospatial -->
         <article class="card reveal">
-          <span class="tag">Geo</span><span class="tag">Flask</span>
-          <h3>Interactive GeoSpatial Webpage</h3>
-          <p class="sub">Selenium scraping → GeoJSON → Flask/HTML map with zoom/pan and constituency details.</p>
+          <span class="tag">Geo</span><span class="tag">Data</span>
+          <h3>Interactive GeoSpatial Web</h3>
+          <p class="sub">Scraped civic data → GeoJSON → interactive maps (zoom/pan/popovers) with a small Flask backend.
+          </p>
           <div class="proj-actions">
             <a class="px-btn px-mini" href="https://github.com/ahmerjamilAJ?tab=repositories&q=geospatial"
               target="_blank" rel="noreferrer noopener">Repo</a>
             <button class="px-btn px-mini more-toggle" type="button">More</button>
           </div>
           <div class="more-box">
-            <p>Automated scrape + transform; front-end provides detail popovers and search.</p>
+            <p><strong>Stack:</strong> Selenium, Python, GeoJSON, Flask, Leaflet/HTML.</p>
+            <ul>
+              <li>Automated ETL & sanity checks; searchable map with constituency details.</li>
+              <li><em>Keywords:</em> data engineering, scraping, spatial joins, visualization.</li>
+            </ul>
           </div>
           <span class="chip3d">maps</span>
         </article>
+
+        <!-- Bonus: In-browser MNIST (the live demo on this site) -->
+        <article class="card reveal">
+          <span class="tag">ONNX</span><span class="tag">WebGL</span>
+          <h3>In-Browser MNIST Classifier</h3>
+          <p class="sub">Digit prediction fully client-side via ONNX Runtime Web (WebGL → WASM fallback); ~25–40 ms
+            inference on desktop.</p>
+          <div class="proj-actions">
+            <a class="px-btn px-mini" href="#mnist" target="_self" rel="noreferrer noopener">Try Live</a>
+            <button class="px-btn px-mini more-toggle" type="button">More</button>
+          </div>
+          <div class="more-box">
+            <p><strong>Stack:</strong> ONNX Runtime Web, Canvas API, ESLint, vanilla JS.</p>
+            <ul>
+              <li>Path-robust model loading for GitHub Pages; graceful degradation and clear UX errors.</li>
+              <li><em>Keywords:</em> model export, client-side inference, WebGL, WASM, DX.</li>
+            </ul>
+          </div>
+          <span class="chip3d">demo</span>
+        </article>
       </div>
     </section>
+
 
     <!-- ========= MNIST STYLE DEMO ========= -->
     <section id="mnist" class="wrap">
