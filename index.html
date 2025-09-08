@@ -1065,6 +1065,10 @@
       border-radius: 16px;
       box-shadow: var(--shadow)
     }
+
+    footer.wrap {
+      margin-top: clamp(72px, 10vw, 140px) !important;
+    }
   </style>
 </head>
 
@@ -1666,6 +1670,9 @@
       <!-- Scoped styles just for the card -->
       <style>
         #contact .contact-card {
+          margin-top: clamp(60px, 8vw, 140px);
+          scroll-margin-top: 90px;
+          /* when jumping to #contact via links */
           position: relative;
           display: grid;
           gap: 22px;
@@ -1849,7 +1856,7 @@
     </section>
 
     <footer class="wrap" style="text-align:center;color:var(--muted);margin-top:64px">
-      © <span id="year"></span> Ahmer Jamil — HTML/CSS/JS only.
+      © <span id="year"></span> Ahmer Jamil
     </footer>
 
   </main>
@@ -2008,7 +2015,7 @@
       const NORM_MEAN = 0.1307, NORM_STD = 0.3081;
 
       // Robust path resolution for GitHub Pages (works in subfolders)
-      const modelUrl = new URL('assets/models/mnist_cnn.onnx', document.baseURI).href;
+      const modelUrl = new URL('assets/models/mnist_cnnold.onnx', document.baseURI).href;
       const modelNote = document.getElementById('modelNote');
 
       // Prefer WebGL; fall back to WASM with a useful message if anything fails
