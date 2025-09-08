@@ -1,408 +1,1831 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="scss/index.css" />
-    
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" 
-      https="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-      integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <title>Ahmer Jamil</title>
-  </head>
-  <body>
-    <div class="scrollToTop">
-      <i class="fas fa-angle-up"></i>
-    </div>
-    <nav class="navbar defaultMargin">
-      <div class="brand__container">
-        <div class="brand">
-          <h2>Ahmer Jamil <span> PhD</span></h2>
-        </div>
-        <div class="toggle">
-          <i class="fas fa-bars"></i>
-        </div>
-      </div>
-      <div class="links">
-        <ul>
-          <li><a href="#home">Home</a></li>
-          <li><a href="#skills">Interests</a></li>
-          <li><a href="#portfolio">Work</a></li>
-          <li><a href="#services">Projects</a></li>
-          <li><a href="https://www.linkedin.com/in/ahmer-jamil582000/"><i class="fab fa-linkedin"></i></a></li>
-          <li><a href="https://www.facebook.com/ahmer.jamil.16"><i class="fab fa-facebook-f"></i></a></li>
-          
-          <li><a href="https://github.com/ahmerjamilAJ"><i class="fab fa-github"></i></a></li>
-          <li><button onclick="window.open('https://drive.google.com/file/d/1i__y9HtKt8IswauzOn4Z8GYiv6pRw9Po/view?usp=sharing', '_blank')"> <i class="fas fa-file-alt"></i>CV</button></li>
-        </ul>
-      </div>
-    </nav>
-    <div class="responsive__navbar">
-      <div class="brand">
-        <h2>Ahmer Jamil </h2>
-      </div>
-      <div class="links">
-        <ul>
-          <li class="nav__link"><a href="#home">Home</a></li>
-          <li class="nav__link"><a href="#skills">Interests</a></li>
-          <li class="nav__link"><a href="#portfolio">Work</a></li>
-          <li class="nav__link"><a href="#services">Projects</a></li>
-          <ul>
-            <li class="nav__link"><a href="https://www.linkedin.com/in/ahmer-jamil582000/"><i class="fab fa-linkedin"></i></a></li>
-            <li class="nav__link"><a href="https://www.facebook.com/ahmer.jamil.16"><i class="fab fa-facebook-f"></i></a></li>
-            
-            <li class="nav__link"><a href="https://github.com/ahmerjamilAJ"><i class="fab fa-github"></i></a></li>
-          </ul>
-          <button class="nav__link" onclick="window.open('https://drive.google.com/file/d/1i__y9HtKt8IswauzOn4Z8GYiv6pRw9Po/view?usp=sharing', '_blank')">
-            <i class="fas fa-file-alt"></i> CV
-          </button>
-          
-        </ul>
-      </div>
-    </div>
-    <section class="hero defaultMargin" id="home">
-      <div class="content">
-        <div class="title">
-          <h1>Hi I am Ahmer</h1>
-          <!-- <h2>A Research enthusiast and passionate AI engineering from Pakistan  </h2> -->
-          <h2 style="color: white;"> <span id="element"></span> </h2>
-          <!-- <h2 style="color: white;">A research enthusiast and passionate AI engineer from Pakistan</h2> -->
 
-        </div>
-        <!-- <button><i class="fas fa-coffee"></i> Get Started</button> -->
+<head>
+  <meta charset="utf-8" />
+  <title>Ahmer Jamil — ML • Systems • Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0b0f1a" />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    referrerpolicy="no-referrer" />
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box
+    }
+
+    html,
+    body {
+      height: 100%
+    }
+
+    body {
+      margin: 0;
+      font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial
+    }
+
+    :root {
+      --bg: #0b0f1a;
+      --panel: #0f1526;
+      --ink: #e8ecff;
+      --muted: #a7b0d6;
+      --brand: #6ae3ff;
+      --brand2: #9d7bff;
+      --accent: #19ffa6;
+      --border: rgba(255, 255, 255, .12);
+      --shadow: 0 16px 40px rgba(0, 0, 0, .35);
+      --radius: 20px;
+      --ring: 0 0 0 2px rgba(106, 227, 255, .25), 0 0 40px rgba(157, 123, 255, .18);
+      --title-size: clamp(1.9rem, 4.3vw, 3.1rem);
+      --title-lines: 2;
+      --pixel: #e2e6ff;
+      --pixel-dark: #0a0e1f;
+      --pixel-edge: #7780ff;
+      --dur-quick: .15s;
+      --dur-med: .28s;
+      --dur-slow: .7s;
+      --ease: cubic-bezier(.2, .7, .2, 1);
+      --header-h: 72px;
+      --dock-bg: linear-gradient(180deg, rgba(255, 255, 255, .08), rgba(0, 0, 0, .35));
+    }
+
+    [data-theme="light"] {
+      --bg: #f7f9ff;
+      --panel: #ffffff;
+      --ink: #0a1022;
+      --muted: #536083;
+      --brand: #0069ff;
+      --brand2: #7a3cff;
+      --accent: #17a673;
+      --border: rgba(0, 0, 0, .12);
+      --shadow: 0 18px 44px rgba(0, 0, 0, .08);
+      --pixel: #08103a;
+      --pixel-dark: #ffffff;
+      --pixel-edge: #bcd0ff;
+      --dock-bg: linear-gradient(180deg, rgba(0, 0, 0, .08), rgba(0, 0, 0, .18));
+    }
+
+    [data-palette="nes"] {
+      --brand: #ff2d2d;
+      --brand2: #b30000;
+      --accent: #ffd400
+    }
+
+    [data-palette="snes"] {
+      --brand: #9b59b6;
+      --brand2: #5e35b1;
+      --accent: #8bc34a
+    }
+
+    [data-palette="n64"] {
+      --brand: #2ecc71;
+      --brand2: #2980b9;
+      --accent: #f1c40f
+    }
+
+    body {
+      color: var(--ink);
+      background:
+        radial-gradient(1200px 700px at 95% -10%, rgba(106, 227, 255, .12), transparent 60%),
+        radial-gradient(1100px 650px at -10% -20%, rgba(157, 123, 255, .10), transparent 60%),
+        var(--bg);
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+      padding-top: var(--header-h);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none
+    }
+
+    .wrap {
+      max-width: 1150px;
+      margin: 0 auto;
+      padding: 0 20px
+    }
+
+    main {
+      max-width: 1150px;
+      margin: 0 auto;
+      padding: 28px 20px 140px
+    }
+
+    /* ========= Fixed Retro header ========= */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 70;
+      backdrop-filter: blur(6px) saturate(120%);
+      background: linear-gradient(180deg, rgba(0, 0, 0, .55), rgba(0, 0, 0, .18) 70%, transparent);
+      border-bottom: 1px solid var(--border);
+      height: var(--header-h);
+      display: flex;
+      align-items: center
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      width: 100%
+    }
+
+    .retro {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 10px 14px;
+      border-radius: 16px;
+      background: linear-gradient(#1b2140, #0e1430);
+      border: 1px solid rgba(255, 255, 255, .08);
+      box-shadow: inset 0 2px 0 rgba(255, 255, 255, .08), inset 0 -2px 0 rgba(0, 0, 0, .35), 0 10px 24px rgba(0, 0, 0, .25)
+    }
+
+    [data-theme="light"] .retro {
+      background: linear-gradient(#e9ecff, #cbd3ff);
+      border-color: rgba(0, 0, 0, .08)
+    }
+
+    .retro .bevel {
+      position: absolute;
+      inset: -6px -10px auto -10px;
+      height: 8px;
+      border-radius: 10px 10px 2px 2px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, .18), rgba(0, 0, 0, .15));
+      filter: blur(.4px)
+    }
+
+    .logo8 {
+      font-family: "Press Start 2P", system-ui, sans-serif;
+      font-size: .95rem;
+      letter-spacing: 1.5px;
+      color: var(--pixel);
+      text-shadow: 2px 2px 0 var(--pixel-edge), -2px 2px 0 var(--pixel-edge), 2px -2px 0 var(--pixel-edge), -2px -2px 0 var(--pixel-edge);
+      cursor: pointer;
+      position: relative
+    }
+
+    .logo8:hover {
+      animation: glitch .6s steps(2, end) infinite
+    }
+
+    @keyframes glitch {
+      0% {
+        text-shadow: 2px 2px 0 #f00, -2px -2px 0 #0ff
+      }
+
+      50% {
+        text-shadow: -2px 2px 0 #0f0, 2px -2px 0 #00f
+      }
+
+      100% {
+        text-shadow: 2px 2px 0 #f0f, -2px -2px 0 #ff0
+      }
+    }
+
+    .logo-spark {
+      position: absolute;
+      font-size: 10px;
+      pointer-events: none
+    }
+
+    .led {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #ff8080, #f40);
+      box-shadow: 0 0 6px #f44, 0 0 14px #f44;
+      animation: blink 2.2s ease-in-out infinite;
+      cursor: pointer
+    }
+
+    .led:active {
+      transform: scale(.96)
+    }
+
+    @keyframes blink {
+
+      0%,
+      95% {
+        opacity: .9
+      }
+
+      97% {
+        opacity: .2
+      }
+
+      100% {
+        opacity: .9
+      }
+    }
+
+    /* ========= Skills ========= */
+    .skills {
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      background: var(--panel)
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 22px
+    }
+
+    .skill-col {
+      grid-column: span 6
+    }
+
+    .skill-col h4 {
+      margin: 0 0 10px
+    }
+
+    .skill {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      align-items: center;
+      margin: 10px 0
+    }
+
+    .bar {
+      grid-column: 1 / -1;
+      height: 12px;
+      border-radius: 0;
+      background: repeating-linear-gradient(90deg, rgba(255, 255, 255, .08) 0 8px, transparent 8px 16px);
+      outline: 1px solid var(--border)
+    }
+
+    .bar>span {
+      display: block;
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--brand), var(--brand2));
+      transition: width 1200ms steps(12, end)
+    }
+
+    .pct {
+      color: var(--muted);
+      font-size: .85rem
+    }
+
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap
+    }
+
+    .px-btn {
+      font-family: "Press Start 2P", system-ui, sans-serif;
+      font-size: .68rem;
+      line-height: 1;
+      color: var(--pixel-dark);
+      background: #e2e6ff;
+      padding: 8px 12px;
+      border: none;
+      cursor: pointer;
+      clip-path: polygon(0 20%, 4% 20%, 4% 0, 96% 0, 96% 20%, 100% 20%, 100% 80%, 96% 80%, 96% 100%, 4% 100%, 4% 80%, 0 80%);
+      box-shadow: 0 4px 0 #9aa4ff, 0 6px 0 #00000050;
+      transition: transform .05s, box-shadow .05s, filter .2s
+    }
+
+    .px-btn:active {
+      transform: translateY(2px);
+      box-shadow: 0 2px 0 #9aa4ff, 0 4px 0 #00000050
+    }
+
+    .px-btn[data-mag="1"] {
+      transition: transform var(--dur-quick) var(--ease)
+    }
+
+    .px-btn[data-mag="1"].is-mag {
+      transform: translate(var(--mx, 0), var(--my, 0))
+    }
+
+    [data-theme="light"] .px-btn {
+      background: #d9defa;
+      box-shadow: 0 4px 0 #7f8aff, 0 6px 0 #00000040;
+      color: #0a0e1f
+    }
+
+    .switch {
+      --h: 28px;
+      --w: 66px;
+      position: relative;
+      display: inline-block;
+      width: var(--w);
+      height: var(--h)
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0
+    }
+
+    .slider {
+      position: absolute;
+      inset: 0;
+      background: #cfd6ff;
+      border: 1px solid var(--border);
+      clip-path: polygon(0 20%, 4% 20%, 4% 0, 96% 0, 96% 20%, 100% 20%, 100% 80%, 96% 80%, 96% 100%, 4% 100%, 4% 80%, 0 80%);
+      box-shadow: inset 0 4px 0 #9aa4ff, 0 6px 0 #00000040;
+      font: .62rem "Press Start 2P";
+      color: #0a0e1f;
+      display: grid;
+      place-items: center
+    }
+
+    .slider::before {
+      content: "";
+      position: absolute;
+      width: 26px;
+      height: 22px;
+      left: 6px;
+      top: 2px;
+      background: #fff;
+      box-shadow: 0 2px 0 #9aa4ff;
+      transition: transform .2s
+    }
+
+    input:checked+.slider {
+      background: #1b2140;
+      color: #e2e6ff
+    }
+
+    input:checked+.slider::before {
+      transform: translateX(32px)
+    }
+
+    /* ========= Experience timeline ========= */
+    .exp {
+      position: relative;
+      padding: 10px 0
+    }
+
+    .exp-meta {
+      color: var(--muted);
+      margin: .25rem 0 .5rem
+    }
+
+    .exp::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      transform: translateX(-50%);
+      background: linear-gradient(var(--brand), var(--brand2))
+    }
+
+    .exp-item {
+      position: relative;
+      width: calc(50% - 28px);
+      margin-bottom: 26px
+    }
+
+    .exp-item.left {
+      margin-right: auto;
+      padding-right: 28px
+    }
+
+    .exp-item.right {
+      margin-left: auto;
+      padding-left: 28px
+    }
+
+    .exp-badge {
+      position: absolute;
+      left: 50%;
+      top: 18px;
+      transform: translate(-50%, -50%);
+      width: 26px;
+      height: 26px;
+      border-radius: 4px;
+      background: var(--panel);
+      border: 2px solid var(--brand2);
+      display: grid;
+      place-items: center;
+      box-shadow: var(--shadow)
+    }
+
+    .exp-card {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+      padding: 14px
+    }
+
+    .exp-title {
+      font-weight: 800;
+      margin: 0
+    }
+
+    .exp-meta {
+      color: var(--muted);
+      font-size: .92rem;
+      margin: 4px 0 10px
+    }
+
+    .exp-desc {
+      color: var(--muted);
+      margin: 0
+    }
+
+    /* ========= Hero ========= */
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) min(38vw, 440px);
+      gap: 28px;
+      align-items: center;
+      min-height: 70vh
+    }
+
+    .kicker {
+      color: var(--accent);
+      font-weight: 800;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      font-size: .8rem
+    }
+
+    .type-pad {
+      height: calc(var(--title-size) * 1.15 * var(--title-lines));
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 10px 14px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, .02), rgba(255, 255, 255, .01))
+    }
+
+    h1 {
+      font-size: var(--title-size);
+      line-height: 1.15;
+      margin: 0
+    }
+
+    #typedTitle {
+      display: block;
+      white-space: normal;
+      word-break: break-word
+    }
+
+    .typed-cursor {
+      font-size: inherit
+    }
+
+    .lede {
+      color: var(--muted);
+      max-width: 62ch;
+      margin-top: 14px
+    }
+
+    .cta {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 18px
+    }
+
+    /* ========= Game Boy portrait (cross-fade swap) ========= */
+    .profile {
+      display: grid;
+      place-items: center
+    }
+
+    .gameboy {
+      width: min(420px, 86vw);
+      aspect-ratio: 4/5;
+      border-radius: 26px;
+      position: relative;
+      background: linear-gradient(#1f2339, #0e1430);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      padding: 12px;
+    }
+
+    .gameboy::before {
+      content: "";
+      position: absolute;
+      right: 16px;
+      bottom: 16px;
+      width: 66px;
+      height: 40px;
+      background: repeating-linear-gradient(90deg, rgba(255, 255, 255, .08) 0 6px, transparent 6px 12px);
+      border-radius: 8px;
+      opacity: .35;
+    }
+
+    .screen {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: #0003
+    }
+
+    .scan {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      mix-blend-mode: overlay;
+      background: linear-gradient(rgba(255, 255, 255, .05) 0 1px, transparent 1px 3px);
+      background-size: 100% 3px;
+      opacity: .35
+    }
+
+    .glare {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(130deg, rgba(255, 255, 255, .14), transparent 35% 60%, rgba(0, 0, 0, .25));
+      pointer-events: none
+    }
+
+    .flip-tip {
+      position: absolute;
+      left: 12px;
+      top: 12px;
+      background: rgba(0, 0, 0, .35);
+      color: #fff;
+      padding: 6px 8px;
+      font-size: .72rem;
+      border-radius: 8px;
+      letter-spacing: .02em;
+      backdrop-filter: saturate(120%) blur(2px);
+    }
+
+    .flip-tip b {
+      font-weight: 700
+    }
+
+    @media (max-width:990px) {
+      .flip-tip {
+        display: none
+      }
+    }
+
+    /* already in your CSS; keep it */
+
+
+    .face {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      transition: opacity .35s var(--ease), transform .35s var(--ease)
+    }
+
+    .face img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block
+    }
+
+    .front {
+      opacity: 1;
+      transform: perspective(600px) rotateY(0)
+    }
+
+    .back {
+      opacity: 0;
+      transform: perspective(600px) rotateY(12deg)
+    }
+
+    .sprite {
+      position: absolute;
+      inset: 0;
+      background: url('assets/hero2.png') center / cover no-repeat;
+      /* <= fills the frame */
+      image-rendering: auto;
+      /* use 'pixelated' only if you want chunky pixels */
+      animation: bob 2.2s ease-in-out infinite;
+    }
+
+    /* Make both faces truly edge-to-edge */
+    .face {
+      position: absolute;
+      inset: 0;
+      transition: opacity .35s var(--ease), transform .35s var(--ease);
+    }
+
+    .face img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .front {
+      opacity: 1;
+      transform: perspective(600px) rotateY(0)
+    }
+
+    .back {
+      opacity: 0;
+      transform: perspective(600px) rotateY(12deg)
+    }
+
+    .show-sprite .front {
+      opacity: 0;
+      transform: perspective(600px) rotateY(-12deg)
+    }
+
+    .show-sprite .back {
+      opacity: 1;
+      transform: perspective(600px) rotateY(0)
+    }
+
+    .show-sprite .front {
+      opacity: 0;
+      transform: perspective(600px) rotateY(-12deg)
+    }
+
+    .show-sprite .back {
+      opacity: 1;
+      transform: perspective(600px) rotateY(0)
+    }
+
+    /* ========= GitHub / CV cartridges ========= */
+    .carts {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 14px
+    }
+
+    .cart {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      min-width: 112px;
+      padding: 8px 10px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: linear-gradient(#161c39, #0e1430);
+      box-shadow: var(--shadow);
+      position: relative;
+      transition: transform .12s var(--ease)
+    }
+
+    .cart:hover {
+      transform: translateY(-2px)
+    }
+
+    [data-theme="light"] .cart {
+      background: linear-gradient(#f7f9ff, #eef2ff)
+    }
+
+    .cart .label {
+      font-family: "Press Start 2P";
+      font-size: .6rem;
+      letter-spacing: .8px;
+      color: var(--pixel);
+      text-shadow: 1px 1px 0 var(--pixel-edge)
+    }
+
+    .cart .sub {
+      margin: 0;
+      font-size: .76rem;
+      color: var(--muted)
+    }
+
+    /* ========= Sections ========= */
+    section {
+      margin-top: 72px
+    }
+
+    .section-title {
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      margin: 0 0 12px
+    }
+
+    .sub {
+      color: var(--muted);
+      margin: 0 0 18px
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 18px
+    }
+
+    .panel {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255, 255, 255, .03), rgba(255, 255, 255, .01));
+      box-shadow: var(--shadow);
+      overflow: hidden
+    }
+
+    .card {
+      grid-column: span 6;
+      min-height: 150px;
+      padding: 18px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: var(--panel);
+      transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateZ(var(--tz, 0px));
+      transition: transform .18s ease, border-color .25s ease, box-shadow .25s ease;
+      transform-style: preserve-3d;
+      box-shadow: var(--shadow)
+    }
+
+    .card:hover {
+      border-color: rgba(106, 227, 255, .35);
+      box-shadow: var(--ring)
+    }
+
+    .tag {
+      display: inline-flex;
+      gap: 6px;
+      align-items: center;
+      font-size: .75rem;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 4px 8px;
+      border-radius: 999px;
+      margin-right: 6px
+    }
+
+    .chip3d {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 6px 10px;
+      border-radius: 10px;
+      font-size: .75rem;
+      border: 1px solid var(--border);
+      background: linear-gradient(135deg, rgba(106, 227, 255, .25), rgba(157, 123, 255, .25));
+      transform: translateZ(40px)
+    }
+
+    .proj-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 10px
+    }
+
+    .px-mini {
+      font-size: .58rem;
+      padding: 6px 8px
+    }
+
+    .more-box {
+      display: none;
+      border: 1px dashed var(--border);
+      border-radius: 10px;
+      padding: 8px 10px
+    }
+
+    .more-box.show {
+      display: block
+    }
+
+    /* ========= MNIST Demo ========= */
+    .mnist {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px
+    }
+
+    .draw {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--panel);
+      padding: 14px;
+      box-shadow: var(--shadow)
+    }
+
+    .draw .canvas-wrap {
+      display: grid;
+      place-items: center;
+      background: #0a0e1f;
+      border-radius: 12px;
+      padding: 8px
+    }
+
+    #draw {
+      background: #0a0e1f;
+      touch-action: none;
+      display: block;
+      border-radius: 10px;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .06)
+    }
+
+    .controls {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+      flex-wrap: wrap
+    }
+
+    .probs {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--panel);
+      padding: 14px;
+      box-shadow: var(--shadow)
+    }
+
+    .prob-row {
+      display: grid;
+      grid-template-columns: 24px 1fr 48px;
+      gap: 8px;
+      align-items: center;
+      margin: 6px 0
+    }
+
+    .prob-bar {
+      height: 10px;
+      background: repeating-linear-gradient(90deg, rgba(255, 255, 255, .08) 0 8px, transparent 8px 16px);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden
+    }
+
+    .prob-bar>span {
+      display: block;
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--brand), var(--brand2));
+      transition: width .35s var(--ease)
+    }
+
+    /* ========= Bottom Dock ========= */
+    .dock {
+      position: fixed;
+      left: 50%;
+      bottom: 12px;
+      transform: translateX(-50%);
+      z-index: 60;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      padding: 8px 10px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: var(--panel);
+      background: var(--dock-bg);
+      backdrop-filter: blur(8px);
+    }
+
+    .dock .px-btn {
+      font-size: .64rem
+    }
+
+    .field {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      opacity: .45;
+      background: radial-gradient(500px 300px at 10% 20%, rgba(106, 227, 255, .12), transparent 60%),
+        radial-gradient(450px 280px at 90% 80%, rgba(157, 123, 255, .10), transparent 60%);
+      filter: saturate(120%)
+    }
+
+    .crt * {
+      position: relative
+    }
+
+    .crt::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(transparent 97%, rgba(255, 255, 255, .05) 97%), linear-gradient(transparent 98.5%, rgba(0, 0, 0, .12) 98.5%);
+      background-size: 100% 3px, 100% 3px;
+      mix-blend-mode: overlay;
+      opacity: .5
+    }
+
+    .crt {
+      filter: saturate(110%) contrast(105%)
+    }
+
+    .gridfx::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(rgba(255, 255, 255, .05) 1px, transparent 1px) 0 0/0.75rem 0.75rem,
+        linear-gradient(90deg, rgba(255, 255, 255, .05) 1px, transparent 1px) 0 0/0.75rem 0.75rem;
+      mix-blend-mode: overlay
+    }
+
+    .code-char {
+      position: fixed;
+      top: -10vh;
+      font-family: monospace;
+      font-size: 18px;
+      color: rgba(106, 227, 255, .85);
+      will-change: transform, opacity;
+      pointer-events: none;
+      z-index: 70
+    }
+
+    .toast {
+      position: fixed;
+      top: 84px;
+      right: 16px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px 12px;
+      box-shadow: var(--shadow);
+      font: .7rem "Press Start 2P";
+      z-index: 80;
+      opacity: 0;
+      transform: translateY(-8px)
+    }
+
+    .toast.show {
+      animation: toast .8s var(--ease) forwards
+    }
+
+    @keyframes toast {
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    /* Responsive */
+    @media (max-width:990px) {
+      .hero {
+        grid-template-columns: 1fr
+      }
+
+      .grid {
+        grid-template-columns: 1fr
+      }
+
+      .card {
+        grid-column: auto
+      }
+
+      .mnist {
+        grid-template-columns: 1fr
+      }
+
+      .flip-tip {
+        display: none
+      }
+
+      /* Experience mobile FIX */
+      .exp::before {
+        left: 18px;
+        transform: none
+      }
+
+      .exp-badge {
+        left: 18px
+      }
+
+      .exp-item,
+      .exp-item.left,
+      .exp-item.right {
+        width: 100%;
+        padding-left: 46px;
+        padding-right: 0
+      }
+    }
+
+
+    @media (prefers-reduced-motion:reduce) {
+      .led {
+        animation: none
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="field" aria-hidden="true"></div>
+
+  <!-- ========= FIXED NAV ========= -->
+  <header>
+    <div class="wrap nav">
+      <div class="retro" role="banner" aria-label="Retro console bar">
+        <span class="bevel" aria-hidden="true"></span>
+        <button id="powerLed" class="led" title="Cycle console palette (NES → SNES → N64)"></button>
+        <span class="logo8" id="logoFx" title="Click for sparkles">A H M E R</span>
       </div>
-      <div class="image">
-        <img src="./assets/hero.jpeg" alt="" />
-      </div>
-    </section>
-    <div class="spring right" id="spring1">
-      <div class="coil"></div>
-      <div class="bar gradient"></div>
+      <nav class="nav-links" aria-label="Primary">
+        <a class="px-btn" data-mag="1" href="#home">START</a>
+        <a class="px-btn" data-mag="1" href="#skills">SKILLS</a>
+        <a class="px-btn" data-mag="1" href="#experience">EXP</a>
+        <a class="px-btn" data-mag="1" href="#projects">PROJECTS</a>
+        <label class="switch" title="Light / Dark">
+          <input type="checkbox" id="themeToggle">
+          <span class="slider"> </span>
+        </label>
+      </nav>
     </div>
-    <section class="about">
-      <div class="title__container">
-        <h2>About</h2>
-        <p>
-          Whether applying machine learning techniques to enhance the security of financial transactions 
-          and develop real-world applications,
-        </p>
-        <p>
-          or delving into deep learning algorithms as a Computer Science
-          Graduate of '23 from the Lahore University of Management Sciences (LUMS),
-        </p>
-        <p>
-          I have explored a wide range
-          of domains.
-        </p>
-        <p>
-          My experiences include leveraging large language models (LLMs) and creating industrial solutions
-        at Systems Limited.
-      </p>
-      </div>
-      
-      </div>
-    </section>
-    <div class="spring" id="springL1">
-      <div class="coil"></div>
-      <div class="bar gradient"></div>
-    </div>
-    <section class="skills defaultMargin" id="skills">
-      <div class="title__container">
-        <h2>Interests</h2>
-        <p>
-          The following showcases the diverse research areas 
-          I have engaged with throughout my academic and professional journey
-        </p>
-      </div>
-      <div class="content">
-        <div class="skill">
-          <div class="container two">
-            <div class="circular">
-              <div class="inner"></div>
-              <div class="number">1</div>
-              <div class="circle">
-                <div class="bar left">
-                  <div class="progress"></div>
-                </div>
-                <div class="bar right">
-                  <div class="progress"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <h3>Large Language Models</h3>
+  </header>
+
+  <main>
+    <!-- ========= HERO ========= -->
+    <section id="home" class="hero wrap">
+      <div>
+        <div class="kicker"> DATA SCIENCE • FAULT TOLERANCE • ML </div>
+        <div class="type-pad">
+          <h1 id="typedTitle"> Data Scientist. Fault Tolerance </h1>
         </div>
-        <div class="skill">
-          <div class="container two">
-            <div class="circular">
-              <div class="inner"></div>
-              <div class="number">2</div>
-              <div class="circle">
-                <div class="bar left">
-                  <div class="progress"></div>
-                </div>
-                <div class="bar right">
-                  <div class="progress"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <h3>Machine Learning</h3>
-        </div>
-        <div class="skill">
-          <div class="container two">
-            <div class="circular">
-              <div class="inner"></div>
-              <div class="number">3</div>
-              <div class="circle">
-                <div class="bar left">
-                  <div class="progress"></div>
-                </div>
-                <div class="bar right">
-                  <div class="progress"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <h3>Software Engineering</h3>
-        </div>
-        <div class="skill">
-          <div class="container four">
-            <div class="circular">
-              <div class="inner"></div>
-              <div class="number">4</div>
-              <div class="circle">
-                <div class="bar left">
-                  <div class="progress"></div>
-                </div>
-                <div class="bar right">
-                  <div class="progress"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <h3>Fault tolerance</h3>
-        </div>
-      </div>
-    </section>
-    <div class="spring right" id="spring2">
-      <div class="coil"></div>
-      <div class="bar gradient"></div>
-    </div>
-    <section class="portfolio defaultMargin" id="portfolio">
-      <div class="title__container">
-        <h2>Work</h2>
-        <p>Throughout the years, I have contributed my skills and expertise in various roles across different workplaces.</p>
-      </div>
-      <div class="container">
-        <div class="design">
-          <div class="background"></div>
-          <div class="portfolio__container">
-            <h3>Research Assistant</h3>
-            <p>
-              A research project in collaboration with Dr. Sazzadur Rehman (Assistant Professor at the University of Arizona), Dr. Ashish Gehani (Principal 
-              Computer Scientist at SRI) and Dr Fareed Zaffar (Assistant Professor at Lahore University of Management 
-              Sciences).
-              The project provides a unified framework to evaluate a diverse set of container debloaters 
-              that can handle the diversity of design and execution environments for container debloating.
-              
-              </p>
-              
-                
-          </div>
-        </div>
-        <div class="portfolio__container">
-          <h3>Associate Consultant - AI </h3>
-          <p style="color: white;">Systems Limited</p>
-          <p>Working to develop Large Language Model solutions worldwide, leveraging Microsoft's cloud technologies. Implementing innovative solutions using Azure Cognitive Services, Omni Channel, LLMs, and RAG architecture, fine-tuning models for optimal performance with techniques like PEFT and LoRA. Stayed current with research to integrate the latest advancements, delivering cutting-edge solutions for clients.</p>
-        </div>
-        <div class="portfolio__container">
-          <h3>Research Assistant</h3>
-          <p style="color: white;">Internet Security and Privacy Lab (ISPL), LUMS</p>
-          <p>The project drew inspiration from existing works on credit card fraud detection and focused on 
-            using Machine learning techniques to reduce security risks in financial transactions by leveraging large datasets 
-            provided by Clariba SEIDOR, a consultancy firm  </p>
-           
-        </div>
-        <div class="portfolio__container">
-          <h3>Data Analysis Intern</h3>
-          <p style="color: white;">VentureDive</p>
-          <p>I utilized Selenium for efficient web scraping to gather National and Provincial Constituencies data in Pakistan for GeoSpatial Data Processing. After processing and formatting the acquired data, I created an interactive webpage using Python, Flask, and HTML. The webpage integrates GeoJson files, enabling users to explore and interact with geographical information easily, complete with enhanced visual representation and user-friendly features for zooming, panning, and retrieving detailed constituency information.</p>
-         
-        </div>
-        <div class="portfolio__container">
-          <h3>Teaching Assistant</h3>
-          <p style="color: white;">Lahore University of Management Sciences</p>
-          <p>In a teaching capacity, I supported over 100 students by conducting regular office hours, addressing assignments, and resolving course-related queries to promote better understanding and academic achievement. Additionally, I oversaw final exams and projects, ensuring fair evaluation and adherence to academic standards through invigilation and grading. Leading tutorials for the same cohort, I provided valuable insights and guidance, contributing to the successful completion of assignments and projects.</p>
-          
+        <p class="lede">Research-driven ML engineer & PhD student: dependable systems for high-performance computing,
+          fault tolerance, LLVM-based fault injection, and silent data corruption modeling. I make complex pipelines
+          feel simple.</p>
+        <div class="cta">
+          <a class="px-btn" data-mag="1" href="#skills">See&nbsp;Skills</a>
+          <a class="px-btn" data-mag="1" href="#experience">Experience</a>
+          <a class="px-btn" data-mag="1" href="#mnist">Digit&nbsp;Demo</a>
         </div>
 
-        <div class="design right">
-          <div class="background"></div>
-          <div class="portfolio__container">
-            <h3>Data Science Intern</h3>
-            <p style="color: white;">JS Bank</p>
-            <p> I played a pivotal role in optimizing the Extract, Transform, Load (ETL) process by executing daily SQL queries. My responsibilities included leveraging customer data through SQL queries to contribute to the development of predictive analysis models. Beyond data extraction, transformation, and loading, I translated predictive insights into actionable strategies. This initiative resulted in enhancing informed decision-making across various organizational departments, showcasing the practical application of data science in driving strategic outcomes.                            </p>
-            <p>     </p>
-            <p>     </p>
-            <p>     </p>
-            <p>     </p>
+        <div class="carts" aria-label="Quick links">
+          <a class="cart" href="https://github.com/ahmerjamilAJ" target="_blank" rel="noreferrer noopener">
+            <div class="label"><i class="fa-brands fa-github"></i>&nbsp;GITHUB</div>
+            <!-- <div class="sub">Repos & experiments</div> -->
+          </a>
+          <a class="cart" href="https://www.facebook.com/ahmer.jamil.16" target="_blank" rel="noreferrer noopener">
+            <div class="label"><i class="fab fa-facebook-f"></i>&nbsp;Facebook</div>
+            <!-- <div class="sub">Repos & experiments</div> -->
+          </a>
+          <a class="cart" href="https://www.linkedin.com/in/ahmer-jamil582000/" target="_blank"
+            rel="noreferrer noopener">
+            <div class="label"><i class="fab fa-linkedin"></i>&nbsp;Linkedn</div>
+            <!-- <div class="sub">Repos & experiments</div> -->
+          </a>
+          <a class="cart" href="https://drive.google.com/file/d/1i__y9HtKt8IswauzOn4Z8GYiv6pRw9Po/view?usp=sharing"
+            target="_blank" rel="noreferrer noopener">
+            <div class="label"><i class="fa-regular fa-file-lines"></i>&nbsp;Resume</div>
+            <!-- <div class="sub">One-page resume</div> -->
+          </a>
+        </div>
+      </div>
+
+      <!-- Portrait -->
+      <div class="profile">
+        <div class="gameboy" id="gb" tabindex="0" role="button" aria-label="Swap portrait" aria-pressed="false">
+          <span class="flip-tip" aria-hidden="true">
+            Press <b>Ⓐ</b>/<b>Ⓑ</b> or tap to swap
+          </span>
+          <div class="screen">
+            <div class="face front"><img src="assets/hero.jpeg" alt="Ahmer Jamil — portrait"></div>
+            <div class="face back">
+              <div class="sprite" style="animation:bob 2.2s ease-in-out infinite"></div>
+            </div>
+            <div class="scan" aria-hidden="true"></div>
+            <div class="glare" aria-hidden="true"></div>
           </div>
         </div>
       </div>
     </section>
-    <div class="spring" id="springL2">
-      <div class="coil"></div>
-      <div class="bar gradient"></div>
-    </div>
-    <section class="services defaultMargin" id="services">
-      <div class="title__container">
-        <h2>Projects</h2>
-        <p>Throughout my academic journey, I have engaged in diverse projects that showcase my skills and expertise. You can find a selection of these projects here.</p>
+
+    <!-- ========= EDUCATION ========= -->
+    <section class="wrap" id="education">
+      <h2 class="section-title">Education</h2>
+      <!-- <p class="sub">Highlights from my CV.</p> -->
+      <div class="grid">
+        <article class="card reveal">
+          <span class="tag">PhD</span><span class="tag">Dependable Systems</span>
+          <h3>The University of Florida — PhD in Computer Science</h3>
+          <p class="sub">Aug 2025 – Present • Advisor: Prof. Guanpeng Li • Focus: dependable HPC, fault tolerance,
+            GNN, DBN , SDC modeling, LLVM, Fault Injection.</p>
+          <span class="chip3d">Current</span>
+        </article>
+
+        <article class="card reveal">
+          <span class="tag">PhD</span><span class="tag">Dependable Systems</span>
+          <h3>The University of Iowa — PhD in Computer Science</h3>
+          <p class="sub">Aug 2024 – 2025 • Advisor: Prof. Guanpeng Li • Focus: dependable HPC, fault tolerance,
+            LLVM-based fault injection & SDC modeling.</p>
+          <span class="chip3d">Transfered</span>
+          <span class="chip3d">CGPA 4.0</span>
+        </article>
+        <article class="card reveal">
+          <span class="tag">BSc</span><span class="tag">Distinction</span>
+          <h3>LUMS — BSc Computer Science</h3>
+          <p class="sub">2019 – 2023 • CGPA 3.78 • Dean’s Honor List (2019–2022). Core: ML, DL, AI, Speech, Data Mining,
+            HCI, Security, SE, Automata, NCC.</p>
+          <span class="chip3d">Honors</span>
+          <span class="chip3d">CGPA 3.78</span>
+        </article>
       </div>
-      <div class="container">
-        <div class="design">
-          <div class="background"></div>
-          <div class="service">
-            <i class="far fa-lightbulb"></i>
-            <h3>Language classifier</h3>
-            <p>
-              Developed a language classifier using various Machine Learning techniques, training models on three 
-              languages for practical implementation. Utilized Python and PyTorch to implement and evaluate different classifiers, reporting accuracy to 
-              determine the most effective model.
-              
+    </section>
+
+    <!-- ========= SKILLS ========= -->
+    <section id="skills" class="wrap">
+      <h2 class="section-title">Skills & Abilities</h2>
+      <!-- <p class="sub">Retro pixel bars — fill on reveal.</p> -->
+      <div class="skills">
+        <div class="skills-grid">
+          <div class="skill-col">
+            <h4>Machine Learning & Data Science</h4>
+            <div class="skill"><span>PyTorch</span><span class="pct">85%</span>
+              <div class="bar"><span data-pct="85"></span></div>
+            </div>
+            <div class="skill"><span>TensorFlow</span><span class="pct">80%</span>
+              <div class="bar"><span data-pct="80"></span></div>
+            </div>
+            <div class="skill"><span>Scikit-learn</span><span class="pct">75%</span>
+              <div class="bar"><span data-pct="75"></span></div>
+            </div>
+            <div class="skill"><span>Pandas / NumPy</span><span class="pct">85%</span>
+              <div class="bar"><span data-pct="85"></span></div>
+            </div>
+          </div>
+          <div class="skill-col">
+            <h4>Development</h4>
+            <div class="skill"><span>JavaScript (ES6+)</span><span class="pct">80%</span>
+              <div class="bar"><span data-pct="80"></span></div>
+            </div>
+            <div class="skill"><span>React / React Native</span><span class="pct">85%</span>
+              <div class="bar"><span data-pct="85"></span></div>
+            </div>
+            <div class="skill"><span>HTML5 / CSS3</span><span class="pct">75%</span>
+              <div class="bar"><span data-pct="75"></span></div>
+            </div>
+          </div>
+          <div class="skill-col">
+            <h4>Programming Languages</h4>
+            <div class="skill"><span>Python</span><span class="pct">90%</span>
+              <div class="bar"><span data-pct="90"></span></div>
+            </div>
+            <div class="skill"><span>C++</span><span class="pct">80%</span>
+              <div class="bar"><span data-pct="80"></span></div>
+            </div>
+            <div class="skill"><span>SQL</span><span class="pct">75%</span>
+              <div class="bar"><span data-pct="75"></span></div>
+            </div>
+          </div>
+          <div class="skill-col">
+            <h4>Systems & Tools</h4>
+            <div class="skill"><span>LLVM</span><span class="pct">75%</span>
+              <div class="bar"><span data-pct="75"></span></div>
+            </div>
+            <div class="skill"><span>Linux</span><span class="pct">80%</span>
+              <div class="bar"><span data-pct="80"></span></div>
+            </div>
+            <div class="skill"><span>Git / Docker</span><span class="pct">75%</span>
+              <div class="bar"><span data-pct="75"></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========= EXPERIENCE ========= -->
+    <section id="experience" class="wrap">
+      <h2 class="section-title">Experience</h2>
+
+      <div class="exp">
+        <!-- 2025 — present -->
+        <div class="exp-item left">
+          <div class="exp-badge"><i class="fa-solid fa-flask" style="font-size:.8rem"></i></div>
+          <div class="exp-card reveal">
+            <h3 class="exp-title">Graduate Research Assistant — University of Florida</h3>
+            <p class="exp-meta">Aug 2025 – Present · Part-time · Gainesville, FL</p>
+            <p class="exp-desc">Research on dependable ML/HPC; fault tolerance and error resilience for HPC workloads.
             </p>
           </div>
         </div>
-        <div class="service">
-          <i class="far fa-lightbulb"></i>
-          <h3>Theory of Automata Project</h3>
-          <p>
-            Engineered an interpreter for a custom YAPL (Yet Another Programming Language) using PLY and 
-            applied knowledge of FSMs, CFGs, regex, interpreters, and compilers. Implemented in Python, demonstrating proficiency in language processing and interpreter development.
-          </p>
+
+        <!-- 2025 (full-time) -->
+        <div class="exp-item right">
+          <div class="exp-badge"><i class="fa-solid fa-flask" style="font-size:.8rem"></i></div>
+          <div class="exp-card reveal">
+            <h3 class="exp-title">Research Assistant — Dependable Systems Lab, University of Iowa</h3>
+            <p class="exp-meta">Jun 2025 – Aug 2025 · Full-time · Iowa City, IA</p>
+            <p class="exp-desc">LLVM/runtime tools for instruction-level resilience analysis; fault detection in HPC
+              workloads.</p>
+          </div>
         </div>
 
-        <div class="service">
-          <i class="far fa-lightbulb"></i>
-          <h3>Knowledge Distillation Research Project</h3>
-          <p>
-            Investigated the impact of intermediary networks on compressing deep neural networks through 
-            knowledge distillation. Explored a novel approach involving multiple students learning exclusive knowledge portions, 
-            prioritizing dense feature representations over soft labels.
-          </p>
+        <!-- 2025 (part-time) -->
+        <div class="exp-item left">
+          <div class="exp-badge"><i class="fa-solid fa-flask" style="font-size:.8rem"></i></div>
+          <div class="exp-card reveal">
+            <h3 class="exp-title">Research Assistant — Dependable Systems Lab, University of Iowa</h3>
+            <p class="exp-meta">Jan 2025 – May 2025 · Part-time · Iowa City, IA</p>
+            <p class="exp-desc">Resilience tooling and analyses; supported experiments for dependable systems research.
+            </p>
+          </div>
         </div>
-        <div class="service">
-          <i class="far fa-lightbulb"></i>
-          <h3>University Portal App</h3>
-          <p>
-            Contributed to the creation of a comprehensive mobile app consolidating various university portal 
-            features using React Native, Python, HTML, and JavaScript.Demonstrated proficiency in full-stack development and integration of diverse technologies for an 
-            efficient, unified solution.
-          </p>
+
+        <!-- 2024 — present -->
+        <div class="exp-item right">
+          <div class="exp-badge"><i class="fa-solid fa-chalkboard-user" style="font-size:.8rem"></i></div>
+          <div class="exp-card reveal">
+            <h3 class="exp-title">Teaching Assistant — Artificial Intelligence, University of Iowa</h3>
+            <p class="exp-meta">Aug 2024 – December 2024</p>
+            <p class="exp-desc">Support 30+ students with office hours, grading, and learning outcomes for AI
+              coursework.</p>
+          </div>
         </div>
-        <div class="service">
-          <i class="far fa-lightbulb"></i>
+
+        <!-- 2023 — 2024 -->
+        <div class="exp-item left">
+          <div class="exp-badge"><i class="fa-solid fa-flask" style="font-size:.8rem"></i></div>
+          <div class="exp-card reveal">
+            <h3 class="exp-title">Research Assistant — DebloatBench (SRI • UArizona • LUMS)</h3>
+            <p class="exp-meta">Aug 2023 – Aug 2024</p>
+            <p class="exp-desc">A research project in collaboration with Dr. Sazzadur Rehman (Assistant Professor at the University of Arizona), Dr. Ashish Gehani (Principal Computer Scientist at SRI) and Dr Fareed Zaffar (Assistant Professor at Lahore University of Management Sciences). The project provides a unified framework to evaluate a diverse set of container debloaters that can handle the diversity of design and execution environments for container debloating.</p>
+          </div>
+        </div>
+
+        <!-- 2023 — 2024 -->
+        <div class="exp-item right">
+          <div class="exp-badge"><i class="fa-solid fa-building" style="font-size:.8rem"></i></div>
+          <div class="exp-card reveal">
+            <h3 class="exp-title">Associate Consultant — AI, Systems Limited</h3>
+            <p class="exp-meta">Jun 2023 – Jul 2024</p>
+            <p class="exp-desc">ML & LLM Solutions for Global Organizations:
+              - Collaborated with Microsoft to develop LLM solutions using Azure Cloud services.
+              - Implemented solutions with Azure Cognitive Services, Omni Channel, RAG architecture, Databricks, and
+              Data Robot.
+              - Fine-tuned models using PEFT and LoRA techniques for optimal performance.
+              - Applied multiclass classification and clustering for tailored ML solutions, integrating latest research
+              advancements.
+
+              LLM Training Sessions for Professionals:
+              - Conducted comprehensive training on LLMs, covering Transformer architecture and RAG.
+              - Designed and facilitated quizzes, labs, and final projects at Systems Limited.
+              - Delivered practical, industry-focused courses emphasizing NLP basics and fine-tuning techniques.</p>
+          </div>
+        </div>
+
+        <!-- 2022 — 2023 -->
+        <div class="exp-item left">
+          <div class="exp-badge"><i class="fa-solid fa-flask" style="font-size:.8rem"></i></div>
+          <div class="exp-card reveal">
+            <h3 class="exp-title">Research Assistant — ISPL, LUMS</h3>
+            <p class="exp-meta">Aug 2022 – Aug 2023</p>
+            <p class="exp-desc">Fraud Detection – The project drew inspiration from existing works on credit card fraud
+              detection and focused on
+              using Machine learning techniques to reduce security risks in financial transactions by leveraging large
+              datasets
+              provided by Clariba SEIDOR, a consultancy firm
+              • Focused on refining credit card transaction security through techniques such as ensemble learning, data
+              preprocessing, and the application of SMOTE to address class imbalance challenges.
+              • Executed comprehensive literature reviews, conducted exploratory data analysis, and applied and compared
+              classification and clustering techniques for fraud detection.
+              • Integrated Snowflake and Dataiku tools to harness scalable computational power for machine learning
+              model development and assessment.
+              • Addressed practical challenges in credit card fraud detection, including class imbalance and memory
+              constraints, showcasing adaptability and solution-oriented thinking.</p>
+          </div>
+        </div>
+
+        <!-- 2022 -->
+        <div class="exp-item right">
+          <div class="exp-badge"><i class="fa-solid fa-database" style="font-size:.8rem"></i></div>
+          <div class="exp-card reveal">
+            <h3 class="exp-title">Data Analysis Intern — VentureDive</h3>
+            <p class="exp-meta">Jul 2022 – Oct 2022</p>
+            <p class="exp-desc">• GeoSpatial Data Processing
+              o Applied Selenium for efficient web scraping to collect National and Provincial Constituencies
+              data in Pakistan.
+              o Processed and formatted the acquired data to prepare it for subsequent analysis and visualization.
+              • Interactive Webpage Development
+              o Developed an interactive webpage using Python, Flask, and HTML.
+              o Integrated the GeoJson file generated from the collected data, enabling users to explore and
+              interact with the geographical information easily.
+
+              • Utilized online plotting tools to enhance the visual representation of geographical data on the webpage.
+              • Implemented user-friendly features, allowing users to zoom, pan, and retrieve detailed information about
+              specific constituencies directly from the webpage..</p>
+          </div>
+        </div>
+
+        <!-- 2022 -->
+        <div class="exp-item left">
+          <div class="exp-badge"><i class="fa-solid fa-building-columns" style="font-size:.8rem"></i></div>
+          <div class="exp-card reveal">
+            <h3 class="exp-title">Branch Banking Intern — Habib Bank Limited</h3>
+            <p class="exp-meta">Jun 2022 – Jul 2022</p>
+            <p class="exp-desc">ML for employee-effectiveness metrics; campaign ops &amp; performance analytics.</p>
+          </div>
+        </div>
+
+        <!-- 2021 — 2023 -->
+        <div class="exp-item right">
+          <div class="exp-badge"><i class="fa-solid fa-user-graduate" style="font-size:.8rem"></i></div>
+          <div class="exp-card reveal">
+            <h3 class="exp-title">Peer Advisor — LUMS</h3>
+            <p class="exp-meta">Aug 2021 – Jun 2023</p>
+            <p class="exp-desc">Mentored ~30 students on course/major planning and academic progress.</p>
+          </div>
+        </div>
+
+        <!-- 2021 — 2022 -->
+        <div class="exp-item left">
+          <div class="exp-badge"><i class="fa-solid fa-chalkboard-user" style="font-size:.8rem"></i></div>
+          <div class="exp-card reveal">
+            <h3 class="exp-title">Teaching Assistant — Computational Problem Solving, LUMS</h3>
+            <p class="exp-meta">Aug 2021 – Dec 2022</p>
+            <p class="exp-desc">Led tutorials for 100+ students; authored quizzes/exams; grading &amp; office hours.</p>
+          </div>
+        </div>
+
+        <!-- 2021 -->
+        <div class="exp-item right">
+          <div class="exp-badge"><i class="fa-solid fa-chart-line" style="font-size:.8rem"></i></div>
+          <div class="exp-card reveal">
+            <h3 class="exp-title">Data Science Intern — JS Bank</h3>
+            <p class="exp-meta">Jun 2021 – Aug 2021</p>
+            <p class="exp-desc">• Executed daily SQL queries to optimize the ETL process for efficient data extraction,
+              transformation,
+              and loading.
+              • Leveraged existing customer data through SQL queries, contributing to the development of predictive
+              analysis models.
+              • Translated predictive insights into actionable strategies, enhancing informed decision-making across
+              diverse organizational departments.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ========= PROJECTS ========= -->
+    <section id="projects" class="wrap">
+      <h2 class="section-title">Projects</h2>
+      <p class="sub">Text-only cards from CV. Repo links + expandable notes.</p>
+      <div class="grid">
+        <article class="card reveal">
+          <span class="tag">GNN</span><span class="tag">LLVM</span>
+          <h3>SDC Trace → GraphSAGE</h3>
+          <p class="sub">IR parsing → instruction-graph construction → GraphSAGE prediction of silent data corruption
+            for resilient inference.</p>
+          <div class="proj-actions">
+            <a class="px-btn px-mini" href="https://github.com/ahmerjamilAJ?tab=repositories&q=GraphSAGE"
+              target="_blank" rel="noreferrer noopener">Repo</a>
+            <button class="px-btn px-mini more-toggle" type="button">More</button>
+          </div>
+          <div class="more-box">
+            <p>Prototype to estimate SDC likelihood per-instruction. Built IR parsers, graph builders, trained
+              GraphSAGE, and validated on synthetic fault-injection traces.</p>
+          </div>
+          <span class="chip3d">research</span>
+        </article>
+        <article class="card reveal">
+          <span class="tag">NLP</span><span class="tag">PyTorch</span>
+          <h3>Language Classifier</h3>
+          <p class="sub">Trained across three languages; evaluated baselines in Python/PyTorch with streaming-friendly
+            inference.</p>
+          <div class="proj-actions">
+            <a class="px-btn px-mini" href="https://github.com/ahmerjamilAJ?tab=repositories&q=language%20classifier"
+              target="_blank" rel="noreferrer noopener">Repo</a>
+            <button class="px-btn px-mini more-toggle" type="button">More</button>
+          </div>
+          <div class="more-box">
+            <p>Explores tokenization, class imbalance handling, and distilled models for low-latency serve.</p>
+          </div>
+          <span class="chip3d">classification</span>
+        </article>
+        <article class="card reveal">
+          <span class="tag">Compilers</span>
+          <h3>YAPL Interpreter</h3>
+          <p class="sub">Custom interpreter via PLY; FSM/CFG/regex with a full Python implementation.</p>
+          <div class="proj-actions">
+            <a class="px-btn px-mini" href="https://github.com/ahmerjamilAJ?tab=repositories&q=YAPL" target="_blank"
+              rel="noreferrer noopener">Repo</a>
+            <button class="px-btn px-mini more-toggle" type="button">More</button>
+          </div>
+          <div class="more-box">
+            <p>Lexing/parsing pipeline, AST construction, and bytecode-like execution with basic optimization passes.
+            </p>
+          </div>
+          <span class="chip3d">systems</span>
+        </article>
+        <article class="card reveal">
+          <span class="tag">DL</span><span class="tag">KD</span>
+          <h3>Knowledge Distillation Study</h3>
+          <p class="sub">Compression on CIFAR-10 with multi-student scheme; dense representations vs. soft labels.</p>
+          <div class="proj-actions">
+            <a class="px-btn px-mini" href="https://github.com/ahmerjamilAJ?tab=repositories&q=distillation"
+              target="_blank" rel="noreferrer noopener">Repo</a>
+            <button class="px-btn px-mini more-toggle" type="button">More</button>
+          </div>
+          <div class="more-box">
+            <p>Grid over temperature, teacher capacity, and student depth; ablations on augmentation + label smoothing.
+            </p>
+          </div>
+          <span class="chip3d">experiment</span>
+        </article>
+        <article class="card reveal">
+          <span class="tag">HCI</span><span class="tag">Figma</span>
           <h3>Afloat</h3>
-          <p>
-            Conducted user research and designed a UX prototype for the mobile application "Afloat," providing 
-            professional mental health support to students. Utilized Figma for design implementation, emphasizing user-centric design principles for an effective 
-            and empathetic user experience.
-
-          </p>
-        </div>
-        <div class="design right">
-          <div class="background"></div>
-          <div class="service">
-            <i class="far fa-lightbulb"></i>
-            <h3>LLM powered bot</h3>
-            <p>
-              Developed a Large Language Model-powered bot for Knowledge Based Question Answering using RAG architecture.
-              Incorporated GPT-3.5 from OpenAI to empower the bot with advanced language understanding and 
-              generation capabilities, enriching its conversational abilities.
+          <p class="sub">UX prototype for student mental-health support; research-led flows.</p>
+          <div class="proj-actions">
+            <a class="px-btn px-mini" href="https://github.com/ahmerjamilAJ" target="_blank"
+              rel="noreferrer noopener">Repo</a>
+            <button class="px-btn px-mini more-toggle" type="button">More</button>
+          </div>
+          <div class="more-box">
+            <p>Conducted interviews, produced personas, and translated findings into high-fidelity flows.</p>
+          </div>
+          <span class="chip3d">design</span>
+        </article>
+        <article class="card reveal">
+          <span class="tag">CV</span><span class="tag">Flask</span>
+          <h3>Celebrity Identification</h3>
+          <p class="sub">OpenCV + Haar cascades; wavelet features; GridSearchCV; Flask backend.</p>
+          <div class="proj-actions">
+            <a class="px-btn px-mini" href="https://github.com/ahmerjamilAJ?tab=repositories&q=celebrity"
+              target="_blank" rel="noreferrer noopener">Repo</a>
+            <button class="px-btn px-mini more-toggle" type="button">More</button>
+          </div>
+          <div class="more-box">
+            <p>Classic CV pipeline with face detection → feature engineering → classifier; deployed minimal Flask app.
             </p>
           </div>
+          <span class="chip3d">computer vision</span>
+        </article>
+        <article class="card reveal">
+          <span class="tag">LLM</span><span class="tag">RAG</span>
+          <h3>Knowledge-Base QA Bot</h3>
+          <p class="sub">ChromaDB retrieval with GPT-3.5 orchestration; simple web UI.</p>
+          <div class="proj-actions">
+            <a class="px-btn px-mini" href="https://github.com/ahmerjamilAJ?tab=repositories&q=RAG" target="_blank"
+              rel="noreferrer noopener">Repo</a>
+            <button class="px-btn px-mini more-toggle" type="button">More</button>
+          </div>
+          <div class="more-box">
+            <p>Embeds docs, maintains conversation state, and executes constrained tool calls for reliable answers.</p>
+          </div>
+          <span class="chip3d">genai</span>
+        </article>
+        <article class="card reveal">
+          <span class="tag">Geo</span><span class="tag">Flask</span>
+          <h3>Interactive GeoSpatial Webpage</h3>
+          <p class="sub">Selenium scraping → GeoJSON → Flask/HTML map with zoom/pan and constituency details.</p>
+          <div class="proj-actions">
+            <a class="px-btn px-mini" href="https://github.com/ahmerjamilAJ?tab=repositories&q=geospatial"
+              target="_blank" rel="noreferrer noopener">Repo</a>
+            <button class="px-btn px-mini more-toggle" type="button">More</button>
+          </div>
+          <div class="more-box">
+            <p>Automated scrape + transform; front-end provides detail popovers and search.</p>
+          </div>
+          <span class="chip3d">maps</span>
+        </article>
+      </div>
+    </section>
+
+    <!-- ========= MNIST STYLE DEMO ========= -->
+    <section id="mnist" class="wrap">
+      <h2 class="section-title">Draw-a-Digit (0–9)</h2>
+      <p class="sub">Draw below and hit Predict. Model runs <strong>in your browser</strong> via ONNX Runtime Web.</p>
+      <div class="mnist">
+        <div class="draw">
+          <div class="canvas-wrap">
+            <canvas id="draw" width="280" height="280" aria-label="Drawing canvas"></canvas>
+          </div>
+          <div class="controls">
+            <button class="px-btn" id="clearBtn" type="button">Clear</button>
+            <button class="px-btn" id="predictBtn" type="button">Predict</button>
+            <label style="display:flex;align-items:center;gap:8px;color:var(--muted);font-size:.9rem">
+              <input type="checkbox" id="smooth" checked> Smooth Stroke
+            </label>
+          </div>
+          <p class="sub" id="modelNote" style="margin-top:10px"></p>
+        </div>
+        <div class="probs">
+          <h3 class="section-title" style="font-size:1.1rem;margin-bottom:6px">Probabilities</h3>
+          <div id="probList"></div>
         </div>
       </div>
     </section>
-    <div class="spring right" id="spring3">
-      <div class="coil"></div>
-      <div class="bar gradient"></div>
-    </div>
-    <section class="languages defaultMargin">
-      <div class="container">
-        <div class="language">
-          <img src="assets/languages1.png" alt="" />
-        </div>
-        <div class="language">
-          <img src="assets/languages2.png" alt="" />
-        </div>
-        <div class="language">
-          <img src="assets/languages3.png" alt="" />
-        </div>
-        <div class="language">
-          <img src="assets/languages4.png" alt="" />
-        </div>
-        <div class="language">
-          <img src="assets/languages5.png" alt="" />
+
+    <!-- ========= CONTACT ========= -->
+    <section class="wrap">
+      <div class="panel" style="padding:18px">
+        <h2 class="section-title">Get in touch</h2>
+        <p class="sub">ahmerjamil.aj@gmail.com • +1 319-936-1014</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <a class="px-btn" data-mag="1" href="mailto:ahmerjamil.aj@gmail.com">EMAIL</a>
+          <a class="px-btn" data-mag="1" href="https://github.com/ahmerjamilAJ">GITHUB</a>
+          <a class="px-btn" data-mag="1" href="#home">TOP</a>
         </div>
       </div>
     </section>
 
-    <section class="contact defaultMargin">
-      <div class="left">
-        <div class="title">
-          <div class="bar"></div>
-
-    </section>
-    <footer class="footer">
-      <div class="section">
-        <div class="brand">
-          <h2>Portfolio.</h2>
-        </div>
-       
-        <ul class="social">
-          <li ><a href="https://www.linkedin.com/in/ahmer-jamil582000/"><i class="fab fa-linkedin"></i></a></li>
-          <li ><a href="https://www.facebook.com/ahmer.jamil.16"><i class="fab fa-facebook-f"></i></a></li>
-          <li ><a href="https://github.com/ahmerjamilAJ"><i class="fab fa-github"></i></a></li>
-        </ul>
-
-      </div>
-      <div class="section">
-       
-      </div>
-      <div class="section">
-        <h3 class="title">Get in Touch</h3>
-        <ul>
-          <li><i class="fas fa-phone"></i><span>+1 3199361014</span></li>
-          <li>
-            <i class="far fa-envelope-open"></i
-            ><span>ahmerjamil.aj@gmail.com</span>
-          </li>
-         
-        </ul>
-        <button onclick="window.open('https://drive.google.com/file/d/1i__y9HtKt8IswauzOn4Z8GYiv6pRw9Po/view?usp=sharing', '_blank')"><i class="fas fa-file-alt"></i> CV</button>
-
-      </div>
-      
-     
+    <footer class="wrap" style="text-align:center;color:var(--muted);margin-top:80px">
+      © <span id="year"></span> Ahmer Jamil — HTML/CSS/JS only.
     </footer>
-    
-    <script src="https://unpkg.com/scrollreveal"></script>
-    <script src="scripts/script.js"></script>
-    <script src="scripts/animation.js"></script>
-    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
-    <script>
-      var typed = new Typed('#element', {
-        strings: ['I am a research enthusiast,', 'worked as an ML engineer,', 'PhD student working in the field of Fault Tolernace.'],
-        typeSpeed: 50,
+  </main>
+
+  <!-- Bottom Dock Nav -->
+  <nav class="dock" aria-label="Quick navigation">
+    <a class="px-btn" href="#home">START</a>
+    <a class="px-btn" href="#skills">SKILLS</a>
+    <a class="px-btn" href="#experience">EXP</a>
+    <a class="px-btn" href="#projects">PROJECTS</a>
+    <a class="px-btn" href="#mnist">DIGIT</a>
+  </nav>
+
+  <!-- Preload images -->
+  <img src="assets/hero.jpeg" alt="" style="display:none" />
+  <img src="assets/hero2.png" alt="" style="display:none" />
+
+  <!-- Typed + ONNX Runtime Web -->
+  <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.min.js" crossorigin="anonymous"></script>
+
+
+
+  <script>
+    /* ONNX Runtime config (must run before creating a session) */
+    if (window.ort) {
+      // Tell ORT where to fetch its .wasm files from when falling back to WASM
+      ort.env.wasm.wasmPaths = 'https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/';
+      // Helps stability on some mobile browsers (optional)
+      ort.env.wasm.numThreads = 1;
+    }
+    /* ===== Theme toggle (switch) ===== */
+    (function () {
+      const root = document.documentElement, key = "theme-pref";
+      const saved = localStorage.getItem(key), prefersLight = matchMedia('(prefers-color-scheme: light)').matches;
+      const toggle = document.getElementById('themeToggle');
+      const set = (mode) => { root.setAttribute('data-theme', mode); localStorage.setItem(key, mode); toggle.checked = (mode === 'light'); };
+      set(saved || (prefersLight ? 'light' : 'dark'));
+      toggle.addEventListener('change', () => set(toggle.checked ? 'light' : 'dark'));
+    })();
+
+    /* ===== Palette cycle via Power LED ===== */
+    (function () {
+      const palettes = ['nes', 'snes', 'n64']; let i = 0;
+      document.getElementById('powerLed').addEventListener('click', () => {
+        i = (i + 1) % palettes.length; document.body.setAttribute('data-palette', palettes[i]);
       });
-    </script>
-  </body>
+    })();
+
+    /* ===== Logo sparkles ===== */
+    (function () {
+      const logo = document.getElementById('logoFx');
+      logo.addEventListener('click', (e) => {
+        for (let i = 0; i < 10; i++) {
+          const s = document.createElement('span'); s.className = 'logo-spark'; s.textContent = '✷';
+          s.style.left = (e.offsetX + (Math.random() * 20 - 10)) + 'px';
+          s.style.top = (e.offsetY + (Math.random() * 6 - 3)) + 'px';
+          s.style.color = ['#ff2d2d', '#ffd400', '#6ae3ff', '#9d7bff'][Math.floor(Math.random() * 4)];
+          logo.appendChild(s);
+          s.animate([{ transform: 'translateY(-2px)', opacity: 1 }, { transform: 'translateY(-16px)', opacity: 0 }], { duration: 600 + Math.random() * 300 }).onfinish = () => s.remove();
+        }
+      });
+    })();
+
+    /* ===== Portrait swap: fade+tilt ===== */
+    (function () {
+      const gb = document.getElementById('gb');
+      function swap() { gb.classList.toggle('show-sprite'); gb.setAttribute('aria-pressed', gb.classList.contains('show-sprite') ? 'true' : 'false'); }
+      gb.addEventListener('click', swap);
+      gb.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ' || e.key === 'a' || e.key === 'b') { e.preventDefault(); swap(); } });
+    })();
+
+    /* ===== Typed (fixed box) ===== */
+    (function () {
+      if (!window.Typed) return;
+      new Typed('#typedTitle', {
+        strings: [
+          "Data Scientist.",
+          "I build reliable ML.",
+          "LLMs + RAG.",
+          "Fault Tolerance."
+        ],
+        typeSpeed: 28, backSpeed: 12, backDelay: 1600, loop: true, smartBackspace: true
+      });
+    })();
+
+    /* ===== Skills bars on reveal ===== */
+    (function () {
+      const fills = [...document.querySelectorAll('.bar > span')];
+      const io = new IntersectionObserver((ents) => {
+        ents.forEach(ent => {
+          if (ent.isIntersecting) {
+            const el = ent.target; const pct = +el.dataset.pct || 0;
+            requestAnimationFrame(() => el.style.width = pct + '%');
+            io.unobserve(el);
+          }
+        });
+      }, { threshold: .35 });
+      fills.forEach(el => io.observe(el));
+    })();
+
+    /* ===== Gentle tilt cards ===== */
+    (function () {
+      const cards = document.querySelectorAll('.card'); const MAX = 6; const L = (a, b, t) => a + (b - a) * t;
+      cards.forEach(card => {
+        const move = e => {
+          const r = card.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+          card.style.setProperty('--ry', L(-MAX, MAX, x) + 'deg'); card.style.setProperty('--rx', L(MAX, -MAX, y) + 'deg'); card.style.setProperty('--tz', '24px');
+        };
+        const reset = () => { card.style.setProperty('--rx', '0deg'); card.style.setProperty('--ry', '0deg'); card.style.setProperty('--tz', '0px'); };
+        card.addEventListener('mousemove', move); card.addEventListener('mouseleave', reset);
+        card.addEventListener('touchmove', (e) => { const t = e.touches[0]; if (t) move(t); }, { passive: true }); card.addEventListener('blur', reset);
+      });
+    })();
+
+    /* ===== Staggered reveal ===== */
+    (function () {
+      const targets = [...document.querySelectorAll('.reveal')];
+      const io = new IntersectionObserver((ents) => {
+        ents.forEach(ent => {
+          if (ent.isIntersecting) {
+            ent.target.animate([{ opacity: 0, transform: 'translateY(16px)' }, { opacity: 1, transform: 'translateY(0)' }],
+              { duration: 420, easing: 'cubic-bezier(.2,.7,.2,1)', fill: 'both' });
+            io.unobserve(ent.target);
+          }
+        });
+      }, { threshold: .2, rootMargin: '0px 0px -10% 0px' });
+      targets.forEach((t, i) => { t.style.opacity = '0'; t.style.willChange = 'transform,opacity'; setTimeout(() => io.observe(t), i * 60); });
+    })();
+
+    /* ===== Magnetic buttons ===== */
+    (function () {
+      const mBtns = [...document.querySelectorAll('.px-btn[data-mag="1"]')];
+      mBtns.forEach(btn => {
+        const strength = 8; let raf = 0;
+        btn.addEventListener('mousemove', (e) => {
+          const r = btn.getBoundingClientRect(), x = e.clientX - (r.left + r.width / 2), y = e.clientY - (r.top + r.height / 2);
+          cancelAnimationFrame(raf);
+          raf = requestAnimationFrame(() => { btn.style.setProperty('--mx', (x / strength) + 'px'); btn.style.setProperty('--my', (y / strength) + 'px'); btn.classList.add('is-mag'); });
+        });
+        ['mouseleave', 'blur'].forEach(ev => btn.addEventListener(ev, () => { btn.classList.remove('is-mag'); btn.style.removeProperty('--mx'); btn.style.removeProperty('--my'); }));
+      });
+    })();
+
+    /* ===== Projects: More/Less ===== */
+    (function () {
+      document.addEventListener('click', (e) => {
+        const btn = e.target.closest('.more-toggle'); if (!btn) return;
+        const box = btn.parentElement.nextElementSibling; if (!box) return;
+        box.classList.toggle('show'); btn.textContent = box.classList.contains('show') ? 'Less' : 'More';
+      });
+    })();
+
+    /* ===== MNIST: ORT-web in browser (hardened) ===== */
+    (function () {
+      const NORM_MEAN = 0.1307, NORM_STD = 0.3081;
+
+      // Robust path resolution for GitHub Pages (works in subfolders)
+      const modelUrl = new URL('assets/models/mnist_cnn.onnx', document.baseURI).href;
+      const modelNote = document.getElementById('modelNote');
+
+      // Prefer WebGL; fall back to WASM with a useful message if anything fails
+      async function loadSession() {
+        try {
+          const s = await ort.InferenceSession.create(modelUrl, { executionProviders: ['webgl'] });
+          modelNote.textContent = 'Model loaded (WebGL)';
+          return s;
+        } catch (e1) {
+          console.warn('WebGL failed → trying WASM', e1);
+          try {
+            const s = await ort.InferenceSession.create(modelUrl, { executionProviders: ['wasm'] });
+            modelNote.textContent = 'Model loaded (WASM)';
+            return s;
+          } catch (e2) {
+            console.error('Failed to load ONNX model:', e2);
+            modelNote.innerHTML = '⚠️ Could not load <code>' + modelUrl +
+              '</code>. Ensure the file exists at <strong>assets/models/mnist_cnn.onnx</strong> in your repo.';
+            return null;
+          }
+        }
+      }
+      const sessionPromise = loadSession();
+
+      // ----- Build probability UI (unchanged) -----
+      const list = document.getElementById('probList'); const bars = [];
+      for (let d = 0; d < 10; d++) {
+        const row = document.createElement('div'); row.className = 'prob-row';
+        row.innerHTML = `<div>${d}</div><div class="prob-bar"><span></span></div><div class="pct">0%</div>`;
+        list.appendChild(row); bars.push({ bar: row.querySelector('span'), pct: row.querySelector('.pct') });
+      }
+      function renderProbs(p) {
+        let maxI = 0; for (let i = 1; i < 10; i++) if (p[i] > p[maxI]) maxI = i;
+        for (let i = 0; i < 10; i++) {
+          const w = Math.round(p[i] * 100);
+          bars[i].bar.style.width = w + '%'; bars[i].pct.textContent = w + '%';
+          bars[i].bar.parentElement.style.outline = '1px solid ' + (i === maxI ? 'var(--brand)' : 'var(--border)');
+        }
+      }
+
+      // ----- Drawing pad (unchanged) -----
+      const canvas = document.getElementById('draw'); const ctx = canvas.getContext('2d');
+      const smooth = document.getElementById('smooth'); const W = canvas.width, H = canvas.height;
+      let drawing = false, prev = null;
+      function posFrom(ev) {
+        const r = canvas.getBoundingClientRect();
+        if (ev.touches && ev.touches[0]) return { x: ev.touches[0].clientX - r.left, y: ev.touches[0].clientY - r.top };
+        return { x: ev.clientX - r.left, y: ev.clientY - r.top };
+      }
+      function start(ev) { ev.preventDefault(); drawing = true; prev = posFrom(ev); }
+      function move(ev) {
+        if (!drawing) return;
+        ev.preventDefault();
+        const p = posFrom(ev);
+        ctx.lineCap = smooth.checked ? 'round' : 'butt';
+        ctx.lineJoin = smooth.checked ? 'round' : 'miter';
+        ctx.strokeStyle = '#e8ecff'; ctx.lineWidth = 22;
+        ctx.beginPath(); ctx.moveTo(prev.x, prev.y); ctx.lineTo(p.x, p.y); ctx.stroke();
+        prev = p;
+      }
+      function end() { drawing = false; prev = null; }
+      function clear() { ctx.clearRect(0, 0, W, H); renderProbs(Array(10).fill(0)); }
+      canvas.addEventListener('mousedown', start);
+      canvas.addEventListener('mousemove', move);
+      ['mouseup', 'mouseleave'].forEach(ev => canvas.addEventListener(ev, end));
+      canvas.addEventListener('touchstart', start, { passive: false });
+      canvas.addEventListener('touchmove', move, { passive: false });
+      canvas.addEventListener('touchend', end);
+      document.getElementById('clearBtn').addEventListener('click', clear);
+      clear();
+
+      // ----- Downsample to 28×28 + normalize -----
+      function get28Norm() {
+        const tmp = document.createElement('canvas'); tmp.width = 28; tmp.height = 28;
+        const tctx = tmp.getContext('2d');
+        tctx.fillStyle = '#000'; tctx.fillRect(0, 0, 28, 28);
+        tctx.drawImage(canvas, 0, 0, 28, 28);
+        const { data } = tctx.getImageData(0, 0, 28, 28);
+        const out = new Float32Array(28 * 28);
+        for (let i = 0, j = 0; i < data.length; i += 4, j++) {
+          const v = (data[i] + data[i + 1] + data[i + 2]) / 3 / 255; // 0..1
+          out[j] = (v - NORM_MEAN) / NORM_STD;                        // normalize
+        }
+        return out;
+      }
+
+      // ----- Predict -----
+      async function predict() {
+        const session = await sessionPromise;
+        if (!session) {
+          modelNote.innerHTML += ' — Prediction disabled (model not loaded).';
+          return;
+        }
+        try {
+          const input = new ort.Tensor('float32', get28Norm(), [1, 1, 28, 28]); // NCHW
+          const results = await session.run({ [session.inputNames[0]]: input });
+          const logits = Array.from(results[session.outputNames[0]].data);
+          const m = Math.max(...logits), ex = logits.map(v => Math.exp(v - m)), sum = ex.reduce((a, b) => a + b, 0);
+          renderProbs(ex.map(v => v / sum));
+        } catch (err) {
+          console.error('Inference error:', err);
+          modelNote.textContent = '⚠️ Inference failed. See console for details.';
+        }
+      }
+      document.getElementById('predictBtn').addEventListener('click', predict);
+    })();
+
+    /* ===== Simple easter eggs ===== */
+    (function () {
+      const konami = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+      const iddqd = ['i', 'd', 'd', 'q', 'd'];
+      const abab = ['a', 'b', 'a', 'b'];
+      let buf = [];
+      document.addEventListener('keydown', (e) => {
+        buf.push(e.key); buf = buf.slice(-10);
+        const tail = (arr) => arr.every((k, i) => (buf.slice(-arr.length)[i] || '').toLowerCase() === k);
+        if (konami.every((k, i) => buf[buf.length - konami.length + i] === k)) { document.body.classList.toggle('crt'); return; }
+        if (tail(iddqd)) { document.body.classList.toggle('gridfx'); return; }
+        if (tail(abab)) { codeRain(); return; }
+      });
+      function codeRain() {
+        const chars = '{ } [ ] ( ) < > ; = + - * / 0 1 : , .'.split(' ');
+        for (let i = 0; i < 50; i++) {
+          const s = document.createElement('span'); s.className = 'code-char'; s.textContent = chars[Math.floor(Math.random() * chars.length)];
+          s.style.left = (Math.random() * 100) + 'vw'; s.style.fontSize = (14 + Math.random() * 10) + 'px';
+          document.body.appendChild(s); const dur = 1200 + Math.random() * 1500;
+          s.animate([{ transform: 'translateY(-10vh)', opacity: 0.1 }, { transform: `translateY(${110 + Math.random() * 6}vh)`, opacity: 1 }], { duration: dur, easing: 'cubic-bezier(.2,.7,.2,1)' }).onfinish = () => s.remove();
+        }
+      }
+    })();
+
+    /* Year */
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+
 </html>
