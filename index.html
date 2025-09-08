@@ -1375,174 +1375,174 @@
     <!-- ========= PROJECTS ========= -->
     <section id="projects" class="wrap">
       <h2 class="section-title">Projects</h2>
-      
-        <!-- Azure RAG / PEFT -->
-        <article class="card reveal">
-          <span class="tag">LLM</span><span class="tag">Azure</span><span class="tag">RAG</span>
-          <h3>Enterprise RAG & PEFT on Azure</h3>
-          <p class="sub">Production-ready retrieval-augmented generation with Cognitive Services, vector search, and
-            LoRA adapters for task-specific tuning.</p>
-          <div class="proj-actions">
-            <a class="px-btn px-mini" href="https://github.com/ahmerjamilAJ?tab=repositories&q=azure%20rag"
-              target="_blank" rel="noreferrer noopener">Repo</a>
-            <button class="px-btn px-mini more-toggle" type="button">More</button>
-          </div>
-          <div class="more-box">
-            <p><strong>Stack:</strong> Azure OpenAI, Azure Search/Blob, LangChain/Prompt-flow, PEFT/LoRA, Docker.</p>
-            <ul>
-              <li>Chunking + hybrid retrieval (sparse+dense); guardrails for PII and prompt injection.</li>
-              <li>Tracing & eval harness (faithfulness, context recall, answer quality) with offline test sets.</li>
-              <li><em>Keywords:</em> MLOps, observability, vector stores, red-teaming, governance.</li>
-            </ul>
-          </div>
-          <span class="chip3d">applied</span>
-        </article>
 
-        <!-- Language Classifier -->
-        <article class="card reveal">
-          <span class="tag">NLP</span><span class="tag">PyTorch</span>
-          <h3>Streaming Language Classifier</h3>
-          <p class="sub">Low-latency multi-lingual classifier; distilled models with real-time constraints for edge
-            serve.</p>
-          <div class="proj-actions">
-            <a class="px-btn px-mini" href="https://github.com/ahmerjamilAJ?tab=repositories&q=language%20classifier"
-              target="_blank" rel="noreferrer noopener">Repo</a>
-            <button class="px-btn px-mini more-toggle" type="button">More</button>
-          </div>
-          <div class="more-box">
-            <p><strong>Stack:</strong> PyTorch, TorchScript, scikit-learn, FastAPI.</p>
-            <ul>
-              <li>Tokenizer experiments (BPE vs WordPiece); class-imbalance handling; label smoothing.</li>
-              <li>Exported to TorchScript; batched inference; throughput vs accuracy tradeoffs.</li>
-              <li><em>Keywords:</em> distillation, quantization, latency SLOs, A/B testing.</li>
-            </ul>
-          </div>
-          <span class="chip3d">classification</span>
-        </article>
+      <!-- Azure RAG / PEFT -->
+      <article class="card reveal">
+        <span class="tag">LLM</span><span class="tag">Azure</span><span class="tag">RAG</span>
+        <h3>Enterprise RAG & PEFT on Azure</h3>
+        <p class="sub">Production-ready retrieval-augmented generation with Cognitive Services, vector search, and
+          LoRA adapters for task-specific tuning.</p>
+        <div class="proj-actions">
+          <a class="px-btn px-mini" href="https://github.com/ahmerjamilAJ?tab=repositories&q=azure%20rag"
+            target="_blank" rel="noreferrer noopener">Repo</a>
+          <button class="px-btn px-mini more-toggle" type="button">More</button>
+        </div>
+        <div class="more-box">
+          <p><strong>Stack:</strong> Azure OpenAI, Azure Search/Blob, LangChain/Prompt-flow, PEFT/LoRA, Docker.</p>
+          <ul>
+            <li>Chunking + hybrid retrieval (sparse+dense); guardrails for PII and prompt injection.</li>
+            <li>Tracing & eval harness (faithfulness, context recall, answer quality) with offline test sets.</li>
+            <li><em>Keywords:</em> MLOps, observability, vector stores, red-teaming, governance.</li>
+          </ul>
+        </div>
+        <span class="chip3d">applied</span>
+      </article>
 
-        <!-- Knowledge Distillation -->
-        <article class="card reveal">
-          <span class="tag">DL</span><span class="tag">KD</span>
-          <h3>Knowledge Distillation Study</h3>
-          <p class="sub">CIFAR-10 compression with multi-student KD; systematic ablations over T, depth, and data aug.
-          </p>
-          <div class="proj-actions">
-            <a class="px-btn px-mini" href="https://github.com/ahmerjamilAJ?tab=repositories&q=distillation"
-              target="_blank" rel="noreferrer noopener">Repo</a>
-            <button class="px-btn px-mini more-toggle" type="button">More</button>
-          </div>
-          <div class="more-box">
-            <p><strong>Stack:</strong> PyTorch, Albumentations, WandB/Matplotlib.</p>
-            <ul>
-              <li>Teacher-student ensembles; temperature & loss-weight sweeps; early-stopping & checkpointing.</li>
-              <li><em>Keywords:</em> model compression, calibration, robustness, learning curves.</li>
-            </ul>
-          </div>
-          <span class="chip3d">experiment</span>
-        </article>
+      <!-- Language Classifier -->
+      <article class="card reveal">
+        <span class="tag">NLP</span><span class="tag">PyTorch</span>
+        <h3>Streaming Language Classifier</h3>
+        <p class="sub">Low-latency multi-lingual classifier; distilled models with real-time constraints for edge
+          serve.</p>
+        <div class="proj-actions">
+          <a class="px-btn px-mini" href="https://github.com/ahmerjamilAJ?tab=repositories&q=language%20classifier"
+            target="_blank" rel="noreferrer noopener">Repo</a>
+          <button class="px-btn px-mini more-toggle" type="button">More</button>
+        </div>
+        <div class="more-box">
+          <p><strong>Stack:</strong> PyTorch, TorchScript, scikit-learn, FastAPI.</p>
+          <ul>
+            <li>Tokenizer experiments (BPE vs WordPiece); class-imbalance handling; label smoothing.</li>
+            <li>Exported to TorchScript; batched inference; throughput vs accuracy tradeoffs.</li>
+            <li><em>Keywords:</em> distillation, quantization, latency SLOs, A/B testing.</li>
+          </ul>
+        </div>
+        <span class="chip3d">classification</span>
+      </article>
 
-        <!-- YAPL -->
-        <article class="card reveal">
-          <span class="tag">Compilers</span><span class="tag">PL</span>
-          <h3>YAPL — Yet Another Programming Language (Interpreter)</h3>
-          <p class="sub">From grammar to AST to bytecode-like executor; showcases end-to-end compiler pipeline skills.
-          </p>
-          <div class="proj-actions">
-            <a class="px-btn px-mini" href="https://github.com/ahmerjamilAJ?tab=repositories&q=YAPL" target="_blank"
-              rel="noreferrer noopener">Repo</a>
-            <button class="px-btn px-mini more-toggle" type="button">More</button>
-          </div>
-          <div class="more-box">
-            <p><strong>Stack:</strong> Python, PLY (lex/yacc), unittest.</p>
-            <ul>
-              <li>Lexer/parser, AST nodes, visitors, constant folding & dead-code elimination.</li>
-              <li><em>Keywords:</em> grammars, CFG, tokens, semantic analysis, IR.</li>
-            </ul>
-          </div>
-          <span class="chip3d">systems</span>
-        </article>
+      <!-- Knowledge Distillation -->
+      <article class="card reveal">
+        <span class="tag">DL</span><span class="tag">KD</span>
+        <h3>Knowledge Distillation Study</h3>
+        <p class="sub">CIFAR-10 compression with multi-student KD; systematic ablations over T, depth, and data aug.
+        </p>
+        <div class="proj-actions">
+          <a class="px-btn px-mini" href="https://github.com/ahmerjamilAJ?tab=repositories&q=distillation"
+            target="_blank" rel="noreferrer noopener">Repo</a>
+          <button class="px-btn px-mini more-toggle" type="button">More</button>
+        </div>
+        <div class="more-box">
+          <p><strong>Stack:</strong> PyTorch, Albumentations, WandB/Matplotlib.</p>
+          <ul>
+            <li>Teacher-student ensembles; temperature & loss-weight sweeps; early-stopping & checkpointing.</li>
+            <li><em>Keywords:</em> model compression, calibration, robustness, learning curves.</li>
+          </ul>
+        </div>
+        <span class="chip3d">experiment</span>
+      </article>
 
-        <!-- Celebrity Identification -->
-        <article class="card reveal">
-          <span class="tag">CV</span><span class="tag">Flask</span>
-          <h3>Celebrity Identification (Classic CV)</h3>
-          <p class="sub">End-to-end CV pipeline: detection → feature engineering → classification with a lightweight web
-            UI.</p>
-          <div class="proj-actions">
-            <a class="px-btn px-mini" href="https://github.com/ahmerjamilAJ?tab=repositories&q=celebrity"
-              target="_blank" rel="noreferrer noopener">Repo</a>
-            <button class="px-btn px-mini more-toggle" type="button">More</button>
-          </div>
-          <div class="more-box">
-            <p><strong>Stack:</strong> OpenCV (Haar), scikit-learn, Flask, Wavelets.</p>
-            <ul>
-              <li>GridSearchCV for model/param selection; simple deployment artifact for demo.</li>
-              <li><em>Keywords:</em> classical ML, feature extraction, evaluation, microservice.</li>
-            </ul>
-          </div>
-          <span class="chip3d">computer vision</span>
-        </article>
+      <!-- YAPL -->
+      <article class="card reveal">
+        <span class="tag">Compilers</span><span class="tag">PL</span>
+        <h3>YAPL — Yet Another Programming Language (Interpreter)</h3>
+        <p class="sub">From grammar to AST to bytecode-like executor; showcases end-to-end compiler pipeline skills.
+        </p>
+        <div class="proj-actions">
+          <a class="px-btn px-mini" href="https://github.com/ahmerjamilAJ?tab=repositories&q=YAPL" target="_blank"
+            rel="noreferrer noopener">Repo</a>
+          <button class="px-btn px-mini more-toggle" type="button">More</button>
+        </div>
+        <div class="more-box">
+          <p><strong>Stack:</strong> Python, PLY (lex/yacc), unittest.</p>
+          <ul>
+            <li>Lexer/parser, AST nodes, visitors, constant folding & dead-code elimination.</li>
+            <li><em>Keywords:</em> grammars, CFG, tokens, semantic analysis, IR.</li>
+          </ul>
+        </div>
+        <span class="chip3d">systems</span>
+      </article>
 
-        <!-- RAG Bot -->
-        <article class="card reveal">
-          <span class="tag">LLM</span><span class="tag">RAG</span>
-          <h3>Knowledge-Base QA Bot</h3>
-          <p class="sub">Retrieval-augmented QA with ChromaDB; adds conversation state & lightweight guardrails.</p>
-          <div class="proj-actions">
-            <a class="px-btn px-mini" href="https://github.com/ahmerjamilAJ?tab=repositories&q=RAG" target="_blank"
-              rel="noreferrer noopener">Repo</a>
-            <button class="px-btn px-mini more-toggle" type="button">More</button>
-          </div>
-          <div class="more-box">
-            <p><strong>Stack:</strong> Python, ChromaDB, LangChain, FastAPI/Flask.</p>
-            <ul>
-              <li>Chunking & embedding; answer-faithfulness evaluation; simple UI for enterprise demos.</li>
-              <li><em>Keywords:</em> vector search, reranking, grounding, guardrails.</li>
-            </ul>
-          </div>
-          <span class="chip3d">genai</span>
-        </article>
+      <!-- Celebrity Identification -->
+      <article class="card reveal">
+        <span class="tag">CV</span><span class="tag">Flask</span>
+        <h3>Celebrity Identification (Classic CV)</h3>
+        <p class="sub">End-to-end CV pipeline: detection → feature engineering → classification with a lightweight web
+          UI.</p>
+        <div class="proj-actions">
+          <a class="px-btn px-mini" href="https://github.com/ahmerjamilAJ?tab=repositories&q=celebrity" target="_blank"
+            rel="noreferrer noopener">Repo</a>
+          <button class="px-btn px-mini more-toggle" type="button">More</button>
+        </div>
+        <div class="more-box">
+          <p><strong>Stack:</strong> OpenCV (Haar), scikit-learn, Flask, Wavelets.</p>
+          <ul>
+            <li>GridSearchCV for model/param selection; simple deployment artifact for demo.</li>
+            <li><em>Keywords:</em> classical ML, feature extraction, evaluation, microservice.</li>
+          </ul>
+        </div>
+        <span class="chip3d">computer vision</span>
+      </article>
 
-        <!-- Geospatial -->
-        <article class="card reveal">
-          <span class="tag">Geo</span><span class="tag">Data</span>
-          <h3>Interactive GeoSpatial Web</h3>
-          <p class="sub">Scraped civic data → GeoJSON → interactive maps (zoom/pan/popovers) with a small Flask backend.
-          </p>
-          <div class="proj-actions">
-            <a class="px-btn px-mini" href="https://github.com/ahmerjamilAJ?tab=repositories&q=geospatial"
-              target="_blank" rel="noreferrer noopener">Repo</a>
-            <button class="px-btn px-mini more-toggle" type="button">More</button>
-          </div>
-          <div class="more-box">
-            <p><strong>Stack:</strong> Selenium, Python, GeoJSON, Flask, Leaflet/HTML.</p>
-            <ul>
-              <li>Automated ETL & sanity checks; searchable map with constituency details.</li>
-              <li><em>Keywords:</em> data engineering, scraping, spatial joins, visualization.</li>
-            </ul>
-          </div>
-          <span class="chip3d">maps</span>
-        </article>
+      <!-- RAG Bot -->
+      <article class="card reveal">
+        <span class="tag">LLM</span><span class="tag">RAG</span>
+        <h3>Knowledge-Base QA Bot</h3>
+        <p class="sub">Retrieval-augmented QA with ChromaDB; adds conversation state & lightweight guardrails.</p>
+        <div class="proj-actions">
+          <a class="px-btn px-mini" href="https://github.com/ahmerjamilAJ?tab=repositories&q=RAG" target="_blank"
+            rel="noreferrer noopener">Repo</a>
+          <button class="px-btn px-mini more-toggle" type="button">More</button>
+        </div>
+        <div class="more-box">
+          <p><strong>Stack:</strong> Python, ChromaDB, LangChain, FastAPI/Flask.</p>
+          <ul>
+            <li>Chunking & embedding; answer-faithfulness evaluation; simple UI for enterprise demos.</li>
+            <li><em>Keywords:</em> vector search, reranking, grounding, guardrails.</li>
+          </ul>
+        </div>
+        <span class="chip3d">genai</span>
+      </article>
 
-        <!-- Bonus: In-browser MNIST (the live demo on this site) -->
-        <article class="card reveal">
-          <span class="tag">ONNX</span><span class="tag">WebGL</span>
-          <h3>In-Browser MNIST Classifier</h3>
-          <p class="sub">Digit prediction fully client-side via ONNX Runtime Web (WebGL → WASM fallback); ~25–40 ms
-            inference on desktop.</p>
-          <div class="proj-actions">
-            <a class="px-btn px-mini" href="#mnist" target="_self" rel="noreferrer noopener">Try Live</a>
-            <button class="px-btn px-mini more-toggle" type="button">More</button>
-          </div>
-          <div class="more-box">
-            <p><strong>Stack:</strong> ONNX Runtime Web, Canvas API, ESLint, vanilla JS.</p>
-            <ul>
-              <li>Path-robust model loading for GitHub Pages; graceful degradation and clear UX errors.</li>
-              <li><em>Keywords:</em> model export, client-side inference, WebGL, WASM, DX.</li>
-            </ul>
-          </div>
-          <span class="chip3d">demo</span>
-        </article>
+      <!-- Geospatial -->
+      <article class="card reveal">
+        <span class="tag">Geo</span><span class="tag">Data</span>
+        <h3>Interactive GeoSpatial Web</h3>
+        <p class="sub">Scraped civic data → GeoJSON → interactive maps (zoom/pan/popovers) with a small Flask backend.
+        </p>
+        <div class="proj-actions">
+          <a class="px-btn px-mini" href="https://github.com/ahmerjamilAJ?tab=repositories&q=geospatial" target="_blank"
+            rel="noreferrer noopener">Repo</a>
+          <button class="px-btn px-mini more-toggle" type="button">More</button>
+        </div>
+        <div class="more-box">
+          <p><strong>Stack:</strong> Selenium, Python, GeoJSON, Flask, Leaflet/HTML.</p>
+          <ul>
+            <li>Automated ETL & sanity checks; searchable map with constituency details.</li>
+            <li><em>Keywords:</em> data engineering, scraping, spatial joins, visualization.</li>
+          </ul>
+        </div>
+        <span class="chip3d">maps</span>
+      </article>
+
+      <!-- Bonus: In-browser MNIST (the live demo on this site) -->
+      <article class="card reveal">
+        <span class="tag">ONNX</span><span class="tag">WebGL</span>
+        <h3>In-Browser MNIST Classifier</h3>
+        <p class="sub">Digit prediction fully client-side via ONNX Runtime Web (WebGL → WASM fallback); ~25–40 ms
+          inference on desktop.</p>
+        <div class="proj-actions">
+          <a class="px-btn px-mini" href="#mnist" target="_self" rel="noreferrer noopener">Try Live</a>
+          <button class="px-btn px-mini more-toggle" type="button">More</button>
+        </div>
+        <div class="more-box">
+          <p><strong>Stack:</strong> ONNX Runtime Web, Canvas API, ESLint, vanilla JS.</p>
+          <ul>
+            <li>Path-robust model loading for GitHub Pages; graceful degradation and clear UX errors.</li>
+            <li><em>Keywords:</em> model export, client-side inference, WebGL, WASM, DX.</li>
+          </ul>
+        </div>
+        <span class="chip3d">demo</span>
+      </article>
       </div>
     </section>
 
@@ -1801,7 +1801,7 @@
         const p = posFrom(ev);
         ctx.lineCap = smooth.checked ? 'round' : 'butt';
         ctx.lineJoin = smooth.checked ? 'round' : 'miter';
-        ctx.strokeStyle = '#e8ecff'; ctx.lineWidth = 22;
+        ctx.strokeStyle = '#e8ecff'; ctx.lineWidth = 18;
         ctx.beginPath(); ctx.moveTo(prev.x, prev.y); ctx.lineTo(p.x, p.y); ctx.stroke();
         prev = p;
       }
@@ -1818,18 +1818,97 @@
 
       // ----- Downsample to 28×28 + normalize -----
       function get28Norm() {
+        const NORM_MEAN = 0.1307, NORM_STD = 0.3081;
+
+        // Grab the current drawing
+        const src = document.getElementById('draw');
+        const sctx = src.getContext('2d');
+
+        // 1) Downsample to 28x28 grayscale
         const tmp = document.createElement('canvas'); tmp.width = 28; tmp.height = 28;
-        const tctx = tmp.getContext('2d');
-        tctx.fillStyle = '#000'; tctx.fillRect(0, 0, 28, 28);
-        tctx.drawImage(canvas, 0, 0, 28, 28);
-        const { data } = tctx.getImageData(0, 0, 28, 28);
+        const t = tmp.getContext('2d');
+        t.fillStyle = '#000'; t.fillRect(0, 0, 28, 28);
+        // slight blur to better match MNIST’s soft strokes
+        t.filter = 'blur(0.6px)';
+        t.drawImage(src, 0, 0, 28, 28);
+        t.filter = 'none';
+
+        const id = t.getImageData(0, 0, 28, 28);
+        const g = new Float32Array(28 * 28);
+        for (let i = 0, j = 0; i < id.data.length; i += 4, j++) {
+          g[j] = (id.data[i] + id.data[i + 1] + id.data[i + 2]) / 3 / 255; // 0..1
+        }
+
+        // 2) Auto-invert if needed (in case background/foreground swapped)
+        const avg = g.reduce((a, b) => a + b, 0) / g.length;
+        if (avg < 0.2) {                // canvas mostly black, strokes light → OK
+          // no-op
+        } else {                        // mostly white → invert
+          for (let i = 0; i < g.length; i++) g[i] = 1 - g[i];
+        }
+
+        // 3) Find bounding box of the digit
+        let minX = 28, minY = 28, maxX = -1, maxY = -1;
+        for (let y = 0; y < 28; y++) {
+          for (let x = 0; x < 28; x++) {
+            if (g[y * 28 + x] > 0.15) { // threshold
+              if (x < minX) minX = x; if (x > maxX) maxX = x;
+              if (y < minY) minY = y; if (y > maxY) maxY = y;
+            }
+          }
+        }
+        if (maxX < 0) {
+          // nothing drawn: return zeros
+          return new Float32Array(28 * 28).fill((0 - NORM_MEAN) / NORM_STD);
+        }
+
+        // 4) Extract ROI and scale to fit 20x20, preserve aspect
+        const bw = Math.max(1, maxX - minX + 1), bh = Math.max(1, maxY - minY + 1);
+        const scale = 20 / Math.max(bw, bh);
+        const w2 = Math.max(1, Math.round(bw * scale));
+        const h2 = Math.max(1, Math.round(bh * scale));
+
+        // Draw scaled ROI into a clean 28×28 while keeping margins
+        const dst = document.createElement('canvas'); dst.width = 28; dst.height = 28;
+        const d = dst.getContext('2d');
+        const roi = t.getImageData(minX, minY, bw, bh);
+        const roiCanvas = document.createElement('canvas'); roiCanvas.width = bw; roiCanvas.height = bh;
+        roiCanvas.getContext('2d').putImageData(roi, 0, 0);
+
+        const padX = Math.floor((28 - w2) / 2), padY = Math.floor((28 - h2) / 2);
+        d.filter = 'blur(0.4px)';
+        d.drawImage(roiCanvas, 0, 0, bw, bh, padX, padY, w2, h2);
+        d.filter = 'none';
+
+        // 5) Center-of-mass shift (LeNet trick)
+        const id2 = d.getImageData(0, 0, 28, 28);
+        const g2 = new Float32Array(28 * 28);
+        let sum = 0, cx = 0, cy = 0;
+        for (let i = 0, j = 0; i < id2.data.length; i += 4, j++) {
+          const val = (id2.data[i] + id2.data[i + 1] + id2.data[i + 2]) / 3 / 255;
+          g2[j] = val;
+          sum += val;
+          const x = j % 28, y = (j / 28) | 0;
+          cx += x * val; cy += y * val;
+        }
+        if (sum > 0) { cx /= sum; cy /= sum; } else { cx = 14; cy = 14; }
+        const shiftX = Math.round(14 - cx), shiftY = Math.round(14 - cy);
+
+        // Shift using drawImage onto final 28×28 canvas
+        const final = document.createElement('canvas'); final.width = 28; final.height = 28;
+        const f = final.getContext('2d');
+        f.putImageData(id2, shiftX, shiftY); // browser clamps out-of-bounds automatically
+        const id3 = f.getImageData(0, 0, 28, 28);
+
+        // 6) To Float32 + normalize
         const out = new Float32Array(28 * 28);
-        for (let i = 0, j = 0; i < data.length; i += 4, j++) {
-          const v = (data[i] + data[i + 1] + data[i + 2]) / 3 / 255; // 0..1
-          out[j] = (v - NORM_MEAN) / NORM_STD;                        // normalize
+        for (let i = 0, j = 0; i < id3.data.length; i += 4, j++) {
+          const v = (id3.data[i] + id3.data[i + 1] + id3.data[i + 2]) / 3 / 255;
+          out[j] = (v - NORM_MEAN) / NORM_STD;
         }
         return out;
       }
+
 
       // ----- Predict -----
       async function predict() {
