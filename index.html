@@ -1019,6 +1019,52 @@
         animation: none
       }
     }
+
+    #projects .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      /* 1–3 across */
+      gap: 22px;
+    }
+
+    /* Let cards size naturally inside this section */
+    #projects .card {
+      grid-column: auto;
+      /* ignore any global span:6 */
+      min-height: auto;
+      padding: 18px 18px 14px;
+    }
+
+    /* Tighter hierarchy inside cards */
+    #projects .card .tag {
+      margin-bottom: 6px
+    }
+
+    #projects .card h3 {
+      margin: 6px 0 8px
+    }
+
+    #projects .card .sub {
+      margin: 0 0 10px
+    }
+
+    /* Actions row looks cramped otherwise */
+    #projects .proj-actions {
+      gap: 10px;
+      margin-top: 12px;
+      flex-wrap: wrap
+    }
+
+    #projects .px-mini {
+      font-size: .62rem;
+      padding: 6px 10px
+    }
+
+    /* Optional: slightly rounder/elevated cards just here */
+    #projects .card {
+      border-radius: 16px;
+      box-shadow: var(--shadow)
+    }
   </style>
 </head>
 
@@ -1550,7 +1596,7 @@
     <!-- ========= MNIST STYLE DEMO ========= -->
     <section id="mnist" class="wrap">
       <h2 class="section-title">Draw-a-Digit (0–9)</h2>
-      <p class="sub">Draw below and hit Predict. Model runs <strong>in your browser</strong> via ONNX Runtime Web.</p>
+      <p class="sub">Draw below and hit Predict.</p>
       <div class="mnist">
         <div class="draw">
           <div class="canvas-wrap">

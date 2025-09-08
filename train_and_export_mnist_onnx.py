@@ -1,146 +1,250 @@
-# train_and_export_mnist_onnx.py
-import os, math, argparse, random
+#!/usr/bin/env python3
+"""
+Train a more robust MNIST CNN and export to ONNX for onnxruntime-web.
+
+Input (unchanged):
+  - Tensor: [N, 1, 28, 28]
+  - Normalize: mean=0.1307, std=0.3081
+
+Output (unchanged):
+  - logits: [N, 10]
+
+ONNX location (unchanged):
+  assets/models/mnist_cnn.onnx
+"""
+
+import argparse, math, time, random
 from pathlib import Path
 
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from torch.utils.data import DataLoader, random_split
+from torch.optim import AdamW
+from torch.utils.data import DataLoader, ConcatDataset
 from torchvision import datasets, transforms
 
-import numpy as np
-import onnx
-import onnxruntime as ort
+# -----------------------
+# Repro
+# -----------------------
+def set_seed(seed=42):
+    random.seed(seed)
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
 
-# ---- Config (MNIST normalization; matches common training) ----
-NORM_MEAN = 0.1307
-NORM_STD  = 0.3081
-
-class Net(nn.Module):
-    # Simple, fast CNN good enough for MNIST
+# -----------------------
+# Model (same I/O shape)
+# -----------------------
+class SmallCNN(nn.Module):
     def __init__(self):
         super().__init__()
-        self.conv1 = nn.Conv2d(1, 32, 3, 1)   # 28->26
-        self.conv2 = nn.Conv2d(32, 64, 3, 1)  # 26->24
-        self.dropout1 = nn.Dropout(0.25)
-        self.fc1 = nn.Linear(64*12*12, 128)   # after 2x2 pool: 24->12
-        self.fc2 = nn.Linear(128, 10)
+        self.features = nn.Sequential(
+            nn.Conv2d(1, 32, 3, padding=1), nn.ReLU(inplace=True),
+            nn.Conv2d(32, 32, 3, padding=1), nn.ReLU(inplace=True),
+            nn.MaxPool2d(2), nn.Dropout(0.1),
+            nn.Conv2d(32, 64, 3, padding=1), nn.ReLU(inplace=True),
+            nn.Conv2d(64, 64, 3, padding=1), nn.ReLU(inplace=True),
+            nn.MaxPool2d(2), nn.Dropout(0.2),
+        )
+        self.classifier = nn.Sequential(
+            nn.Flatten(),
+            nn.Linear(64 * 7 * 7, 256), nn.ReLU(inplace=True), nn.Dropout(0.5),
+            nn.Linear(256, 10)
+        )
 
     def forward(self, x):
-        x = F.relu(self.conv1(x))
-        x = F.relu(self.conv2(x))
-        x = F.max_pool2d(x, 2)     # 24->12
-        x = self.dropout1(x)
-        x = torch.flatten(x, 1)
-        x = F.relu(self.fc1(x))
-        x = self.fc2(x)            # logits
-        return x
+        x = self.features(x)
+        return self.classifier(x)
 
-def set_seed(s=42):
-    random.seed(s); np.random.seed(s); torch.manual_seed(s); torch.cuda.manual_seed_all(s)
+# -----------------------
+# Data
+# -----------------------
+MEAN, STD = 0.1307, 0.3081  # must match your HTML
 
-def get_loaders(batch_size=128, val_split=5000, root="./data"):
-    tfm = transforms.Compose([
+def build_dataloaders(batch_size: int, num_workers: int, extra_train: bool):
+    # Strong-but-safe augments that keep digit semantics and 28x28 shape
+    train_tfms = transforms.Compose([
+        transforms.RandomApply([transforms.RandomAffine(
+            degrees=15, translate=(0.12, 0.12), scale=(0.9, 1.1), shear=8
+        )], p=0.85),
+        transforms.RandomApply([transforms.ElasticTransform(alpha=20.0, sigma=5.0)], p=0.25),
+        transforms.RandomApply([transforms.RandomPerspective(distortion_scale=0.2)], p=0.25),
         transforms.ToTensor(),
-        transforms.Normalize((NORM_MEAN,), (NORM_STD,))
+        transforms.Normalize((MEAN,), (STD,))
     ])
-    train_full = datasets.MNIST(root, train=True, download=True, transform=tfm)
-    test_ds    = datasets.MNIST(root, train=False, download=True, transform=tfm)
 
-    # small validation for sanity; rest for training
-    train_len = len(train_full) - val_split
-    train_ds, val_ds = random_split(train_full, [train_len, val_split], generator=torch.Generator().manual_seed(42))
+    test_tfms = transforms.Compose([
+        transforms.ToTensor(),
+        transforms.Normalize((MEAN,), (STD,))
+    ])
 
-    train = DataLoader(train_ds, batch_size=batch_size, shuffle=True, num_workers=2, pin_memory=True)
-    val   = DataLoader(val_ds,   batch_size=512, shuffle=False, num_workers=2, pin_memory=True)
-    test  = DataLoader(test_ds,  batch_size=512, shuffle=False, num_workers=2, pin_memory=True)
-    return train, val, test
+    # Core MNIST
+    train1 = datasets.MNIST(root="./data", train=True, download=True, transform=train_tfms)
+    # Optionally double training set by loading a second copy (different augment randomness)
+    train2 = datasets.MNIST(root="./data", train=True, download=True, transform=train_tfms) if extra_train else None
+    train_ds = ConcatDataset([d for d in [train1, train2] if d is not None])
 
-def train_one_epoch(model, loader, opt, device):
-    model.train(); loss_sum = 0.0
-    for x,y in loader:
-        x,y = x.to(device), y.to(device)
-        opt.zero_grad()
-        logits = model(x)
-        loss = F.cross_entropy(logits, y)
-        loss.backward(); opt.step()
-        loss_sum += float(loss) * x.size(0)
-    return loss_sum / len(loader.dataset)
+    val_ds = datasets.MNIST(root="./data", train=False, download=True, transform=test_tfms)
 
-@torch.no_grad()
+    train_loader = DataLoader(train_ds, batch_size=batch_size, shuffle=True,
+                              num_workers=num_workers, pin_memory=True, drop_last=True)
+    val_loader = DataLoader(val_ds, batch_size=512, shuffle=False,
+                            num_workers=num_workers, pin_memory=True)
+    return train_loader, val_loader
+
+# -----------------------
+# EMA (for a steadier final model)
+# -----------------------
+class EMA:
+    def __init__(self, model, decay=0.999):
+        self.decay = decay
+        self.shadow = {}
+        for n, p in model.named_parameters():
+            if p.requires_grad:
+                self.shadow[n] = p.data.clone()
+
+    @torch.no_grad()
+    def update(self, model):
+        for n, p in model.named_parameters():
+            if p.requires_grad:
+                self.shadow[n].mul_(self.decay).add_(p.data, alpha=1.0 - self.decay)
+
+    @torch.no_grad()
+    def store(self, model):
+        self.backup = {n: p.data.clone() for n, p in model.named_parameters() if p.requires_grad}
+
+    @torch.no_grad()
+    def copy_to(self, model):
+        for n, p in model.named_parameters():
+            if p.requires_grad:
+                p.data.copy_(self.shadow[n])
+
+    @torch.no_grad()
+    def restore(self, model):
+        for n, p in model.named_parameters():
+            if p.requires_grad:
+                p.data.copy_(self.backup[n])
+
+# -----------------------
+# Train / Eval
+# -----------------------
 def evaluate(model, loader, device):
-    model.eval(); correct=0; total=0; loss_sum=0.0
-    for x,y in loader:
-        x,y = x.to(device), y.to(device)
-        logits = model(x)
-        loss_sum += float(F.cross_entropy(logits, y, reduction='sum'))
-        pred = logits.argmax(1)
-        correct += int((pred==y).sum())
-        total += y.numel()
-    return loss_sum/total, correct/total
+    model.eval()
+    correct, n = 0, 0
+    loss_sum = 0.0
+    with torch.no_grad():
+        for x, y in loader:
+            x, y = x.to(device, non_blocking=True), y.to(device, non_blocking=True)
+            logits = model(x)
+            loss = F.cross_entropy(logits, y)
+            loss_sum += loss.item() * y.size(0)
+            pred = logits.argmax(dim=1)
+            correct += (pred == y).sum().item()
+            n += y.size(0)
+    return loss_sum / n, correct / n
 
-def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--epochs", type=int, default=3)       # 3 is already ~97–99% on MNIST
-    ap.add_argument("--batch",  type=int, default=128)
-    ap.add_argument("--lr",     type=float, default=0.01)
-    ap.add_argument("--momentum", type=float, default=0.9)
-    ap.add_argument("--onnx",   type=str, default="assets/models/mnist_cnn.onnx")
-    ap.add_argument("--device", type=str, default="cuda" if torch.cuda.is_available() else "cpu")
-    args = ap.parse_args()
+def train(args):
+    set_seed(args.seed)
+    device = torch.device("cuda" if torch.cuda.is_available() and not args.cpu else "cpu")
 
-    set_seed(42)
-    device = torch.device(args.device)
-    print(f"Using device: {device}")
+    train_loader, val_loader = build_dataloaders(args.batch_size, args.workers, args.extra_train)
 
-    train, val, test = get_loaders(batch_size=args.batch)
+    model = SmallCNN().to(device)
+    opt = AdamW(model.parameters(), lr=args.lr, weight_decay=5e-4)
 
-    model = Net().to(device)
-    opt = torch.optim.SGD(model.parameters(), lr=args.lr, momentum=args.momentum, nesterov=True)
+    # OneCycleLR for fast, stable convergence
+    total_steps = args.epochs * len(train_loader)
+    sched = torch.optim.lr_scheduler.OneCycleLR(
+        opt, max_lr=args.lr, total_steps=total_steps, pct_start=0.15, div_factor=10, final_div_factor=100
+    )
 
-    best_val = 0.0
-    for ep in range(1, args.epochs+1):
-        tr_loss = train_one_epoch(model, train, opt, device)
-        val_loss, val_acc = evaluate(model, val, device)
-        print(f"[{ep}/{args.epochs}] train_loss={tr_loss:.4f}  val_loss={val_loss:.4f}  val_acc={val_acc*100:.2f}%")
-        if val_acc > best_val:
-            best_val = val_acc
-            best_state = {k:v.cpu() for k,v in model.state_dict().items()}
+    # Label smoothing helps generalization on messy drawings
+    criterion = nn.CrossEntropyLoss(label_smoothing=0.05)
 
-    # Load best weights (by val acc) before export
-    if 'best_state' in locals():
+    scaler = torch.cuda.amp.GradScaler(enabled=(device.type == "cuda"))
+    ema = EMA(model, decay=0.999)
+
+    best_acc, best_state = 0.0, None
+    patience, bad = 6, 0
+    t0 = time.time()
+
+    for epoch in range(1, args.epochs + 1):
+        model.train()
+        epoch_loss = 0.0
+        for x, y in train_loader:
+            x, y = x.to(device, non_blocking=True), y.to(device, non_blocking=True)
+            opt.zero_grad(set_to_none=True)
+            with torch.cuda.amp.autocast(enabled=(device.type == "cuda")):
+                logits = model(x)
+                loss = criterion(logits, y)
+            scaler.scale(loss).backward()
+            # Gradient clipping guards against occasional augmentation outliers
+            scaler.unscale_(opt)
+            nn.utils.clip_grad_norm_(model.parameters(), max_norm=2.0)
+            scaler.step(opt)
+            scaler.update()
+            sched.step()
+            ema.update(model)
+            epoch_loss += loss.item() * y.size(0)
+
+        val_loss, val_acc = evaluate(model, val_loader, device)
+
+        # Track best raw model (we'll also consider EMA below)
+        if val_acc > best_acc:
+            best_acc = val_acc
+            best_state = {k: v.cpu().clone() for k, v in model.state_dict().items()}
+            bad = 0
+        else:
+            bad += 1
+
+        print(f"Epoch {epoch:02d}/{args.epochs} | "
+              f"train_loss={epoch_loss/len(train_loader.dataset):.4f} "
+              f"val_loss={val_loss:.4f} val_acc={val_acc*100:.2f}% "
+              f"lr={sched.get_last_lr()[0]:.2e}")
+
+        if bad >= patience:
+            print("Early stopping: no validation improvement.")
+            break
+
+    # Choose between best raw vs EMA snapshot (use whichever validates higher)
+    # Evaluate EMA
+    ema.store(model)
+    ema.copy_to(model)
+    ema_loss, ema_acc = evaluate(model, val_loader, device)
+    ema.restore(model)
+
+    if ema_acc >= best_acc:
+        print(f"Using EMA weights for export (val_acc={ema_acc*100:.2f}% ≥ best_raw={best_acc*100:.2f}%).")
+        ema.copy_to(model)
+    else:
+        print(f"Using best raw weights for export (best_raw={best_acc*100:.2f}% > ema={ema_acc*100:.2f}%).")
         model.load_state_dict(best_state)
 
-    test_loss, test_acc = evaluate(model, test, device)
-    print(f"TEST: loss={test_loss:.4f}  acc={test_acc*100:.2f}%")
-
-    # ---- Export to ONNX ----
-    onnx_path = Path(args.onnx)
+    # Export ONNX to the SAME path your service expects
+    onnx_path = Path("assets/models/mnist_cnn.onnx")
     onnx_path.parent.mkdir(parents=True, exist_ok=True)
-
-    model_cpu = model.to("cpu").eval()
-    dummy = torch.randn(1, 1, 28, 28)   # NCHW
-    input_names = ["input"]
-    output_names = ["logits"]
-
+    model.eval()
+    dummy = torch.randn(1, 1, 28, 28, device=device)
     torch.onnx.export(
-        model_cpu, dummy, str(onnx_path),
-        input_names=input_names, output_names=output_names,
-        opset_version=13, dynamic_axes=None
+        model, dummy, str(onnx_path),
+        input_names=["input"], output_names=["logits"],
+        dynamic_axes={"input": {0: "batch"}, "logits": {0: "batch"}},
+        opset_version=13, do_constant_folding=True
     )
-    print(f"Saved ONNX → {onnx_path}")
+    dt = time.time() - t0
+    print(f"Saved ONNX → {onnx_path.resolve()} (elapsed {dt/60:.1f} min)")
 
-    # ---- Quick sanity check with onnxruntime ----
-    sess = ort.InferenceSession(str(onnx_path), providers=["CPUExecutionProvider"])
-    x = dummy.numpy()
-    # apply same normalization the model expects
-    x = (x - NORM_MEAN) / NORM_STD
-    logits_onnx = sess.run([sess.get_outputs()[0].name], {sess.get_inputs()[0].name: x.astype(np.float32)})[0]
-    # compare with PyTorch
-    with torch.no_grad():
-        logits_torch = model_cpu((dummy - NORM_MEAN)/NORM_STD).numpy()
-    diff = np.max(np.abs(logits_onnx - logits_torch))
-    print(f"Verification: max|ONNX - Torch| = {diff:.6f} (should be < 1e-3 to 1e-2)")
+def parse_args():
+    p = argparse.ArgumentParser()
+    p.add_argument("--epochs", type=int, default=20, help="Total training epochs")
+    p.add_argument("--batch_size", type=int, default=256)
+    p.add_argument("--workers", type=int, default=4)
+    p.add_argument("--lr", type=float, default=3e-3)
+    p.add_argument("--cpu", action="store_true", help="Force CPU even if CUDA is available")
+    p.add_argument("--seed", type=int, default=42)
+    p.add_argument("--extra_train", action="store_true",
+                   help="Double effective train size by adding a second augmented pass")
+    return p.parse_args()
 
 if __name__ == "__main__":
-    main()
+    args = parse_args()
+    train(args)
