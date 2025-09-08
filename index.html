@@ -2021,7 +2021,7 @@
       async function loadSession() {
         try {
           const s = await ort.InferenceSession.create(modelUrl, { executionProviders: ['webgl'] });
-          modelNote.textContent = 'Model loaded (WebGL)';
+          // modelNote.textContent = 'Model loaded (WebGL)';
           return s;
         } catch (e1) {
           console.warn('WebGL failed → trying WASM', e1);
