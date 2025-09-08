@@ -2027,7 +2027,7 @@
           console.warn('WebGL failed → trying WASM', e1);
           try {
             const s = await ort.InferenceSession.create(modelUrl, { executionProviders: ['wasm'] });
-            modelNote.textContent = 'Model loaded (WASM)';
+            // modelNote.textContent = 'Model loaded (WASM)';
             return s;
           } catch (e2) {
             console.error('Failed to load ONNX model:', e2);
