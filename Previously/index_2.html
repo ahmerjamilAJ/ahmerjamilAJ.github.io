@@ -1069,83 +1069,6 @@
     footer.wrap {
       margin-top: clamp(72px, 10vw, 140px) !important;
     }
-
-
-    /* === Slimmer, retro-style nav buttons === */
-    .lr-controls {
-      margin-top: 6px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      font-family: "Press Start 2P", system-ui, sans-serif;
-    }
-
-    .lr-sep {
-      opacity: .35;
-      color: var(--muted)
-    }
-
-    .lr-btn {
-      --size: 26px;
-      position: relative;
-      overflow: hidden;
-      width: var(--size);
-      height: var(--size);
-      border-radius: 4px;
-      /* more pixel/retro corners */
-      border: 1px solid var(--border);
-      background: var(--panel);
-      color: var(--ink);
-      font-size: 0.72rem;
-      line-height: 1;
-      display: grid;
-      place-items: center;
-      cursor: pointer;
-      user-select: none;
-      transition: transform .06s ease, filter .12s ease;
-      box-shadow: inset 0 -2px 0 rgba(0, 0, 0, .4), inset 0 2px 0 rgba(255, 255, 255, .06);
-    }
-
-    /* subtle palette tint overlay */
-    .lr-btn::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      border-radius: inherit;
-      background: linear-gradient(180deg, var(--brand), var(--brand2));
-      opacity: .15;
-      mix-blend-mode: screen;
-      pointer-events: none;
-    }
-
-    .lr-btn:hover::after {
-      opacity: .22
-    }
-
-    .lr-btn:active {
-      transform: translateY(1px);
-    }
-
-    /* both buttons share the same palette tint now */
-    .lr-btn.left,
-    .lr-btn.right {
-      outline: 1px solid var(--brand);
-    }
-
-    /* smaller on very small phones */
-    @media (max-width: 520px) {
-      .lr-btn {
-        --size: 22px;
-        font-size: 0.65rem
-      }
-    }
-
-
-    .lr-btn.keyflash::after {
-      opacity: .34;
-      filter: brightness(1.08);
-    }
   </style>
 </head>
 
@@ -1216,7 +1139,7 @@
       <div class="profile">
         <div class="gameboy" id="gb" tabindex="0" role="button" aria-label="Swap portrait" aria-pressed="false">
           <span class="flip-tip" aria-hidden="true">
-            Press <b>(←)</b>/<b>(→)</b> or tap to swap
+            Press <b>Ⓐ</b>/<b>Ⓑ</b> or tap to swap
           </span>
           <div class="screen">
             <div class="face front"><img src="assets/hero.jpeg" alt="Ahmer Jamil — portrait"></div>
@@ -1226,11 +1149,6 @@
             <div class="scan" aria-hidden="true"></div>
             <div class="glare" aria-hidden="true"></div>
           </div>
-        </div>
-        <div class="lr-controls" aria-label="Image controls">
-          <button class="lr-btn left" type="button" title="Previous (←)" aria-label="Previous">◀</button>
-          <span class="lr-sep">|</span>
-          <button class="lr-btn right" type="button" title="Next (→)" aria-label="Next">▶</button>
         </div>
       </div>
     </section>
@@ -1915,8 +1833,7 @@
               rel="noreferrer noopener">LINKEDIN</a>
             <a class="px-btn" data-mag="1" href="https://github.com/ahmerjamilAJ" target="_blank"
               rel="noreferrer noopener">GITHUB</a>
-            <a class="px-btn" data-mag="1" href="assets/AhmerJamil_CV.pdf" target="_blank"
-              rel="noreferrer noopener">Resume</a>
+            <a class="px-btn" data-mag="1" href="assets/AhmerJamil_CV.pdf" target="_blank" rel="noreferrer noopener">Resume</a>
             <a class="px-btn" data-mag="1" href="#home">TOP</a>
           </div>
         </div>
@@ -2004,62 +1921,12 @@
     })();
 
     /* ===== Portrait swap: fade+tilt ===== */
-    // (function () {
-    //   const gb = document.getElementById('gb');
-    //   function swap() { gb.classList.toggle('show-sprite'); gb.setAttribute('aria-pressed', gb.classList.contains('show-sprite') ? 'true' : 'false'); }
-    //   gb.addEventListener('click', swap);
-    //   gb.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ' || e.key === 'a' || e.key === 'b') { e.preventDefault(); swap(); } });
-    // })();
-
-
-
     (function () {
       const gb = document.getElementById('gb');
-      if (!gb) return;
-
-      // === your original swap logic (unchanged) ===
-      function swap() {
-        gb.classList.toggle('show-sprite');
-        gb.setAttribute('aria-pressed', gb.classList.contains('show-sprite') ? 'true' : 'false');
-      }
+      function swap() { gb.classList.toggle('show-sprite'); gb.setAttribute('aria-pressed', gb.classList.contains('show-sprite') ? 'true' : 'false'); }
       gb.addEventListener('click', swap);
-      gb.addEventListener('keydown', e => {
-        // Keep Enter/Space/A/B local to the picture for accessibility
-        if (e.key === 'Enter' || e.key === ' ' || e.key === 'a' || e.key === 'b') {
-          e.preventDefault();
-          swap();
-        }
-      });
-
-      // === NEW: helper to avoid firing while typing ===
-      function isTypingTarget(el) {
-        if (!el) return false;
-        const t = el.tagName;
-        return t === 'INPUT' || t === 'TEXTAREA' || el.isContentEditable;
-      }
-
-      // === NEW: global ArrowLeft / ArrowRight => swap() ===
-      document.addEventListener('keydown', e => {
-        if (isTypingTarget(document.activeElement)) return; // don't hijack typing
-        if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
-          e.preventDefault();
-          swap();
-        }
-      });
-
-      // === NEW: small on-screen buttons ===
-      const leftBtn = document.querySelector('.lr-btn.left');
-      const rightBtn = document.querySelector('.lr-btn.right');
-      leftBtn && leftBtn.addEventListener('click', swap);
-      rightBtn && rightBtn.addEventListener('click', swap);
+      gb.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ' || e.key === 'a' || e.key === 'b') { e.preventDefault(); swap(); } });
     })();
-
-
-
-
-
-
-
 
     /* ===== Typed (fixed box) ===== */
     (function () {
@@ -2336,15 +2203,15 @@
 
     /* ===== Simple easter eggs ===== */
     (function () {
-      // const konami = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
-      // const iddqd = ['i', 'd', 'd', 'q', 'd'];
-      const abab = ['arrowleft', 'arrowright', 'arrowleft', 'arrowright'];
+      const konami = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+      const iddqd = ['i', 'd', 'd', 'q', 'd'];
+      const abab = ['a', 'b', 'a', 'b'];
       let buf = [];
       document.addEventListener('keydown', (e) => {
         buf.push(e.key); buf = buf.slice(-10);
         const tail = (arr) => arr.every((k, i) => (buf.slice(-arr.length)[i] || '').toLowerCase() === k);
-        // if (konami.every((k, i) => buf[buf.length - konami.length + i] === k)) { document.body.classList.toggle('crt'); return; }
-        // if (tail(iddqd)) { document.body.classList.toggle('gridfx'); return; }
+        if (konami.every((k, i) => buf[buf.length - konami.length + i] === k)) { document.body.classList.toggle('crt'); return; }
+        if (tail(iddqd)) { document.body.classList.toggle('gridfx'); return; }
         if (tail(abab)) { codeRain(); return; }
       });
       function codeRain() {
@@ -2377,28 +2244,6 @@
     /* Year */
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
-
-  <script>
-    (function () {
-      const leftBtn = document.querySelector('.lr-btn.left');
-      const rightBtn = document.querySelector('.lr-btn.right');
-
-      // helper: flash a quick active state
-      function flash(btn) {
-        if (!btn) return;
-        btn.classList.add('keyflash');
-        setTimeout(() => btn.classList.remove('keyflash'), 120);
-      }
-
-      // piggyback your existing global ArrowLeft/Right. If you have a keydown
-      // already, you can just add these two lines inside it instead of adding a new listener.
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowLeft') flash(leftBtn);
-        if (e.key === 'ArrowRight') flash(rightBtn);
-      });
-    })();
-  </script>
-
 </body>
 
 </html>
