@@ -3,7 +3,22 @@
 
 <head>
   <meta charset="utf-8" />
-  <title>Ahmer Jamil — ML • Systems • Portfolio</title>
+  <!-- <title>Ahmer Jamil — ML • Systems • Portfolio</title> -->
+  <link id="favicon" rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'>
+  <defs>
+    <linearGradient id='grad' x1='0' y1='0' x2='1' y2='1'>
+      <stop offset='0%' stop-color='%236ae3ff'/>
+      <stop offset='100%' stop-color='%239d7bff'/>
+    </linearGradient>
+  </defs>
+  <rect width='64' height='64' rx='12' fill='url(%23grad)'/>
+  <text x='50%' y='56%' font-size='28' font-family='monospace, sans-serif' 
+        font-weight='700' text-anchor='middle' fill='white'>AJ</text>
+</svg>">
+
+
+
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#0b0f1a" />
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
@@ -2444,6 +2459,63 @@
       });
     })();
   </script>
+  <script>
+    (function () {
+      // ---------- config (edit the words/emojis to taste) ----------
+      const BASE_TITLE = "Ahmer Jamil — Reliable ML · Systems";
+      const AWAY_TITLES = [
+        "👾 Press START to return",
+        "🕹️ Building reliable ML…",
+        "💼 Ready when you are",
+        "🔧 Fault-tolerant by design"
+      ];
+      const ROTATE_MS = 2000;
+
+      // optional favicon pulse when away (uses <link id="favicon">)
+      const fav = document.getElementById("favicon");
+      const DOT_ICON = "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64'><circle cx='32' cy='32' r='10' fill='%23ff2d2d'/></svg>";
+      const BASE_ICON = fav?.getAttribute("href");
+
+      let timer = null, i = 0;
+
+      function setTitle(t) { document.title = t; }
+      function startRotate() {
+        if (timer) return;
+        i = 0;
+        timer = setInterval(() => { setTitle(AWAY_TITLES[i++ % AWAY_TITLES.length]); }, ROTATE_MS);
+        if (fav && BASE_ICON) fav.setAttribute("href", DOT_ICON);
+      }
+      function stopRotate() {
+        clearInterval(timer); timer = null;
+        setTitle(BASE_TITLE);
+        if (fav && BASE_ICON) fav.setAttribute("href", BASE_ICON);
+      }
+
+      // change title while tab is hidden/visible
+      document.addEventListener("visibilitychange", () => {
+        if (document.hidden) startRotate(); else stopRotate();
+      });
+
+      // ---------- optional: classy one-time "type-in" on first visit ----------
+      try {
+        const k = "title_typed_v1";
+        if (!localStorage.getItem(k)) {
+          const full = BASE_TITLE;
+          let idx = 0;
+          const type = () => {
+            setTitle(full.slice(0, idx++) + (idx % 2 ? "▋" : ""));
+            if (idx <= full.length + 2) requestAnimationFrame(type);
+            else setTitle(full);
+          };
+          type();
+          localStorage.setItem(k, "1");
+        } else {
+          setTitle(BASE_TITLE);
+        }
+      } catch { setTitle(BASE_TITLE); }
+    })();
+  </script>
+
 </body>
 
 </html>
