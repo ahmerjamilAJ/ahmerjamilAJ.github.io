@@ -21,6 +21,8 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
+
+
     <meta name="theme-color" content="#0b0f1a" />
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
@@ -826,22 +828,105 @@
         }
 
         /* ========= Bottom Dock ========= */
+        /* ========= Bottom Dock — Arcade Social Bar ========= */
         .dock {
             position: fixed;
             left: 50%;
-            bottom: 12px;
+            bottom: max(12px, env(safe-area-inset-bottom, 0px));
             transform: translateX(-50%);
             z-index: 60;
-            display: flex;
+            display: grid;
+            grid-auto-flow: column;
+            align-items: end;
             gap: 10px;
-            align-items: center;
-            padding: 8px 10px;
-            border-radius: 14px;
+            padding: 10px 12px;
+            border-radius: 16px;
             border: 1px solid var(--border);
-            background: var(--panel);
             background: var(--dock-bg);
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(10px) saturate(120%);
+            box-shadow: var(--shadow);
         }
+
+        .dock a {
+            text-decoration: none;
+        }
+
+        .dock-link {
+            --h: 36px;
+            min-width: 72px;
+            height: var(--h);
+            padding: 6px 8px;
+            display: grid;
+            grid-template-rows: 1fr auto;
+            place-items: center;
+            gap: 3px;
+            font-family: "Press Start 2P", system-ui, sans-serif;
+            font-size: .58rem;
+            line-height: 1;
+            color: var(--pixel-dark);
+            background: #e2e6ff;
+            clip-path: polygon(0 20%, 6% 20%, 6% 0, 94% 0, 94% 20%, 100% 20%, 100% 80%, 94% 80%, 94% 100%, 6% 100%, 6% 80%, 0 80%);
+            box-shadow: 0 4px 0 #9aa4ff, 0 6px 0 #00000050;
+            transition: transform .06s ease, box-shadow .06s ease, filter .2s ease;
+            text-align: center;
+        }
+
+
+        .dock-link:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #9aa4ff, 0 4px 0 #00000050;
+        }
+
+        [data-theme="light"] .dock-link {
+            background: #d9defa;
+            box-shadow: 0 4px 0 #7f8aff, 0 6px 0 #00000040;
+            color: #0a0e1f;
+        }
+
+        /* Center HOME coin */
+        .dock-home {
+            --size: 50px;
+            width: var(--size);
+            height: var(--size);
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            color: #0a0e1f;
+            background: radial-gradient(circle at 35% 30%, #fff 0%, #e2e6ff 50%, #c6ceff 100%);
+            border: 2px solid var(--pixel-edge);
+            box-shadow: 0 6px 0 #00000055, inset 0 -2px 0 #9aa4ff, inset 0 2px 0 #ffffff60;
+            transform: translateY(-6px);
+            transition: transform .08s ease, filter .2s ease;
+        }
+
+        .dock-home i {
+            font-size: 1.1rem;
+        }
+
+        /* slightly smaller icon */
+        .dock-link i {
+            font-size: .9rem;
+        }
+
+        /* slightly smaller icons */
+
+        .dock-home:active {
+            transform: translateY(-4px);
+        }
+
+        /* smaller on very small phones */
+        @media (max-width:480px) {
+            .dock-link {
+                min-width: 64px;
+                font-size: .55rem;
+            }
+
+            .dock-home {
+                --size: 48px;
+            }
+        }
+
+
 
         .dock .px-btn {
             font-size: .64rem
@@ -3185,14 +3270,13 @@
                 </button>
 
 
-                                <!-- HBL -->
-                <button class="xp-card" data-title="Data Science Intern — JS Bank"
-                    data-sub="Jun 2021 – Aug 2021"
+                <!-- HBL -->
+                <button class="xp-card" data-title="Data Science Intern — JS Bank" data-sub="Jun 2021 – Aug 2021"
                     data-body="<p>ETL optimization; SQL; predictive analytics.&amp; analytics.</p>">
                     <div class="xp-logo"><img src="assets/logo/js.png" alt="JS Bank"></div>
                     <div class="xp-copy">
                         <h3> JS Bank · <span>Data Science Intern</span></h3>
-                         <p class="xp-meta">Jun 2021 – Aug 2021</p>
+                        <p class="xp-meta">Jun 2021 – Aug 2021</p>
                         <p class="xp-teaser">ETL optimization · SQL · predictive analytics</p>
 
 
@@ -3723,11 +3807,22 @@
 
     <!-- Bottom Dock Nav -->
     <nav class="dock" aria-label="Quick navigation">
-        <a class="px-btn" href="#home">HOME</a>
-        <a class="px-btn" href="#skills">SKILLS</a>
-        <a class="px-btn" href="#projects">PROJECTS</a>
-        <a class="px-btn" href="#experience">EXP</a>
-        <a class="px-btn" href="#mnist">DIGIT</a>
+        <a class="dock-link" href="https://github.com/ahmerjamilAJ" target="_blank" rel="noopener">
+            <i class="fa-brands fa-github"></i><span>GitHub</span>
+        </a>
+        <a class="dock-link" href="https://www.linkedin.com/in/ahmer-jamil/" target="_blank" rel="noopener">
+            <i class="fa-brands fa-linkedin-in"></i><span>LinkedIn</span>
+        </a>
+        <a class="dock-home" href="#home" aria-label="Home">
+            <i class="fa-solid fa-house"></i>
+        </a>
+        <a class="dock-link" href="https://drive.google.com/file/d/1i__y9HtKt8IswauzOn4Z8GYiv6pRw9Po/view?usp=sharing"
+            target="_blank" rel="noopener">
+            <i class="fa-regular fa-file-lines"></i><span>Resume</span>
+        </a>
+        <a class="dock-link" href="assets/AhmerJamil_CV.pdf" target="_blank" rel="noopener">
+            <i class="fa-solid fa-floppy-disk"></i><span>CV</span>
+        </a>
     </nav>
 
     <!-- Preload images -->
