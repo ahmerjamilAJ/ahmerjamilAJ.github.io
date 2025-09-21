@@ -1455,416 +1455,6 @@
   .exp-dot{ left: -6px; }
 }
 
-
-/* ===== Experience Highlights (large logo cards) ===== */
-.xp-hi-grid{ display:grid; grid-template-columns: repeat(auto-fit, minmax(520px, 1fr)); gap:16px; margin-bottom: 8px; }
-.xp-card{ display:grid; grid-template-columns: 220px 1fr; gap:18px; align-items:center; background: var(--panel); border:1px solid var(--border); border-radius:16px; box-shadow:var(--shadow); padding: 16px 18px; text-align:left; cursor:pointer; transition: transform .08s ease, border-color .2s ease, box-shadow .2s ease; }
-.xp-card:hover{ transform: translateY(-2px); border-color: rgba(255,255,255,.12); }
-.xp-logo{ width: 220px; height: 140px; border-radius: 12px; display:grid; place-items:center; background:#fff; box-shadow: 0 2px 8px rgba(0,0,0,.25) inset; border:1px solid rgba(0,0,0,.15); overflow:hidden; }
-.xp-logo img{ max-width: 92%; max-height: 92%; object-fit: contain; display:block; }
-.xp-copy h3{ margin: 0 0 6px; font-size: 1.12rem; font-weight: 800; }
-.xp-copy h3 span{ color: var(--muted); font-weight: 700; }
-.xp-meta{ margin: 0 0 4px; color: var(--muted); }
-.xp-teaser{ margin: 0; color: var(--muted); }
-.xp-all{ margin-top: 12px; }
-.xp-summary{ list-style:none; display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border:1px solid var(--border); border-radius:12px; background:var(--panel); box-shadow:var(--shadow); cursor:pointer; user-select:none; font-weight:700; }
-.xp-summary::-webkit-details-marker{ display:none; }
-.xp-all[open] .xp-summary .chev{ transform: rotate(90deg); }
-.xp-all-inner{ padding-top: 12px; }
-@media (max-width: 640px){ .xp-hi-grid{ grid-template-columns: 1fr; } .xp-card{ grid-template-columns: 1fr; } .xp-logo{ width:100%; height: 120px; } }
-
-
-/* Toggle labels */
-.xp-summary .label-open{ display:none; }
-.xp-all[open] .label-closed{ display:none; }
-.xp-all[open] .label-open{ display:inline; }
-/* When expanded, we will also hide highlights via JS for compatibility. */
-
-
-/* ===== Timeline spine & dots (dark & light) ===== */
-.exp-timeline{ position: relative; padding-bottom: 24px; }
-.exp-timeline::before{
-  content: ""; position: absolute; left: 50%; top: 0; bottom: 0; width: 2px;
-  background: linear-gradient(to bottom, rgba(162, 178, 255, .28), rgba(162,178,255,.12));
-  transform: translateX(-50%);
-  box-shadow: 0 0 12px rgba(120,160,255,.25), inset 0 0 1px rgba(255,255,255,.4);
-}
-.exp-dot{
-  width: 12px; height: 12px; border-radius: 50%;
-  background: linear-gradient(180deg, #a6b7ff, #6d86ff);
-  border: 2px solid rgba(255,255,255,.6); opacity: .95;
-  box-shadow: 0 0 8px rgba(120,160,255,.65), 0 0 2px rgba(255,255,255,.4) inset;
-  position: relative; left: -5px; top: 18px;
-}
-/* Light mode tune */
-@media (prefers-color-scheme: light){
-  .exp-timeline::before{ background: linear-gradient(to bottom, rgba(82, 94, 185, .25), rgba(82,94,185,.08)); }
-  .exp-dot{
-    background: linear-gradient(180deg, #6d86ff, #3d58ff);
-    border-color: rgba(0,0,0,.1);
-    box-shadow: 0 0 8px rgba(93,120,255,.45), 0 0 2px rgba(255,255,255,.6) inset;
-  }
-}
-/* Endbar under full experience */
-.xp-endbar{ display:flex; justify-content:center; margin: 16px 0 0; }
-.xp-endbar .px-btn{ font-weight:800; }
-
-/* ===== Modal — gaming style, centered with animation ===== */
-.ux-modal{ position: fixed; inset: 0; display: grid; place-items: center; visibility: hidden; opacity: 0; transition: opacity .18s ease; z-index: 9999; }
-.ux-modal.show{ visibility: visible; opacity: 1; }
-.ux-backdrop{ position:absolute; inset:0; background: rgba(0,0,0,.55); backdrop-filter: blur(6px); }
-@media (prefers-color-scheme: light){ .ux-backdrop{ background: rgba(15,20,40,.35); } }
-.ux-dialog{
-  position: relative;
-  width: min(980px, 92vw);
-  background: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  box-shadow: 0 12px 60px rgba(0,0,0,.55), 0 0 0 2px rgba(255,255,255,.04) inset;
-  transform: translateY(8px) scale(.96);
-  opacity: 0;
-  transition: transform .18s ease, opacity .18s ease;
-  padding: 22px 24px 18px;
-}
-.ux-modal.show .ux-dialog{ transform: translateY(0) scale(1); opacity: 1; }
-.ux-close{
-  position:absolute; top: 10px; right: 10px;
-  width: 38px; height: 36px; border-radius: 12px;
-  border: 1px solid var(--border);
-  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(0,0,0,.06));
-  color: #cbd5ff; display:grid; place-items:center; font-weight:900; font-size: 18px;
-  box-shadow: 0 2px 8px rgba(0,0,0,.45), inset 0 0 0 2px rgba(255,255,255,.03);
-  cursor: pointer;
-}
-.ux-close:hover{ filter: brightness(1.2); }
-@media (prefers-color-scheme: light){
-  .ux-dialog{ box-shadow: 0 20px 70px rgba(0,0,0,.35), 0 0 0 2px rgba(0,0,0,.04) inset; }
-  .ux-close{ color:#334; }
-}
-
-
-/* px-btn modifiers (safe, non-global) */
-.px-btn.px-secondary{ background: linear-gradient(180deg, rgba(115,130,255,.15), rgba(30,30,60,.08)); }
-.px-btn.px-accent{ background: linear-gradient(180deg, rgba(180,255,225,.16), rgba(60,90,60,.06)); }
-.px-btn.px-mini{ padding: 6px 10px; font-size: .62rem; }
-
-/* ===== Show/Hide full experience control ===== */
-
-.xp-summary{
-  list-style:none; display:inline-flex; align-items:center; gap:10px;
-  padding: 10px 14px; border:1px solid var(--border); border-radius:12px;
-  background: var(--panel); box-shadow: var(--shadow);
-  cursor:pointer; user-select:none; font-weight:900;
-}
-.xp-summary .chev{ transition: transform .18s; }
-.xp-all[open] .xp-summary .chev{ transform: rotate(90deg); }
-.xp-summary .label-open{ display:none; }
-.xp-all[open] .label-closed{ display:none; }
-.xp-all[open] .label-open{ display:inline; }
-
-/* ===== MNIST demo toggle ===== */
-#mnist details{ border: 1px solid var(--border); border-radius: 14px; padding: 6px 8px; background: var(--panel); box-shadow: var(--shadow); }
-#mnist summary{ list-style:none; cursor:pointer; font-weight:900; display:inline-flex; align-items:center; gap:8px; }
-#mnist summary::-webkit-details-marker{ display:none; }
-
-
-/* ===== Theming polish ===== */
-.xp-copy h3{ color: var(--ink); }
-.xp-copy .xp-meta{ color: var(--muted); }
-.xp-copy .xp-teaser{ color: var(--muted); }
-.xp-summary{ background: var(--panel); color: var(--ink); border:1px solid var(--border); }
-.px-btn.px-secondary{ background: var(--panel); color: var(--ink); border:1px solid var(--border); }
-.px-btn:hover{ filter: brightness(1.08); }
-/* MNIST toggle alignment */
-#mnist .demo-details{ width:100%; }
-#mnist .demo-details > summary{ display:inline-flex; align-items:center; gap:8px; }
-/* MNIST grid consistent spacing */
-#mnist .mnist{ align-items: stretch; }
-/* Back to highlights placed nicely in dark & light */
-.xp-endbar{ display:flex; justify-content:center; margin:16px 0 0; }
-
-
-/* ===== Experience card equalization ===== */
-.exp-node{ min-height: 124px; }
-.exp-node .exp-head{ margin: 0 0 6px; font-weight: 800; color: var(--ink); }
-.exp-node .exp-meta, .exp-node .exp-teaser{ color: var(--muted); margin: 0; }
-.exp-node > .logo-box{ width: 88px; height: 88px; }
-@media (max-width: 720px){
-  .exp-node{ min-height: 110px; }
-}
-
-
-/* ===== Education with logos ===== */
-.edu-grid .edu-card{ padding: 16px; }
-.edu-flex{ display: grid; grid-template-columns: 160px 1fr; gap: 16px; align-items: center; }
-.edu-logo{
-  width: 160px; height: 110px; border-radius: 14px;
-  display: grid; place-items: center; background: #fff;
-  border: 1px solid rgba(0,0,0,.15); box-shadow: 0 2px 8px rgba(0,0,0,.2) inset;
-  overflow: hidden;
-}
-.edu-logo img{ max-width: 90%; max-height: 90%; object-fit: contain; display: block; }
-.edu-copy h3{ margin: 6px 0; color: var(--ink); }
-.edu-copy .sub{ color: var(--muted); }
-@media (prefers-color-scheme: dark){
-  .edu-logo{ background: #fff; border-color: rgba(255,255,255,.06); }
-}
-@media (max-width: 720px){
-  .edu-flex{ grid-template-columns: 1fr; }
-  .edu-logo{ width: 100%; height: 100px; }
-}
-
-
-/* ===== Section separation for clarity ===== */
-#projects, #experience, #education, #mnist{
-  position: relative;
-  margin-top: 28px;
-}
-#projects::before, #experience::before, #education::before, #mnist::before{
-  content:""; position:absolute; left:0; right:0; top:-18px; height:1px;
-  background: linear-gradient(90deg, transparent, var(--border), transparent);
-  opacity:.9;
-}
-
-
-/* Uniform width for timeline nodes */
-.exp-side-left .exp-node, .exp-side-right .exp-node{ width: min(680px, 44vw); }
-
-
-/* Hide details content when closed (UA safety) */
-#xp-all:not([open]) .xp-all-inner{ display:none; }
-
-
-/* ===== Experience timeline grid (clean, symmetric) ===== */
-.exp-timeline{
-  display: grid;
-  grid-template-columns: minmax(320px,1fr) 48px minmax(320px,1fr);
-  grid-auto-rows: auto;
-  column-gap: 22px;
-  row-gap: 22px;
-  position: relative;
-  padding: 8px 0 12px;
-}
-.exp-timeline::before{
-  content: ""; position:absolute; left: calc(50% - 1px); top: 0; bottom: 0; width: 2px;
-  background: linear-gradient(to bottom, rgba(162,178,255,.28), rgba(162,178,255,.12));
-}
-.exp-side-left{ grid-column: 1; }
-.exp-side-right{ grid-column: 3; }
-.exp-spine{ grid-column: 2; display:flex; align-items:center; justify-content:center; }
-.exp-dot{ width: 12px; height: 12px; border-radius: 50%; background: linear-gradient(180deg,#a6b7ff,#6d86ff); box-shadow: 0 0 8px rgba(120,160,255,.65); }
-
-/* Experience cards (uniform size & layout) */
-.exp-node{
-  display: grid; grid-template-columns: 88px 1fr; gap: 14px;
-  padding: 14px 16px; border-radius: 14px; border: 1px solid var(--border); background: var(--panel);
-  box-shadow: var(--shadow);
-  width: 100%; min-height: 128px;
-}
-.exp-node .logo-box{ width: 88px; height: 88px; border-radius: 14px; display:grid; place-items:center; background:#fff; overflow:hidden; }
-.exp-node .logo-box img{ max-width: 90%; max-height: 90%; object-fit: contain; display:block; }
-.exp-node .exp-head{ margin:0 0 6px; color: var(--ink); font-weight:800; }
-.exp-node .exp-meta,.exp-node .exp-teaser{ margin:0; color: var(--muted); }
-.exp-node .proj-actions{ margin-top: 10px; display:flex; gap:10px; flex-wrap:wrap; }
-@media (prefers-color-scheme: light){
-  .exp-timeline::before{ background: linear-gradient(to bottom, rgba(82,94,185,.25), rgba(82,94,185,.08)); }
-  .exp-node .logo-box{ background:#fff; }
-}
-@media (max-width: 900px){
-  .exp-timeline{ grid-template-columns: 1fr 32px 1fr; }
-}
-
-
-/* ===== MNIST layout alignment ===== */
-#mnist .mnist{
-  display:grid;
-  grid-template-columns: minmax(340px,1fr) 360px;
-  gap: 18px;
-  align-items: stretch;
-}
-@media (max-width: 980px){ #mnist .mnist{ grid-template-columns: 1fr; } }
-#mnist .draw, #mnist .probs{ min-height: 360px; }
-
-
-#xp-all:not([open]) .xp-all-inner{display:none;}
-
-/* Year row spans full width in timeline */
-.exp-timeline .exp-year{
-  grid-column: 1 / 4;
-  text-align: center;
-  margin: 10px 0 6px;
-  color: var(--muted);
-  font-weight: 700;
-}
-
-
-/* Make <summary class="px-btn"> render like pixel buttons */
-summary.px-btn{
-  display: inline-block;
-  list-style: none;
-}
-summary.px-btn::-webkit-details-marker{ display:none; }
-
-
-/* Timeline container max width and center */
-#xp-all .exp-timeline{ max-width: 1120px; margin-inline: auto; }
-#xp-all .exp-timeline .exp-spine{ align-items: flex-start; padding-top: 8px; }
-#xp-all .exp-endbar{ margin-top: 18px; }
-
-
-/* ===== New Experience layout ===== */
-.xp-hi-grid{
-  display:grid; grid-template-columns: repeat(2, minmax(300px,1fr)); gap:18px;
-}
-@media (max-width: 900px){ .xp-hi-grid{ grid-template-columns: 1fr; } }
-
-.xp-card{
-  display:grid; grid-template-columns: 110px 1fr; gap:14px;
-  padding:14px 16px; border:1px solid var(--border); border-radius:14px;
-  background: var(--panel); box-shadow: var(--shadow); text-align:left;
-}
-.xp-logo{ width:110px; height:90px; border-radius:14px; display:grid; place-items:center; background:#fff; overflow:hidden; }
-.xp-logo img{ max-width:90%; max-height:90%; object-fit:contain; display:block; }
-.xp-copy h3{ margin:0 0 6px; color: var(--ink); font-weight:800; }
-.xp-meta,.xp-teaser{ margin:0; color: var(--muted); }
-.xp-card:focus{ outline:2px solid var(--border); }
-
-#xp-history{ margin-top:14px; }
-#xpShowBtn{ margin: 8px 0 14px; }
-#xp-history > summary.px-btn{ list-style:none; }
-#xp-history > summary.px-btn::-webkit-details-marker{ display:none; }
-
-.his-list{ display:grid; grid-template-columns: 1fr; gap:14px; margin-top: 10px; }
-.history-card{
-  display:grid; grid-template-columns: 88px 1fr; gap: 14px;
-  padding:14px 16px; border-radius:14px; border:1px solid var(--border);
-  background: var(--panel); box-shadow: var(--shadow);
-  min-height:132px;
-}
-.history-card .logo-box{ width:88px; height:88px; border-radius:14px; display:grid; place-items:center; background:#fff; overflow:hidden; }
-.history-card .logo-box img{ max-width:90%; max-height:90%; object-fit:contain; display:block; }
-
-.history-card .exp-head{ margin:0 0 6px; color: var(--ink); font-weight:800; }
-.history-card .exp-meta{ margin:0; color: var(--muted); }
-.history-card .exp-desc{ margin:4px 0 0; color: var(--muted); display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
-.history-card .proj-actions{ margin-top:10px; }
-
-/* Hide highlights when full history is open */
-#xp-history[open] ~ .xp-hi-grid, #xp-history[open] + .xp-hi-grid{ display:none; }
-
-
-/* ===== Section separation: consistent rail + glow ===== */
-section.wrap{ margin-top:60px; padding-top:10px; position:relative; }
-section.wrap::before{ content:""; position:absolute; left:0; right:0; top:-24px; height:16px;
-  background: radial-gradient(ellipse at center, color-mix(in oklab, var(--brand) 38%, transparent) 0%, transparent 70%);
-  opacity:.9; filter: blur(12px); pointer-events:none; }
-section.wrap::after{ content:""; position:absolute; left:6%; right:6%; bottom:-16px; height:3px;
-  background: repeating-linear-gradient(90deg, color-mix(in oklab, var(--ink) 22%, transparent) 0 14px, transparent 14px 20px);
-  opacity:.7; pointer-events:none; }
-
-/* ===== Experience: arcade spline timeline (responsive) ===== */
-#experience .xp-toggle-row{ display:flex; align-items:center; gap:10px; margin:10px 0 14px; }
-#experience .xp-toggle-row .btn{ cursor:pointer; }
-
-#experience .his-list{
-  display:grid; grid-template-columns: 1fr 36px 1fr; gap:34px 40px; position:relative; align-items:start; margin-top:12px;
-}
-#experience .his-list::before{
-  content:""; grid-column:2; grid-row:1 / -1; width:4px; justify-self:center; border-radius:20px;
-  background:
-    radial-gradient(closest-side, color-mix(in oklab, var(--brand) 65%, transparent), transparent 70%),
-    repeating-linear-gradient(180deg, color-mix(in oklab, var(--brand) 85%, transparent) 0 18px, transparent 18px 30px);
-  box-shadow: 0 0 12px color-mix(in oklab, var(--brand) 55%, transparent), 0 0 26px color-mix(in oklab, var(--brand) 30%, transparent);
-  pointer-events:none;
-}
-#experience .history-card{ grid-column:1; position:relative; min-height:128px; display:grid; grid-template-columns:88px 1fr; gap:14px; }
-#experience .history-card:nth-of-type(even){ grid-column:3; }
-
-#experience .history-card::before{
-  content:""; position:absolute; top:48px; height:2px; width:42px;
-  background: linear-gradient(90deg, transparent, color-mix(in oklab, var(--brand) 90%, transparent)); opacity:.95;
-}
-#experience .history-card:nth-of-type(odd)::before{ right:-74px; }
-#experience .history-card:nth-of-type(even)::before{ left:-74px; transform:scaleX(-1); }
-
-:root{
-  --ico-lab:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="%23fff" d="M176 0h160v64h-48v64l80 144v176c0 35-29 64-64 64H208c-35 0-64-29-64-64V272l80-144V64h-48V0z"/></svg>');
-  --ico-teach:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path fill="%23fff" d="M592 0H48C21 0 0 21 0 48v288c0 27 21 48 48 48h208v32H176c-18 0-32 14-32 32s14 32 32 32h288c18 0 32-14 32-32s-14-32-32-32H384v-32h208c27 0 48-21 48-48V48c0-27-21-48-48-48z"/></svg>');
-  --ico-gear:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="%23fff" d="M487 315l-42-24c3-17 3-35 0-52l42-24c6-3 9-10 7-17-11-34-30-64-54-88-5-5-12-6-18-3l-42 24c-13-11-28-19-44-24V64c0-7-4-13-11-15-35-11-73-11-108 0-6 2-11 8-11 15v48c-16 5-31 13-44 24l-42-24c-6-3-13-2-18 3-24 24-43 54-54 88-2 7 1 14 7 17l42 24c-3 17-3 35 0 52l-42 24c-6 3-9 10-7 17 11 34 30 64 54 88 5 5 12 6 18 3l42-24c13 11 28 19 44 24v48c0 7 5 13 11 15 35 11 73 11 108 0 7-2 11-"/></svg>');
-  --ico-bank:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="%23fff" d="M288 0L0 96v32h576V96L288 0zM64 448v32h448v-32H64zm32-288v192h64V160H96zm96 0v192h64V160h-64zm96 0v192h64V160h-64zm96 0v192h64V160h-64z"/></svg>');
-  --ico-data:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="%23fff" d="M224 0C100 0 0 36 0 80v48c0 44 100 80 224 80s224-36 224-80V80C448 36 348 0 224 0zM0 208v80c0 44 100 80 224 80s224-36 224-80v-80c-46 34-137 48-224 48S46 242 0 208zm0 160v64c0 44 100 80 224 80s224-36 224-80v-64c-46 34-137 48-224 48s-178-14-224-48z"/></svg>');
-  --ico-people:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path fill="%23fff" d="M96 224c53 0 96-43 96-96S149 32 96 32 0 75 0 128s43 96 96 96zm448 0c53 0 96-43 96-96S597 32 544 32s-96 43-96 96 43 96 96 96zM320 256c-70 0-128 58-128 128v64h256v-64c0-70-58-128-128-128z"/></svg>');
-  --ico-brief:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="%23fff" d="M320 80h-128c-17.7 0-32 14.3-32 32v16H96c-35.3 0-64 28.7-64 64v160c0 35.3 28.7 64 64 64h320c35.3 0 64-28.7 64-64V192c0-35.3-28.7-64-64-64H352v-16c0-17.7-14.3-32-32-32z"/></svg>');
-}
-#experience .history-card::after{
-  content:""; position:absolute; top:36px; width:28px; height:28px; border-radius:50%;
-  background: var(--panel); border:3px solid color-mix(in oklab, var(--brand) 85%, transparent);
-  box-shadow: 0 0 10px color-mix(in oklab, var(--brand) 55%, transparent), 0 0 20px color-mix(in oklab, var(--brand) 30%, transparent);
-  -webkit-mask: var(--ico-brief) no-repeat center / 70%; mask: var(--ico-brief) no-repeat center / 70%;
-}
-#experience .history-card[data-ico="lab"]::after{ -webkit-mask: var(--ico-lab) no-repeat center / 70%; mask: var(--ico-lab) no-repeat center / 70%; }
-#experience .history-card[data-ico="teach"]::after{ -webkit-mask: var(--ico-teach) no-repeat center / 70%; mask: var(--ico-teach) no-repeat center / 70%; }
-#experience .history-card[data-ico="gear"]::after{ -webkit-mask: var(--ico-gear) no-repeat center / 70%; mask: var(--ico-gear) no-repeat center / 70%; }
-#experience .history-card[data-ico="bank"]::after{ -webkit-mask: var(--ico-bank) no-repeat center / 70%; mask: var(--ico-bank) no-repeat center / 70%; }
-#experience .history-card[data-ico="data"]::after{ -webkit-mask: var(--ico-data) no-repeat center / 70%; mask: var(--ico-data) no-repeat center / 70%; }
-#experience .history-card[data-ico="people"]::after{ -webkit-mask: var(--ico-people) no-repeat center / 70%; mask: var(--ico-people) no-repeat center / 70%; }
-#experience .history-card:nth-of-type(odd)::after{ right:-48px; }
-#experience .history-card:nth-of-type(even)::after{ left:-48px; }
-
-/* hide highlights when full history open */
-#experience:has(#xp-history[open]) .xp-hi-grid{ display:none; }
-
-/* mobile */
-@media (max-width: 860px){
-  #experience .his-list{ grid-template-columns: 28px 18px 1fr; gap:20px 18px; }
-  #experience .history-card{ grid-column:3; }
-  #experience .history-card::before{ left:-42px !important; right:auto; transform:none; width:32px; }
-  #experience .history-card::after{ left:-58px !important; right:auto; }
-  #experience .his-list::before{ width:3px; }
-}
-
-/* ===== EXPERIENCE — REMOVE SPLINE / CONNECTORS & USE SIMPLE GRID ===== */
-
-/* Turn the history list into a normal 2-column grid */
-#experience .his-list{
-  /* replace 3-col (left | rail | right) with 2 cols */
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-  gap: 28px 40px;          /* row / column gap */
-  padding-top: 0 !important;
-  padding-bottom: 0 !important;
-  position: relative;
-}
-
-/* Hide the rail (both glow and line) */
-#experience .his-list::before,
-#experience .his-list::after{
-  display: none !important;
-  content: none !important;
-}
-
-/* Let cards flow naturally; remove left/right placement rules */
-#experience .history-card{
-  grid-column: auto !important;
-  position: relative;
-  z-index: 1;
-}
-
-/* Remove whiskers and node icons */
-#experience .history-card::before,
-#experience .history-card::after{
-  display: none !important;
-  content: none !important;
-}
-
-/* Mobile: single column */
-@media (max-width: 860px){
-  #experience .his-list{
-    grid-template-columns: 1fr !important;
-    gap: 20px !important;
-  }
-}
-
 </style>
 </head>
 
@@ -1882,8 +1472,8 @@ section.wrap::after{ content:""; position:absolute; left:6%; right:6%; bottom:-1
             <nav class="nav-links" aria-label="Primary">
                 <a class="px-btn" data-mag="1" href="#home">HOME</a>
                 <a class="px-btn" data-mag="1" href="#skills">SKILLS</a>
-                <a class="px-btn" data-mag="1" href="#projects">PROJECTS</a>
                 <a class="px-btn" data-mag="1" href="#experience">EXP</a>
+                <a class="px-btn" data-mag="1" href="#projects">PROJECTS</a>
                 <label class="switch" title="Light / Dark">
                     <input type="checkbox" id="themeToggle">
                     <span class="slider"> </span>
@@ -1959,56 +1549,39 @@ section.wrap::after{ content:""; position:absolute; left:6%; right:6%; bottom:-1
         </section>
 
         <!-- ========= EDUCATION ========= -->
-        
-<section class="wrap" id="education">
-  <h2 class="section-title">Education</h2>
-  <div class="grid edu-grid">
-    <!-- UF -->
-    <article class="card reveal edu-card">
-      <div class="edu-flex">
-        <div class="edu-logo"><img src="assets/logo/UF.png" alt="University of Florida"></div>
-        <div class="edu-copy">
-          <span class="tag">PhD</span><span class="tag">Dependable Systems</span>
-          <h3>The University of Florida — PhD in Computer Science</h3>
-          <p class="sub">Aug 2025 – Present • Advisor: Prof. Guanpeng Li • Focus: dependable HPC, fault tolerance,
-            GNN, DBN, SDC modeling, LLVM, Fault Injection.</p>
-          <span class="chip3d">Current</span>
-        </div>
-      </div>
-    </article>
+        <section class="wrap" id="education">
+            <h2 class="section-title">Education</h2>
+            <!-- <p class="sub">Highlights from my CV.</p> -->
+            <div class="grid">
+                <article class="card reveal">
+                    <span class="tag">PhD</span><span class="tag">Dependable Systems</span>
+                    <h3>The University of Florida — PhD in Computer Science</h3>
+                    <p class="sub">Aug 2025 – Present • Advisor: Prof. Guanpeng Li • Focus: dependable HPC, fault
+                        tolerance,
+                        GNN, DBN , SDC modeling, LLVM, Fault Injection.</p>
+                    <span class="chip3d">Current</span>
+                </article>
 
-    <!-- UIowa -->
-    <article class="card reveal edu-card">
-      <div class="edu-flex">
-        <div class="edu-logo"><img src="assets/logo/UIOWA.png" alt="University of Iowa"></div>
-        <div class="edu-copy">
-          <span class="tag">PhD</span><span class="tag">Dependable Systems</span>
-          <h3>The University of Iowa — PhD in Computer Science</h3>
-          <p class="sub">Aug 2024 – 2025 • Advisor: Prof. Guanpeng Li • Focus: dependable HPC, fault
-            tolerance, LLVM-based fault injection & SDC modeling.</p>
-          <span class="chip3d">Transferred</span>
-          <span class="chip3d">CGPA 4.0</span>
-        </div>
-      </div>
-    </article>
-
-    <!-- LUMS -->
-    <article class="card reveal edu-card">
-      <div class="edu-flex">
-        <div class="edu-logo"><img src="assets/logo/LUMS.png" alt="LUMS"></div>
-        <div class="edu-copy">
-          <span class="tag">BSc</span><span class="tag">Distinction</span>
-          <h3>LUMS — BSc Computer Science</h3>
-          <p class="sub">2019 – 2023 • CGPA 3.78 • Dean’s Honor List (2019–2022). Core: ML, DL, AI, Speech,
-            Data Mining, HCI, Security, SE, Automata, NCC.</p>
-          <span class="chip3d">Honors</span>
-          <span class="chip3d">CGPA 3.78</span>
-        </div>
-      </div>
-    </article>
-  </div>
-</section>
-
+                <article class="card reveal">
+                    <span class="tag">PhD</span><span class="tag">Dependable Systems</span>
+                    <h3>The University of Iowa — PhD in Computer Science</h3>
+                    <p class="sub">Aug 2024 – 2025 • Advisor: Prof. Guanpeng Li • Focus: dependable HPC, fault
+                        tolerance,
+                        LLVM-based fault injection & SDC modeling.</p>
+                    <span class="chip3d">Transfered</span>
+                    <span class="chip3d">CGPA 4.0</span>
+                </article>
+                <article class="card reveal">
+                    <span class="tag">BSc</span><span class="tag">Distinction</span>
+                    <h3>LUMS — BSc Computer Science</h3>
+                    <p class="sub">2019 – 2023 • CGPA 3.78 • Dean’s Honor List (2019–2022). Core: ML, DL, AI, Speech,
+                        Data Mining,
+                        HCI, Security, SE, Automata, NCC.</p>
+                    <span class="chip3d">Honors</span>
+                    <span class="chip3d">CGPA 3.78</span>
+                </article>
+            </div>
+        </section>
 
         <!-- ========= SKILLS ========= -->
         <section id="skills" class="wrap">
@@ -2074,7 +1647,195 @@ section.wrap::after{ content:""; position:absolute; left:6%; right:6%; bottom:-1
         <!-- ========= EXPERIENCE ========= -->
 
 
-        
+        <section id="experience" class="wrap">
+<h2 class="section-title">Experience</h2>
+<p class="sub">Click any entry for full details.</p>
+<div class="exp-timeline">
+<div class="exp-year">2025 — present</div>
+
+    <div class="exp-side-left">
+      <div class="exp-node" data-title="Graduate Research Assistant — University of Florida" data-sub="Aug 2025 – Present · Part-time · Gainesville, FL" data-body='<p>Research on dependable ML/HPC; fault tolerance and error resilience for HPC workloads.</p>'>
+        <div class="logo-box"><img src="assets/logo/UF.png" alt=""></div>
+        <div>
+          <h3 class="exp-head">Graduate Research Assistant — University of Florida</h3>
+          <p class="exp-meta">Aug 2025 – Present · Part-time · Gainesville, FL</p>
+          <p class="exp-teaser">Dependable ML/HPC · fault tolerance · error resilience</p>
+        </div>
+      </div>
+    </div>
+    <div class="exp-spine"><span class="exp-dot"></span></div>
+    
+<div class="exp-year">2025 (full-time)</div>
+
+    <div class="exp-side-right">
+      <div class="exp-node" data-title="Research Assistant — Dependable Systems Lab, University of Iowa" data-sub="Jun 2025 – Aug 2025 · Full-time · Iowa City, IA" data-body='<p>LLVM/runtime tools for instruction-level resilience analysis; fault detection in HPC workloads.</p>'>
+        <div class="logo-box"><img src="assets/logo/UIOWA.png" alt=""></div>
+        <div>
+          <h3 class="exp-head">Research Assistant — Dependable Systems Lab, University of Iowa</h3>
+          <p class="exp-meta">Jun 2025 – Aug 2025 · Full-time · Iowa City, IA</p>
+          <p class="exp-teaser">LLVM/runtime tools · instruction-level resilience · HPC fault detection</p>
+        </div>
+      </div>
+    </div>
+    <div class="exp-spine"><span class="exp-dot"></span></div>
+    
+<div class="exp-year">2025 (part-time)</div>
+
+    <div class="exp-side-left">
+      <div class="exp-node" data-title="Research Assistant — Dependable Systems Lab, University of Iowa" data-sub="Jan 2025 – May 2025 · Part-time · Iowa City, IA" data-body='<p>Resilience tooling and analyses; supported experiments for dependable systems research.</p>'>
+        <div class="logo-box"><img src="assets/logo/UIOWA.png" alt=""></div>
+        <div>
+          <h3 class="exp-head">Research Assistant — Dependable Systems Lab, University of Iowa</h3>
+          <p class="exp-meta">Jan 2025 – May 2025 · Part-time · Iowa City, IA</p>
+          <p class="exp-teaser">Resilience tooling & analyses · experiments support</p>
+        </div>
+      </div>
+    </div>
+    <div class="exp-spine"><span class="exp-dot"></span></div>
+    
+<div class="exp-year">2024</div>
+
+    <div class="exp-side-right">
+      <div class="exp-node" data-title="Teaching Assistant — Artificial Intelligence, University of Iowa" data-sub="Aug 2024 – December 2024" data-body='<p>Supported 30+ students with office hours, grading, and learning outcomes for AI coursework.</p>'>
+        <div class="logo-box"><img src="assets/logo/UIOWA.png" alt=""></div>
+        <div>
+          <h3 class="exp-head">Teaching Assistant — Artificial Intelligence, University of Iowa</h3>
+          <p class="exp-meta">Aug 2024 – December 2024</p>
+          <p class="exp-teaser">Office hours · grading · AI coursework support</p>
+        </div>
+      </div>
+    </div>
+    <div class="exp-spine"><span class="exp-dot"></span></div>
+    
+<div class="exp-year">2023 — 2024</div>
+
+    <div class="exp-side-left">
+      <div class="exp-node" data-title="Research Assistant — DebloatBench (SRI • UArizona • LUMS)" data-sub="Aug 2023 – Aug 2024" data-body='<p>A research project in collaboration with Dr. Sazzadur Rehman (University of Arizona), Dr. Ashish Gehani (SRI), and Dr. Fareed Zaffar (LUMS). The project provides a unified framework to evaluate a diverse set of container debloaters that can handle the diversity of design and execution environments for container debloating.</p>'>
+        <div class="logo-box"><img src="assets/logo/LUMS.png" alt=""></div>
+        <div>
+          <h3 class="exp-head">Research Assistant — DebloatBench (SRI • UArizona • LUMS)</h3>
+          <p class="exp-meta">Aug 2023 – Aug 2024</p>
+          <p class="exp-teaser">Unified framework to evaluate container debloaters</p>
+        </div>
+      </div>
+    </div>
+    <div class="exp-spine"><span class="exp-dot"></span></div>
+    
+
+    <div class="exp-side-right">
+      <div class="exp-node" data-title="Associate Consultant — AI, Systems Limited" data-sub="Jun 2023 – Jul 2024" data-body='<p><strong>ML & LLM Solutions for Global Organizations:</strong><br>
+          • Collaborated with Microsoft to develop LLM solutions using Azure Cloud services.<br>
+          • Implemented solutions with Azure Cognitive Services, Omni Channel, RAG architecture, Databricks, and DataRobot.<br>
+          • Fine-tuned models using PEFT and LoRA techniques for optimal performance.<br>
+          • Applied multiclass classification and clustering for tailored ML solutions, integrating latest research advancements.<br><br>
+          <strong>LLM Training Sessions for Professionals:</strong><br>
+          • Conducted comprehensive training on LLMs, covering Transformer architecture and RAG.<br>
+          • Designed and facilitated quizzes, labs, and final projects at Systems Limited.<br>
+          • Delivered practical, industry-focused courses emphasizing NLP basics and fine-tuning techniques.</p>'>
+        <div class="logo-box"><img src="assets/logo/SYSTEMS.png" alt=""></div>
+        <div>
+          <h3 class="exp-head">Associate Consultant — AI, Systems Limited</h3>
+          <p class="exp-meta">Jun 2023 – Jul 2024</p>
+          <p class="exp-teaser">Azure + RAG/PEFT · training programs</p>
+        </div>
+      </div>
+    </div>
+    <div class="exp-spine"><span class="exp-dot"></span></div>
+    
+<div class="exp-year">2022 — 2023</div>
+
+    <div class="exp-side-left">
+      <div class="exp-node" data-title="Research Assistant — ISPL, LUMS" data-sub="Aug 2022 – Aug 2023" data-body='<p><strong>Fraud Detection</strong> — project with Clariba SEIDOR using ML techniques to reduce security risks in financial transactions.<br>
+          • Ensemble learning, data preprocessing, and SMOTE for class imbalance.<br>
+          • Literature review, EDA, and comparison of classification & clustering methods.<br>
+          • Integrated Snowflake and Dataiku for scalable ML development and assessment.<br>
+          • Tackled class imbalance and memory constraints.</p>'>
+        <div class="logo-box"><img src="assets/logo/LUMS.png" alt=""></div>
+        <div>
+          <h3 class="exp-head">Research Assistant — ISPL, LUMS</h3>
+          <p class="exp-meta">Aug 2022 – Aug 2023</p>
+          <p class="exp-teaser">Credit-card fraud detection · ML pipelines</p>
+        </div>
+      </div>
+    </div>
+    <div class="exp-spine"><span class="exp-dot"></span></div>
+    
+<div class="exp-year">2022</div>
+
+    <div class="exp-side-right">
+      <div class="exp-node" data-title="Data Analysis Intern — VentureDive" data-sub="Jul 2022 – Oct 2022" data-body='<p><strong>GeoSpatial Data Processing</strong><br>
+          • Used Selenium to collect constituency data in Pakistan.<br>
+          • Processed and formatted data for analysis & visualization.<br><br>
+          <strong>Interactive Webpage Development</strong><br>
+          • Built an interactive webpage (Python, Flask, HTML).<br>
+          • Integrated GeoJSON for exploration and visualization; zoom/pan/query UX.</p>'>
+        <div class="logo-box"><img src="assets/logo/LUMS.png" alt=""></div>
+        <div>
+          <h3 class="exp-head">Data Analysis Intern — VentureDive</h3>
+          <p class="exp-meta">Jul 2022 – Oct 2022</p>
+          <p class="exp-teaser">GeoSpatial data · Flask web app · GeoJSON</p>
+        </div>
+      </div>
+    </div>
+    <div class="exp-spine"><span class="exp-dot"></span></div>
+    
+
+    <div class="exp-side-left">
+      <div class="exp-node" data-title="Branch Banking Intern — Habib Bank Limited" data-sub="Jun 2022 – Jul 2022" data-body='<p>ML for employee-effectiveness metrics; campaign operations & performance analytics.</p>'>
+        <div class="logo-box"><img src="assets/logo/HBL.png" alt=""></div>
+        <div>
+          <h3 class="exp-head">Branch Banking Intern — Habib Bank Limited</h3>
+          <p class="exp-meta">Jun 2022 – Jul 2022</p>
+          <p class="exp-teaser">Employee-effectiveness metrics · campaign analytics</p>
+        </div>
+      </div>
+    </div>
+    <div class="exp-spine"><span class="exp-dot"></span></div>
+    
+<div class="exp-year">2021 — 2023</div>
+
+    <div class="exp-side-right">
+      <div class="exp-node" data-title="Peer Advisor — LUMS" data-sub="Aug 2021 – Jun 2023" data-body='<p>Mentored ~30 students on course/major planning and academic progress.</p>'>
+        <div class="logo-box"><img src="assets/logo/LUMS.png" alt=""></div>
+        <div>
+          <h3 class="exp-head">Peer Advisor — LUMS</h3>
+          <p class="exp-meta">Aug 2021 – Jun 2023</p>
+          <p class="exp-teaser">Mentored ~30 students · academic planning</p>
+        </div>
+      </div>
+    </div>
+    <div class="exp-spine"><span class="exp-dot"></span></div>
+    
+<div class="exp-year">2021 — 2022</div>
+
+    <div class="exp-side-left">
+      <div class="exp-node" data-title="Teaching Assistant — Computational Problem Solving, LUMS" data-sub="Aug 2021 – Dec 2022" data-body='<p>Led tutorials for 100+ students; authored quizzes/exams; grading & office hours.</p>'>
+        <div class="logo-box"><img src="assets/logo/LUMS.png" alt=""></div>
+        <div>
+          <h3 class="exp-head">Teaching Assistant — Computational Problem Solving, LUMS</h3>
+          <p class="exp-meta">Aug 2021 – Dec 2022</p>
+          <p class="exp-teaser">Tutorials for 100+ students · assessments</p>
+        </div>
+      </div>
+    </div>
+    <div class="exp-spine"><span class="exp-dot"></span></div>
+    
+<div class="exp-year">2021</div>
+
+    <div class="exp-side-right">
+      <div class="exp-node" data-title="Data Science Intern — JS Bank" data-sub="Jun 2021 – Aug 2021" data-body='<p>Executed daily SQL queries to optimize the ETL process; leveraged customer data for predictive models; translated insights into strategies across departments.</p>'>
+        <div class="logo-box"><img src="assets/logo/JSBANK.png" alt=""></div>
+        <div>
+          <h3 class="exp-head">Data Science Intern — JS Bank</h3>
+          <p class="exp-meta">Jun 2021 – Aug 2021</p>
+          <p class="exp-teaser">ETL optimization · SQL · predictive analytics</p>
+        </div>
+      </div>
+    </div>
+    <div class="exp-spine"><span class="exp-dot"></span></div>
+    
+</div>
+</section>
 
 
 
@@ -2315,241 +2076,12 @@ section.wrap::after{ content:""; position:absolute; left:6%; right:6%; bottom:-1
         </section>
 
 
-<section class="wrap" id="experience">
-  <h2 class="section-title">Experience</h2>
-
-  <!-- HIGHLIGHTS (4) -->
-  <div class="xp-hi-grid">
-    <!-- UF GRA -->
-    <button class="xp-card"
-      data-title="Graduate Research Assistant — University of Florida"
-      data-sub="Aug 2025 – Present · Gainesville, FL"
-      data-body="<ul><li>Dependable ML/HPC; fault tolerance &amp; error resilience.</li><li>Paper under review; instrumentation &amp; analysis.</li></ul>">
-      <div class="xp-logo"><img src="assets/logo/UF.png" alt="University of Florida"></div>
-      <div class="xp-copy">
-        <h3>University of Florida · <span>Graduate Research Assistant</span></h3>
-        <p class="xp-meta">Aug 2025 – Present</p>
-        <p class="xp-teaser">HPC resilience · LLFI/LLVM · paper under review</p>
-      </div>
-    </button>
-
-    <!-- Systems Limited -->
-    <button class="xp-card"
-      data-title="Associate Consultant (AI) — Systems Limited"
-      data-sub="Jun 2023 – Jul 2024"
-      data-body="<p><strong>ML &amp; LLM</strong> (Azure, RAG, PEFT/LoRA) · client delivery &amp; enablement; training sessions &amp; labs.</p>">
-      <div class="xp-logo"><img src="assets/logo/SYSTEMS.png" alt="Systems Limited"></div>
-      <div class="xp-copy">
-        <h3>Systems Limited · <span>Associate Consultant (AI)</span></h3>
-        <p class="xp-meta">Jun 2023 – Jul 2024</p>
-        <p class="xp-teaser">RAG/PEFT on Azure · Delivery &amp; enablement</p>
-      </div>
-    </button>
-
-    <!-- HBL -->
-    <button class="xp-card"
-      data-title="Branch Banking Intern — Habib Bank Limited"
-      data-sub="Jun 2022 – Jul 2022"
-      data-body="<p>Employee effectiveness metrics · campaign operations &amp; analytics.</p>">
-      <div class="xp-logo"><img src="assets/logo/HBL.png" alt="HBL"></div>
-      <div class="xp-copy">
-        <h3>Habib Bank Limited · <span>Branch Banking Intern</span></h3>
-        <p class="xp-meta">Jun 2022 – Jul 2022</p>
-        <p class="xp-teaser">Employee metrics · campaign analytics</p>
-      </div>
-    </button>
-
-    <!-- VentureDive -->
-    <button class="xp-card"
-      data-title="Data Analysis Intern — VentureDive"
-      data-sub="Jul 2022 – Oct 2022"
-      data-body="<p><strong>GeoSpatial</strong>: Selenium scraping &amp; GeoJSON pipeline. <strong>Web</strong>: Flask map explorer.</p>">
-      <div class="xp-logo"><img src="assets/logo/LUMS.png" alt="VentureDive"></div>
-      <div class="xp-copy">
-        <h3>VentureDive · <span>Data Analysis Intern</span></h3>
-        <p class="xp-meta">Jul 2022 – Oct 2022</p>
-        <p class="xp-teaser">GeoSpatial data · Flask · GeoJSON</p>
-      </div>
-    </button>
-  </div>
-
-  <!-- FULL HISTORY -->
-  <details id="xp-history">
-    <summary class="px-btn px-mini more-toggle" id="xpShowBtn">Show full experience history</summary>
-
-    <div class="his-list">
-      <!-- NOTE: Reverse-chronological (newest → oldest) -->
-
-      <!-- 2025 — UF GRA -->
-      <article data-ico="lab" class="history-card" data-title="Graduate Research Assistant — University of Florida"
-        data-sub="Aug 2025 – Present · Gainesville, FL"
-        data-body="<ul><li>Dependable ML/HPC; FT &amp; resilience for HPC workloads.</li><li>LLFI/LLVM; paper under review.</li></ul>">
-        <div class="logo-box"><img src="assets/logo/UF.png" alt="UF"></div>
-        <div class="copy">
-          <h3 class="exp-head">Graduate Research Assistant — University of Florida</h3>
-          <p class="exp-meta">Aug 2025 – Present · Part-time</p>
-          <p class="exp-desc">HPC resilience · LLFI/LLVM · paper under review</p>
-          <div class="proj-actions"><button class="px-btn px-mini more-toggle" type="button">More</button></div>
-        </div>
-      </article>
-
-      <!-- 2025 — Iowa RA (full-time) -->
-      <article data-ico="lab" class="history-card" data-title="Research Assistant — Dependable Systems Lab, University of Iowa"
-        data-sub="Jun 2025 – Aug 2025 · Full-time · Iowa City, IA"
-        data-body="LLVM/runtime tools for instruction-level resilience analysis; fault detection in HPC workloads.">
-        <div class="logo-box"><img src="assets/logo/UIOWA.png" alt="Iowa"></div>
-        <div class="copy">
-          <h3 class="exp-head">Research Assistant — Dependable Systems Lab, University of Iowa</h3>
-          <p class="exp-meta">Jun 2025 – Aug 2025 · Full-time</p>
-          <p class="exp-desc">LLVM/runtime tools · instruction-level resilience · HPC fault detection</p>
-          <div class="proj-actions"><button class="px-btn px-mini more-toggle" type="button">More</button></div>
-        </div>
-      </article>
-
-      <!-- 2025 — Iowa RA (part-time) -->
-      <article data-ico="lab" class="history-card" data-title="Research Assistant — Dependable Systems Lab, University of Iowa"
-        data-sub="Jan 2025 – May 2025 · Part-time · Iowa City, IA"
-        data-body="Resilience tooling &amp; analyses; experiments support.">
-        <div class="logo-box"><img src="assets/logo/UIOWA.png" alt="Iowa"></div>
-        <div class="copy">
-          <h3 class="exp-head">Research Assistant — Dependable Systems Lab, University of Iowa</h3>
-          <p class="exp-meta">Jan 2025 – May 2025 · Part-time</p>
-          <p class="exp-desc">Resilience tooling &amp; analyses · experiments support</p>
-          <div class="proj-actions"><button class="px-btn px-mini more-toggle" type="button">More</button></div>
-        </div>
-      </article>
-
-      <!-- 2024 — TA AI -->
-      <article data-ico="teach" class="history-card" data-title="Teaching Assistant — Artificial Intelligence, University of Iowa"
-        data-sub="Aug 2024 – Dec 2024"
-        data-body="Teaching, autograder; +8% course average.">
-        <div class="logo-box"><img src="assets/logo/UIOWA.png" alt="UIowa"></div>
-        <div class="copy">
-          <h3 class="exp-head">Teaching Assistant — Artificial Intelligence, University of Iowa</h3>
-          <p class="exp-meta">Aug 2024 – Dec 2024</p>
-          <p class="exp-desc">Teaching · autograder · +8% avg</p>
-          <div class="proj-actions"><button class="px-btn px-mini more-toggle" type="button">More</button></div>
-        </div>
-      </article>
-
-      <!-- 2023–2024 — DebloatBench RA -->
-      <article data-ico="lab" class="history-card" data-title="Research Assistant — DebloatBench (SRI • UArizona • LUMS)"
-        data-sub="Aug 2023 – Aug 2024"
-        data-body="Unified framework to evaluate container debloaters across diverse environments; collaboration with SRI &amp; UArizona.">
-        <div class="logo-box"><img src="assets/logo/LUMS.png" alt="DebloatBench"></div>
-        <div class="copy">
-          <h3 class="exp-head">Research Assistant — DebloatBench (SRI • UArizona • LUMS)</h3>
-          <p class="exp-meta">Aug 2023 – Aug 2024</p>
-          <p class="exp-desc">Container debloating evaluation · cross-env framework</p>
-          <div class="proj-actions"><button class="px-btn px-mini more-toggle" type="button">More</button></div>
-        </div>
-      </article>
-
-      <!-- 2023–2024 — Systems Limited -->
-      <article data-ico="gear" class="history-card" data-title="Associate Consultant — AI, Systems Limited"
-        data-sub="Jun 2023 – Jul 2024"
-        data-body="<ul><li>LLM solutions on Azure (Cognitive Services, RAG, Databricks) · PEFT/LoRA tuning.</li><li>Designed &amp; delivered LLM training (Transformers, RAG, NLP basics).</li></ul>">
-        <div class="logo-box"><img src="assets/logo/SYSTEMS.png" alt="Systems"></div>
-        <div class="copy">
-          <h3 class="exp-head">Associate Consultant — AI, Systems Limited</h3>
-          <p class="exp-meta">Jun 2023 – Jul 2024</p>
-          <p class="exp-desc">LLM/RAG on Azure · PEFT/LoRA · training sessions</p>
-          <div class="proj-actions"><button class="px-btn px-mini more-toggle" type="button">More</button></div>
-        </div>
-      </article>
-
-      <!-- 2022–2023 — ISPL RA -->
-      <article data-ico="lab" class="history-card" data-title="Research Assistant — ISPL, LUMS"
-        data-sub="Aug 2022 – Aug 2023"
-        data-body="<ul><li>Fraud detection: ensemble methods, SMOTE, preprocessing.</li><li>Snowflake &amp; Dataiku pipelines; literature and EDA.</li></ul>">
-        <div class="logo-box"><img src="assets/logo/LUMS.png" alt="LUMS"></div>
-        <div class="copy">
-          <h3 class="exp-head">Research Assistant — ISPL, LUMS</h3>
-          <p class="exp-meta">Aug 2022 – Aug 2023</p>
-          <p class="exp-desc">Fraud detection · ensemble · Snowflake/Dataiku</p>
-          <div class="proj-actions"><button class="px-btn px-mini more-toggle" type="button">More</button></div>
-        </div>
-      </article>
-
-      <!-- 2022 — VentureDive -->
-      <article data-ico="data" class="history-card" data-title="Data Analysis Intern — VentureDive"
-        data-sub="Jul 2022 – Oct 2022"
-        data-body="Selenium scraping · GeoJSON · Flask-based map explorer.">
-        <div class="logo-box"><img src="assets/logo/LUMS.png" alt="VentureDive"></div>
-        <div class="copy">
-          <h3 class="exp-head">Data Analysis Intern — VentureDive</h3>
-          <p class="exp-meta">Jul 2022 – Oct 2022</p>
-          <p class="exp-desc">GeoSpatial data · Flask · GeoJSON</p>
-          <div class="proj-actions"><button class="px-btn px-mini more-toggle" type="button">More</button></div>
-        </div>
-      </article>
-
-      <!-- 2022 — HBL -->
-      <article data-ico="bank" class="history-card" data-title="Branch Banking Intern — Habib Bank Limited"
-        data-sub="Jun 2022 – Jul 2022"
-        data-body="Employee-effectiveness metrics; campaign operations &amp; analytics.">
-        <div class="logo-box"><img src="assets/logo/HBL.png" alt="HBL"></div>
-        <div class="copy">
-          <h3 class="exp-head">Branch Banking Intern — Habib Bank Limited</h3>
-          <p class="exp-meta">Jun 2022 – Jul 2022</p>
-          <p class="exp-desc">Employee metrics · campaign analytics</p>
-          <div class="proj-actions"><button class="px-btn px-mini more-toggle" type="button">More</button></div>
-        </div>
-      </article>
-
-      <!-- 2021–2023 — Peer Advisor -->
-      <article data-ico="people" class="history-card" data-title="Peer Advisor — LUMS"
-        data-sub="Aug 2021 – Jun 2023"
-        data-body="Mentored ~30 students on course planning and academic progress.">
-        <div class="logo-box"><img src="assets/logo/LUMS.png" alt="LUMS"></div>
-        <div class="copy">
-          <h3 class="exp-head">Peer Advisor — LUMS</h3>
-          <p class="exp-meta">Aug 2021 – Jun 2023</p>
-          <p class="exp-desc">Mentoring · course planning · progress tracking</p>
-          <div class="proj-actions"><button class="px-btn px-mini more-toggle" type="button">More</button></div>
-        </div>
-      </article>
-
-      <!-- 2021–2022 — TA CPS -->
-      <article data-ico="teach" class="history-card" data-title="Teaching Assistant — Computational Problem Solving, LUMS"
-        data-sub="Aug 2021 – Dec 2022"
-        data-body="Led tutorials for 100+ students; authored quizzes/exams; grading &amp; office hours.">
-        <div class="logo-box"><img src="assets/logo/LUMS.png" alt="LUMS"></div>
-        <div class="copy">
-          <h3 class="exp-head">Teaching Assistant — Computational Problem Solving, LUMS</h3>
-          <p class="exp-meta">Aug 2021 – Dec 2022</p>
-          <p class="exp-desc">Tutorials · assessments · office hours</p>
-          <div class="proj-actions"><button class="px-btn px-mini more-toggle" type="button">More</button></div>
-        </div>
-      </article>
-
-      <!-- 2021 — JS Bank -->
-      <article data-ico="data" class="history-card" data-title="Data Science Intern — JS Bank"
-        data-sub="Jun 2021 – Aug 2021"
-        data-body="ETL optimization; SQL; predictive analytics.">
-        <div class="logo-box"><img src="assets/logo/JSBANK.png" alt="JS Bank"></div>
-        <div class="copy">
-          <h3 class="exp-head">Data Science Intern — JS Bank</h3>
-          <p class="exp-meta">Jun 2021 – Aug 2021</p>
-          <p class="exp-desc">ETL optimization · SQL · predictive analytics</p>
-          <div class="proj-actions"><button class="px-btn px-mini more-toggle" type="button">More</button></div>
-        </div>
-      </article>
-    </div>
-
-    <div class="xp-endbar"><button class="px-btn px-mini more-toggle" id="xpBackBtn" type="button">◂ Back to highlights</button></div>
-  </details>
-</section>
-
-
-
-
 
         <!-- ========= MNIST STYLE DEMO ========= -->
         <section id="mnist" class="wrap">
             <h2 class="section-title">Draw-a-Digit (0–9)</h2>
-            <details class="demo-details">
-                <summary class="px-btn px-mini more-toggle" class="px-btn px-secondary">▼ Try the in-browser demo</summary>
+            <details open>
+                <summary style="cursor:pointer">Try the in-browser demo</summary>
                 <p class="sub">Draw below and hit Predict.</p>
                 <div class="mnist">
                     <div class="draw">
@@ -2875,8 +2407,8 @@ section.wrap::after{ content:""; position:absolute; left:6%; right:6%; bottom:-1
     <nav class="dock" aria-label="Quick navigation">
         <a class="px-btn" href="#home">HOME</a>
         <a class="px-btn" href="#skills">SKILLS</a>
-        <a class="px-btn" href="#projects">PROJECTS</a>
         <a class="px-btn" href="#experience">EXP</a>
+        <a class="px-btn" href="#projects">PROJECTS</a>
         <a class="px-btn" href="#mnist">DIGIT</a>
     </nav>
 
@@ -3484,203 +3016,6 @@ section.wrap::after{ content:""; position:absolute; left:6%; right:6%; bottom:-1
   });
 })();
 </script>
-
-
-<script>
-(function(){
-  document.querySelectorAll('.xp-card').forEach(card => {
-    card.addEventListener('click', () => {
-      window.__openModal?.({
-        title: card.dataset.title || 'Experience',
-        sub:   card.dataset.sub   || '',
-        html:  card.dataset.body  || ''
-      });
-    });
-  });
-})();
-</script>
-
-
-<script>
-(function(){
-  const details = document.getElementById('xp-all');
-  const hi = document.querySelector('.xp-hi-grid');
-  if (!details || !hi) return;
-  function sync(){
-    if (details.open) { hi.style.display = 'none'; details.scrollIntoView({behavior:'smooth', block:'start'}); }
-    else { hi.style.display = ''; }
-  }
-  details.addEventListener('toggle', sync);
-  // initialize
-  sync();
-})();
-</script>
-
-
-<script>(function(){document.querySelectorAll('.exp-node').forEach(n=>{n.addEventListener('click',()=>{window.__openModal?.({title:n.dataset.title||'Experience',sub:n.dataset.sub||'',html:n.dataset.body||''});});});})();</script>
-
-
-<script>
-(function(){
-  // Back to highlights
-  const backBtn = document.getElementById('xpBackBtn');
-  const details = document.getElementById('xp-all');
-  const hi = document.querySelector('.xp-hi-grid');
-  if (backBtn && details && hi){
-    backBtn.addEventListener('click', () => { details.open = false; hi.style.display=''; details.scrollIntoView({behavior:'smooth', block:'start'}); });
-  }
-})();
-</script>
-
-
-<script>
-// Insert pixel 'More' buttons into Experience cards and wire to modal (same behavior as Projects)
-(function(){
-  document.querySelectorAll('.exp-node').forEach(node => {
-    if (!node.querySelector('.more-toggle')){
-      const actions = document.createElement('div');
-      actions.className = 'proj-actions';
-      const btn = document.createElement('button');
-      btn.className = 'px-btn px-mini more-toggle';
-      btn.type = 'button';
-      btn.textContent = 'More';
-      actions.appendChild(btn);
-      node.appendChild(actions);
-    }
-  });
-  document.querySelectorAll('.exp-node .more-toggle').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault(); e.stopPropagation();
-      const node = btn.closest('.exp-node');
-      if (!node) return;
-      window.__openModal?.({
-        title: node.dataset.title || 'Experience',
-        sub:   node.dataset.sub   || '',
-        html:  node.dataset.body  || ''
-      });
-    }, {capture:true});
-  });
-})();
-</script>
-
-
-
-
-
-<script>
-// Allow only the pixel 'More' buttons to open; ignore random card clicks
-(function(){
-  document.querySelectorAll('.exp-node').forEach(n => {
-    n.addEventListener('click', (e) => {
-      if (!e.target.closest('.more-toggle')){
-        // swallow stray clicks on the card so the old handler doesn't fire
-        e.stopPropagation();
-        e.preventDefault();
-      }
-    }, true);
-  });
-})();
-</script>
-
-
-<script>
-(function(){
-  // Highlight cards: click opens modal using dataset fields
-  document.querySelectorAll('#experience .xp-card').forEach(card => {
-    card.addEventListener('click', () => {
-      window.__openModal?.({ title: card.dataset.title||'Experience', sub: card.dataset.sub||'', html: card.dataset.body||'' });
-    });
-  });
-
-  // History "More" buttons
-  document.querySelectorAll('#experience .history-card .more-toggle').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault(); e.stopPropagation();
-      const card = btn.closest('.history-card');
-      window.__openModal?.({ title: card.dataset.title||'Experience', sub: card.dataset.sub||'', html: card.dataset.body||'' });
-    });
-  });
-
-  // Back to highlights
-  const back = document.getElementById('xpBackBtn');
-  const details = document.getElementById('xp-history');
-  if (back && details){
-    back.addEventListener('click', () => { details.open = false; details.scrollIntoView({behavior:'smooth', block:'start'}); });
-  }
-})();
-</script>
-
-
-<script>
-(()=>{
-  const details = document.getElementById('xp-history');
-  const hi = document.querySelector('#experience .xp-hi-grid');
-  const toggleRow = document.querySelector('#experience .xp-toggle-row');
-  if(details){
-    const sync = ()=>{
-      if(details.open){
-        if(hi) hi.style.display='none';
-        if(toggleRow) toggleRow.style.display='none';
-      }else{
-        if(hi) hi.style.display='';
-        if(toggleRow) toggleRow.style.display='flex';
-      }
-    };
-    details.addEventListener('toggle', sync); sync();
-  }
-  // Ensure "More" inside timeline opens the modal
-  document.querySelectorAll('#experience .history-card .more-toggle, #experience .history-card .btn-more').forEach(btn=>{
-    btn.addEventListener('click',(e)=>{
-      e.stopPropagation();
-      const card = btn.closest('.history-card');
-      if(!card) return;
-      (window.__openModal||window.openModal)?.({
-        title: card.dataset.title || 'Experience',
-        sub:   card.dataset.sub   || '',
-        html:  card.dataset.body  || ''
-      });
-    });
-  });
-})();
-</script>
-
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const details = document.getElementById("xp-history");    // <details id="xp-history">
-  const summary = document.getElementById("xpShowBtn");     // <summary id="xpShowBtn">Show full experience history</summary>
-  const backBtns = document.querySelectorAll("[data-xp-back]"); // any "Back to highlights" button(s)
-
-  if (!details || !summary) return;
-
-  // Keep summary visibility in sync with the details state
-  const sync = () => {
-    if (details.open) {
-      summary.style.display = "none";   // hide when expanded
-    } else {
-      summary.style.display = "";       // show again when collapsed
-    }
-  };
-
-  // Toggle keeps things in sync (works on all modern browsers)
-  details.addEventListener("toggle", sync);
-
-  // Optional: wire up "Back to highlights" buttons anywhere on the page
-  backBtns.forEach(btn => {
-    btn.addEventListener("click", (e) => {
-      e.preventDefault();
-      details.open = false;                  // collapse
-      // Fire toggle for Safari/edge cases
-      details.dispatchEvent(new Event("toggle"));
-      // Optional: scroll the summary back into view
-      summary.scrollIntoView({ behavior: "smooth", block: "center" });
-    });
-  });
-
-  // Initial state
-  sync();
-});
-</script>
-
 
 </body>
 </html>
