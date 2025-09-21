@@ -1146,6 +1146,36 @@
       opacity: .34;
       filter: brightness(1.08);
     }
+
+
+    /* === Easter Egg: Arcade Shake Effect === */
+    @keyframes shake {
+
+      0%,
+      100% {
+        transform: translate(0, 0);
+      }
+
+      20% {
+        transform: translate(-6px, 2px);
+      }
+
+      40% {
+        transform: translate(6px, -2px);
+      }
+
+      60% {
+        transform: translate(-6px, 2px);
+      }
+
+      80% {
+        transform: translate(6px, -2px);
+      }
+    }
+
+    body.shakefx {
+      animation: shake 0.4s;
+    }
   </style>
 </head>
 
@@ -2398,7 +2428,22 @@
       });
     })();
   </script>
+  <script>
+    /* === Easter Egg: Trigger rumble with s h a k e === */
+    (function () {
+      let buf = [];
 
+      document.addEventListener('keydown', (e) => {
+        buf.push(e.key.toLowerCase());
+        buf = buf.slice(-5); // only keep last 5 keys
+
+        if (buf.join('') === 'shake') {
+          document.body.classList.add('shakefx');
+          setTimeout(() => document.body.classList.remove('shakefx'), 600);
+        }
+      });
+    })();
+  </script>
 </body>
 
 </html>
