@@ -3452,6 +3452,10 @@
                         <a class="px-btn px-mini" target="_blank" rel="noopener"
                             href="https://github.com/ahmerjamilAJ/Snake-Game">Repo</a>
                         <button type="button" class="px-btn px-mini more-toggle">More</button>
+                        <button type="button" class="px-mini px-btn " onclick="window.open('snake.html','_blank')">
+                            🐍?
+                        </button>
+
                     </div>
                     <div class="more-box">
                         <ul>
@@ -4139,6 +4143,35 @@
                     opacity: 1;
                     transform: translate(-50%, 0)
                 }
+
+                .footer-easter {
+                    display: block;
+                    margin-top: 8px;
+                    font-size: 0.75rem;
+                    /* smaller than normal text */
+                    color: #aaa;
+                    /* muted gray */
+                    text-align: center;
+                    font-style: italic;
+                    opacity: 0.8;
+                    transition: opacity 0.3s ease;
+                }
+
+                .footer-easter a {
+                    color: #ff7a7a;
+                    /* arcade accent (or pick your neon highlight) */
+                    text-decoration: none;
+                }
+
+                .footer-easter a:hover {
+                    text-decoration: underline;
+                    opacity: 1;
+                }
+
+                .footer-easter:hover {
+                    opacity: 1;
+                    /* brighten on hover */
+                }
             </style>
             <div class="contact-card panel">
                 <!-- left -->
@@ -4188,7 +4221,16 @@
             <div aria-live="polite" id="toast" role="status">Copied!</div>
         </section>
         <footer class="wrap" style="text-align:center;color:var(--muted);margin-top:64px">
-            © <span id="year"></span> Ahmer Jamil
+            © <span id="year"></span> Ahmer Jamil <br>
+<small class="footer-easter">
+  This site carries a few secrets for those who linger — quiet tributes to the arcade glow and the joy of small discoveries.  
+  For a trip down memory lane, try <b>SHAKE</b>, wander into my favorite project
+  <a href="snake.html" target="_blank">𓆗</a>, or even tap my name.  
+  Curious hands may find faces that shift with arrows, rains that fall with joy, or lights that dance when the red spark is pressed.  
+  Have fun exploring.
+</small>
+
+
         </footer>
         <!-- === Universal Modal (Projects & Experience) === -->
         <div aria-hidden="true" class="ux-modal" id="uxModal">

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Snake — Demo </title>
+  <style>
+    :root {
+      --bg: #0c0c0c;
+      --grid-a: #161616;
+      --grid-b: #1e1e1e;
+      --border: #5a5a5a;
+      --hud: #e6e6e6;
+      --hud-shadow: #000000;
+      --title: #ffdC78;
+      --pause: #78c8ff;
+      --over: #ff7a7a;
+      --snake-body: #00c878;
+      --snake-head: #00ffa0;
+      --apple: #f0463c;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; background: var(--bg); color: var(--hud); font-family: ui-monospace, monospace; }
+    .wrap { display: grid; place-items: center; height: 100%; padding: 16px; }
+    .frame { position: relative; padding: 16px; border: 2px solid var(--border); border-radius: 12px; }
+    canvas { display: block; image-rendering: pixelated; background: var(--bg); }
+    .inner-border { position:absolute; inset: 8px; border:2px solid var(--border); border-radius: 8px; pointer-events: none; }
+    .hud { position: absolute; top: 12px; left: 18px; font-weight: 700; text-shadow: 2px 2px 0 var(--hud-shadow); letter-spacing: .5px; }
+    .overlay { position:absolute; inset:0; display:grid; place-items:center; text-align:center; padding:24px; }
+    .overlay h1 { margin: 0 0 8px; font-size: clamp(28px, 6vw, 64px); text-shadow: 3px 3px 0 var(--hud-shadow); }
+    .overlay p { margin: 6px 0; opacity: .9; }
+    .btnrow { margin-top: 10px; display:flex; gap:8px; justify-content:center; }
+    button { background:#222; color:var(--hud); border:1px solid #444; border-radius: 10px; padding:8px 12px; cursor:pointer; font-weight:700; }
+    button:hover { filter: brightness(1.15); }
+    #reasonMsg { color: var(--over); font-weight: bold; margin-top: 10px; display: none; }
+      [hidden]{display:none !important;}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="frame">
+      <canvas id="game" width="576" height="432" aria-label="Snake game canvas"></canvas>
+      <div class="inner-border"></div>
+      <div class="hud" id="hud">SCORE 000 &nbsp; SPEED 07</div>
+      <div class="overlay" id="title">
+        <div>
+          <h1 style="color:var(--title)">S N A K E</h1>
+          <p>This is just a demo Snake game for fun, the project was a more complex and fun version of the snake game made in C++, available on github. Enjoy!</p>
+        <br>
+          <p>Press <b>Space/Enter</b> to start</p>
+          <p>Move with <b>Arrows / WASD</b> • <b>P</b> pause • <b>R</b> restart</p>
+          <div class="btnrow">
+            <button id="startBtn" type="button">Start Game</button>
+          </div>
+        </div>
+      </div>
+      <div class="overlay" id="paused" hidden>
+        <div>
+          <h1 style="color:var(--pause)">PAUSED</h1>
+          <p>Press <b>P</b> to resume</p>
+        </div>
+      </div>
+      <div class="overlay" id="gameover" hidden>
+        <div>
+          <h1 style="color:var(--over)">GAME OVER</h1>
+          <p id="finalScore">Score 0</p>
+          <p id="reasonMsg"></p>
+          <div class="btnrow">
+            <button id="restartBtn" type="button">Restart</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  (function(){
+    const CELL=24, GRID_W=24, GRID_H=18;
+    const START_LEN=5, START_SPD=7, MAX_SPD=16, SPEEDUP_EVERY=5;
+
+    const canvas=document.getElementById('game');
+    const ctx=canvas.getContext('2d');
+    const hud=document.getElementById('hud');
+    const title=document.getElementById('title');
+    const paused=document.getElementById('paused');
+    const gameover=document.getElementById('gameover');
+    const finalScore=document.getElementById('finalScore');
+    const reasonMsg=document.getElementById('reasonMsg');
+
+    document.getElementById('startBtn').onclick=()=>start();
+    document.getElementById('restartBtn').onclick=()=>start();
+
+    // ---------- Overlay/state helpers ----------
+    let state='TITLE'; // TITLE, PLAYING, PAUSED, GAMEOVER
+    function showOverlay(which){
+      title.hidden = which !== 'title';
+      paused.hidden = which !== 'paused';
+      gameover.hidden = which !== 'gameover';
+    }
+    showOverlay('title');
+
+    // ---------- Game state ----------
+    let snake, dir, pendingDir, apple, score, ticksPerSecond, applesSinceUp, tickAccum;
+
+    function reset(){
+      const cx=(GRID_W/2)|0, cy=(GRID_H/2)|0;
+      snake=Array.from({length:START_LEN},(_,i)=>({x:cx-i,y:cy}));
+      dir={x:1,y:0}; pendingDir={...dir};
+      spawnApple();
+      score=0; ticksPerSecond=START_SPD; applesSinceUp=0; tickAccum=0;
+      hud.textContent=`SCORE ${String(0).padStart(3,'0')}   SPEED ${String(START_SPD).padStart(2,'0')}`;
+      reasonMsg.textContent='';
+    }
+
+    function start(){
+      reset();
+      state='PLAYING';
+      showOverlay(null);
+      Keys.clear();
+    }
+
+    function setPause(p){
+      if(p && state==='PLAYING'){ state='PAUSED'; showOverlay('paused'); }
+      else if(!p && state==='PAUSED'){ state='PLAYING'; showOverlay(null); }
+    }
+
+    function endGame(reason){
+      state='GAMEOVER';
+      finalScore.textContent=`Score ${score}`;
+      reasonMsg.textContent = reason || 'Game over.';
+      showOverlay('gameover');
+      Keys.clear();
+    }
+
+    function spawnApple(){
+      const occ=new Set(snake.map(p=>`${p.x},${p.y}`));
+      let ax,ay; do{ ax=(Math.random()*GRID_W)|0; ay=(Math.random()*GRID_H)|0; }while(occ.has(`${ax},${ay}`));
+      apple={x:ax,y:ay};
+    }
+
+    function setDir(nx,ny){ if(nx===-dir.x && ny===-dir.y) return; pendingDir={x:nx,y:ny}; }
+
+    function handleInput(){
+      if(state!=='PLAYING') return;
+      if(Keys.has('arrowup')||Keys.has('w')) setDir(0,-1);
+      else if(Keys.has('arrowdown')||Keys.has('s')) setDir(0,1);
+      else if(Keys.has('arrowleft')||Keys.has('a')) setDir(-1,0);
+      else if(Keys.has('arrowright')||Keys.has('d')) setDir(1,0);
+    }
+
+    function step(){
+      dir={...pendingDir};
+      const head=snake[0];
+      const nx=head.x+dir.x, ny=head.y+dir.y;
+      if(nx<0||nx>=GRID_W||ny<0||ny>=GRID_H) return endGame('You hit the wall.');
+      for(let i=0;i<snake.length;i++) if(snake[i].x===nx && snake[i].y===ny) return endGame('You bit your tail.');
+      snake.unshift({x:nx,y:ny});
+      if(nx===apple.x && ny===apple.y){
+        score++; applesSinceUp++;
+        spawnApple();
+        if(applesSinceUp>=SPEEDUP_EVERY && ticksPerSecond<MAX_SPD){ ticksPerSecond++; applesSinceUp=0; }
+        hud.textContent=`SCORE ${String(score).padStart(3,'0')}   SPEED ${String(ticksPerSecond).padStart(2,'0')}`;
+      } else {
+        snake.pop();
+      }
+    }
+
+    // ---------- Rendering ----------
+    function get(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+
+    function draw(){
+      // grid
+      for(let y=0;y<GRID_H;y++){
+        for(let x=0;x<GRID_W;x++){
+          ctx.fillStyle=((x+y)&1)?get('--grid-a'):get('--grid-b');
+          ctx.fillRect(x*CELL,y*CELL,CELL,CELL);
+        }
+      }
+      if(snake && apple){
+        // apple
+        ctx.fillStyle=get('--apple');
+        ctx.fillRect(apple.x*CELL+3,apple.y*CELL+3,CELL-6,CELL-6);
+        // snake
+        for(let i=0;i<snake.length;i++){
+          const p=snake[i];
+          ctx.fillStyle=i===0?get('--snake-head'):get('--snake-body');
+          ctx.fillRect(p.x*CELL+1,p.y*CELL+1,CELL-2,CELL-2);
+          if(i===0){ ctx.fillStyle='#000'; ctx.fillRect(p.x*CELL+6,p.y*CELL+6,3,3); ctx.fillRect(p.x*CELL+CELL-9,p.y*CELL+6,3,3); }
+        }
+      }
+      // scanlines
+      ctx.save(); ctx.globalAlpha=0.06; ctx.fillStyle='#fff';
+      for(let y=0;y<canvas.height;y+=4) ctx.fillRect(0,y,canvas.width,1);
+      ctx.restore();
+    }
+
+    // ---------- Input ----------
+    const Keys=new Set();
+    window.addEventListener('keydown',e=>{
+      const k=e.key.toLowerCase();
+      if([' ','enter','arrowup','arrowdown','arrowleft','arrowright'].includes(k)) e.preventDefault();
+      Keys.add(k);
+      if(state==='TITLE' && (k===' '||k==='enter')) start();
+      if(state==='PLAYING' && k==='p') setPause(true);
+      else if(state==='PAUSED' && k==='p') setPause(false);
+      if(k==='r' && (state==='PAUSED'||state==='GAMEOVER')) start();
+    },{passive:false});
+    window.addEventListener('keyup',e=>{ Keys.delete(e.key.toLowerCase()); });
+    window.addEventListener('blur', ()=> Keys.clear());
+
+    // ---------- Main loop ----------
+    let last=performance.now();
+    function loop(now){
+      const dt=Math.min(0.1,(now-last)/1000); last=now;
+      if(state==='PLAYING'){
+        tickAccum+=dt*ticksPerSecond; handleInput();
+        while(tickAccum>=1){ tickAccum-=1; step(); }
+      }
+      draw();
+      requestAnimationFrame(loop);
+    }
+    requestAnimationFrame(loop);
+  })();
+</script>
+</body>
+</html>
