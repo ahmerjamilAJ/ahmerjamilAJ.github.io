@@ -563,7 +563,7 @@
         .sprite {
             position: absolute;
             inset: 0;
-            background: url('assets/hero2.png') center / cover no-repeat;
+            background: url('assets/hero.jpeg') center / cover no-repeat;
             /* <= fills the frame */
             image-rendering: auto;
             /* use 'pixelated' only if you want chunky pixels */
@@ -2821,13 +2821,17 @@
             <nav aria-label="Primary" class="nav-links"><a href="https://github.com/ahmerjamilAJ" rel="noopener"
                     target="_blank"><button class="px-btn"><i class="fa-brands fa-github"></i> GitHub</button></a><a
                     href="https://www.linkedin.com/in/ahmer-jamil582000/" rel="noopener" target="_blank"><button
-                        class="px-btn"><i class="fa-brands fa-linkedin-in"></i> LinkedIn</button></a><a
-                    href="https://drive.google.com/file/d/1i__y9HtKt8IswauzOn4Z8GYiv6pRw9Po/view?usp=sharing"
-                    rel="noopener" target="_blank"><button class="px-btn"><i class="fa-regular fa-file-lines"></i>
+                        class="px-btn"><i class="fa-brands fa-linkedin-in"></i> LinkedIn</button></a><a data-mag="1"
+                    href="assets/docs/Ahmer Jamil.pdf" rel="noreferrer noopener" target="_blank"><button
+                        class="px-btn"><i class="fa-regular fa-file-lines"></i>
                         Resume</button></a><label class="switch" title="Light / Dark">
                     <input id="themeToggle" type="checkbox" />
                     <span class="slider"> </span>
                 </label></nav>
+
+
+
+
         </div>
     </header>
     <main>
@@ -2838,38 +2842,28 @@
                 <div class="type-pad">
                     <h1 id="typedTitle"> Data Scientist. Fault Tolerance </h1>
                 </div>
-                <p class="lede">Research-driven ML engineer &amp; PhD student: dependable systems for high-performance
-                    computing,
-                    fault tolerance, LLVM-based fault injection, and silent data corruption modeling. I make complex
-                    pipelines
-                    feel simple.</p>
+
+                <p class="lede">
+                    Research-driven <strong>Data Scientist &amp; ML Engineer</strong> with a PhD focus on
+                    <strong>fault tolerance in high-performance computing</strong>. I apply
+                    <strong>data science, machine learning, and large language models (LLMs)</strong>
+                    to solve complex problems, from building predictive models and analytics pipelines
+                    to designing dependable systems. My work bridges practical data-driven insights
+                    with research-level rigor—making <strong>complex pipelines feel simple</strong>
+                    and impactful.
+                </p>
+
+
                 <div class="cta">
-                    <a class="px-btn" data-mag="1" href="#skills">See Skills</a>
-                    <a class="px-btn" data-mag="1" href="#experience">Experience</a>
+
+
+                    <a class="px-btn" href="assets/docs/AhmerJamil_CV.pdf" target="_blank" rel="noopener">
+                        CV
+                    </a>
+                    <a class="px-btn" data-mag="1" href="#certifications">Certifications</a>
                     <a class="px-btn" data-mag="1" href="#mnist">Digit Demo</a>
                 </div>
-                <div aria-label="Quick links" class="carts">
-                    <a class="cart" href="https://github.com/ahmerjamilAJ" rel="noreferrer noopener" target="_blank">
-                        <div class="label"><i class="fa-brands fa-github"></i> GITHUB</div>
-                        <!-- <div class="sub">Repos & experiments</div> -->
-                    </a>
-                    <a class="cart" href="https://www.facebook.com/ahmer.jamil.16" rel="noreferrer noopener"
-                        target="_blank">
-                        <div class="label"><i class="fab fa-facebook-f"></i> Facebook</div>
-                        <!-- <div class="sub">Repos & experiments</div> -->
-                    </a>
-                    <a class="cart" href="https://www.linkedin.com/in/ahmer-jamil582000/" rel="noreferrer noopener"
-                        target="_blank">
-                        <div class="label"><i class="fab fa-linkedin"></i> Linkedn</div>
-                        <!-- <div class="sub">Repos & experiments</div> -->
-                    </a>
-                    <a class="cart"
-                        href="https://drive.google.com/file/d/1i__y9HtKt8IswauzOn4Z8GYiv6pRw9Po/view?usp=sharing"
-                        rel="noreferrer noopener" target="_blank">
-                        <div class="label"><i class="fa-regular fa-file-lines"></i> Resume</div>
-                        <!-- <div class="sub">One-page resume</div> -->
-                    </a>
-                </div>
+
             </div>
             <!-- Portrait -->
             <div class="profile">
@@ -2878,7 +2872,7 @@
                         Press <b>(←)</b>/<b>(→)</b> or tap to swap
                     </span>
                     <div class="screen">
-                        <div class="face front"><img alt="Ahmer Jamil — portrait" src="assets/hero.jpeg" /></div>
+                        <div class="face front"><img alt="Ahmer Jamil — portrait" src="assets/hero2.png" /></div>
                         <div class="face back">
                             <div class="sprite" style="animation:bob 2.2s ease-in-out infinite"></div>
                         </div>
@@ -3241,7 +3235,7 @@
                                 accessibility.</li>
                             <li>Implemented user-friendly features such as zoom, pan, and constituency-level detail
                                 retrieval to maximize usability.</li>
-                            
+
                         </ul>
                     </div>
                     <span class="chip3d">VentureDive</span>
@@ -3252,7 +3246,8 @@
                     <figure class="proj-media"><img src="assets/proj6.png" alt="Project image"></figure>
                     <span class="tag">ONNX</span><span class="tag">WebGL</span>
                     <h3>In-Browser MNIST Classifier</h3>
-                    <p class="sub">Implemented a MNIST digit classifier using ONNX Runtime Web with WebGL acceleration and WASM fallback.</p>
+                    <p class="sub">Implemented a MNIST digit classifier using ONNX Runtime Web with WebGL acceleration
+                        and WASM fallback.</p>
                     <div class="proj-actions">
                         <a class="px-btn px-mini" href="#mnist" rel="noopener" target="_self">Try Live</a>
                         <button type="button" class="px-btn px-mini more-toggle">More</button>
@@ -3304,7 +3299,8 @@
                 <!-- YAPL Interpreter -->
                 <article class="card reveal">
                     <figure class="proj-media"><img src="assets/proj8.png" alt="Project image"></figure>
-                    <span class="tag">Compilers</span><span class="tag">PLY</span><span class="tag">CFGs</span><span class="tag">FSMs</span>
+                    <span class="tag">Compilers</span><span class="tag">PLY</span><span class="tag">CFGs</span><span
+                        class="tag">FSMs</span>
                     <h3>YAPL Interpreter Project</h3>
                     <p class="sub">Custom language interpreter with lexer, parser, and runtime in Python.</p>
                     <div class="proj-actions">
@@ -3501,20 +3497,34 @@
             <!-- HIGHLIGHTS (4) -->
             <div class="xp-hi-grid">
                 <!-- UF GRA -->
-                <button class="xp-card"
-                    data-body="&lt;ul&gt;&lt;li&gt;Dependable ML/HPC; fault tolerance &amp; error resilience.&lt;/li&gt;&lt;li&gt;Paper under review; instrumentation &amp; analysis.&lt;/li&gt;&lt;/ul&gt;"
-                    data-sub="Aug 2025 – Present · Gainesville, FL"
+                <button class="xp-card" data-body="&lt;ul&gt;
+  &lt;li&gt;Researching fault tolerance in HPC using LLVM-based tools.&lt;/li&gt;
+  &lt;li&gt;Modeling silent data corruptions with data-driven ML methods.&lt;/li&gt;
+  &lt;li&gt;Building pipelines to analyze and improve system reliability.&lt;/li&gt;
+&lt;/ul&gt;" data-sub="Aug 2025 – Present · Gainesville, FL"
                     data-title="Graduate Research Assistant — University of Florida">
                     <div class="xp-logo"><img alt="University of Florida" src="assets/logo/UF.png" /></div>
                     <div class="xp-copy">
                         <h3>University of Florida · <span>Graduate Research Assistant</span></h3>
                         <p class="xp-meta">Aug 2025 – Present</p>
-                        <p class="xp-teaser">HPC resilience · LLFI/LLVM · paper under review</p>
+                        <p class="xp-teaser">Fault Tolerance · HPC · Machine Learning </p>
                     </div>
                 </button>
+
+
+
+
                 <!-- Systems Limited -->
                 <button class="xp-card"
-                    data-body="&lt;p&gt;&lt;strong&gt;ML &amp; LLM&lt;/strong&gt; (Azure, RAG, PEFT/LoRA) · client delivery &amp; enablement; training sessions &amp; labs.&lt;/p&gt;"
+                    data-body="&lt;p&gt;&lt;strong&gt;Overview&lt;/strong&gt;: Delivered end-to-end ML &amp; LLM solutions for global clients using Azure (Cognitive Services), Databricks, and PySpark; shipped interpretable, production-ready analytics for marketing and retention.&lt;/p&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;LLM platforms&lt;/strong&gt;: Azure Cognitive Services; RAG pipelines; PEFT/LoRA fine-tuning; Omni Channel integrations; incorporated state-of-the-art research.&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Customer segmentation&lt;/strong&gt;: Supervised pipelines on behavioral &amp; demographic features; probability calibration; ensemble trees; SHAP/feature importance aligned to targeting strategy.&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Churn prediction&lt;/strong&gt;: RFM, tenure, ticket history; end-to-end data cleaning → modeling → uplift analysis; monitored model drift &amp; cohort shifts for long-term reliability.&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Training &amp; enablement&lt;/strong&gt;: Designed &amp; led LLM sessions (Transformers, RAG, fine-tuning, NLP); built quizzes, labs, and a capstone project for professionals.&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Delivery at scale&lt;/strong&gt;: Deployed solutions for international clients (e.g., Etisalat) using PySpark, DataRobot, and Databricks.&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;p&gt;&lt;em&gt;Impact&lt;/em&gt;: Calibrated, explainable models and durable pipelines that improved targeting &amp; retention while upskilling client teams.&lt;/p&gt;"
                     data-sub="Jun 2023 – Jul 2024" data-title="Associate Consultant (AI) — Systems Limited">
                     <div class="xp-logo"><img alt="Systems Limited" src="assets/logo/systems.png" /></div>
                     <div class="xp-copy">
@@ -3523,9 +3533,18 @@
                         <p class="xp-teaser">RAG/PEFT on Azure · Delivery &amp; enablement</p>
                     </div>
                 </button>
+
+
+
                 <!-- VentureDive -->
                 <button class="xp-card"
-                    data-body="&lt;p&gt;&lt;strong&gt;GeoSpatial&lt;/strong&gt;: Selenium scraping &amp; GeoJSON pipeline. &lt;strong&gt;Web&lt;/strong&gt;: Flask map explorer.&lt;/p&gt;"
+                    data-body="&lt;p&gt;&lt;strong&gt;Overview&lt;/strong&gt;: Built automated pipelines for geospatial data collection, cleaning, and visualization; designed an interactive platform for constituency-level insights in Pakistan.&lt;/p&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;GeoSpatial data&lt;/strong&gt;: Automated Selenium-based scraping of national and provincial constituency datasets; standardized &amp; formatted for analysis.&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Web platform&lt;/strong&gt;: Engineered an interactive Flask/HTML map explorer integrating GeoJSON outputs for seamless exploration.&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Visualization &amp; UX&lt;/strong&gt;: Enhanced accessibility with online plotting tools; added zoom, pan, and constituency-level detail retrieval for usability.&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;p&gt;&lt;em&gt;Impact&lt;/em&gt;: Delivered a user-friendly data portal that transformed raw constituency datasets into actionable, explorable insights.&lt;/p&gt;"
                     data-sub="Jul 2022 – Oct 2022" data-title="Data Analysis Intern — VentureDive">
                     <div class="xp-logo"><img alt="VentureDive" src="assets/logo/venturedive.png" /></div>
                     <div class="xp-copy">
@@ -3534,9 +3553,16 @@
                         <p class="xp-teaser">GeoSpatial data · Flask · GeoJSON</p>
                     </div>
                 </button>
+
                 <!-- HBL -->
                 <button class="xp-card"
-                    data-body="&lt;p&gt;ETL optimization; SQL; predictive analytics.&amp; analytics.&lt;/p&gt;"
+                    data-body="&lt;p&gt;&lt;strong&gt;Overview&lt;/strong&gt;: Supported data science initiatives by optimizing ETL workflows, running advanced SQL queries, and contributing to predictive analytics across departments.&lt;/p&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;ETL optimization&lt;/strong&gt;: Executed daily SQL queries to streamline data extraction, transformation, and loading processes.&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Predictive modeling&lt;/strong&gt;: Leveraged existing customer data through SQL to inform predictive analysis models.&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Business impact&lt;/strong&gt;: Translated predictive insights into actionable strategies, enhancing decision-making across organizational units.&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;p&gt;&lt;em&gt;Impact&lt;/em&gt;: Improved data pipeline efficiency and delivered insights that supported strategic planning.&lt;/p&gt;"
                     data-sub="Jun 2021 – Aug 2021" data-title="Data Science Intern — JS Bank">
                     <div class="xp-logo"><img alt="JS Bank" src="assets/logo/js.png" /></div>
                     <div class="xp-copy">
@@ -3545,6 +3571,7 @@
                         <p class="xp-teaser">ETL optimization · SQL · predictive analytics</p>
                     </div>
                 </button>
+
             </div>
             <!-- FULL HISTORY -->
             <details id="xp-history">
@@ -3552,170 +3579,257 @@
                 <div class="his-list">
                     <!-- NOTE: Reverse-chronological (newest → oldest) -->
                     <!-- 2025 — UF GRA -->
-                    <article class="history-card"
-                        data-body="&lt;ul&gt;&lt;li&gt;Dependable ML/HPC; FT &amp; resilience for HPC workloads.&lt;/li&gt;&lt;li&gt;LLFI/LLVM; paper under review.&lt;/li&gt;&lt;/ul&gt;"
-                        data-ico="lab" data-sub="Aug 2025 – Present · Gainesville, FL"
-                        data-title="Graduate Research Assistant — University of Florida">
-                        <div class="logo-box"><img alt="UF" src="assets/logo/UF.png" /></div>
-                        <div class="copy">
-                            <h3 class="exp-head">Graduate Research Assistant — University of Florida</h3>
-                            <p class="exp-meta">Aug 2025 – Present · Part-time</p>
-                            <p class="exp-desc">HPC resilience · LLFI/LLVM · paper under review</p>
-                            <div class="proj-actions"><button class="px-btn px-mini more-toggle"
-                                    type="button">More</button></div>
-                        </div>
-                    </article>
+<article class="history-card"
+    data-body="&lt;p&gt;Working on the intersection of &lt;strong&gt;machine learning&lt;/strong&gt; and &lt;strong&gt;high-performance computing&lt;/strong&gt;, with a focus on fault tolerance and system resilience. Leveraging LLVM/LLFI tools and data-driven methods to model reliability in modern HPC workloads.&lt;/p&gt;"
+    data-ico="lab" data-sub="Aug 2025 – Present · Gainesville, FL"
+    data-title="Graduate Research Assistant — University of Florida">
+    <div class="logo-box"><img alt="UF" src="assets/logo/UF.png" /></div>
+    <div class="copy">
+        <h3 class="exp-head">Graduate Research Assistant — University of Florida</h3>
+        <p class="exp-meta">Aug 2025 – Present · Part-time</p>
+        <p class="exp-desc">ML × HPC · fault tolerance · LLVM/LLFI</p>
+        <div class="proj-actions"><button class="px-btn px-mini more-toggle"
+                type="button">More</button></div>
+    </div>
+</article>
+
+
+
                     <!-- 2025 — Iowa RA (full-time) -->
                     <article class="history-card"
-                        data-body="LLVM/runtime tools for instruction-level resilience analysis; fault detection in HPC workloads."
+                        data-body="&lt;p&gt;&lt;strong&gt;Overview&lt;/strong&gt;: Researched fault tolerance at the intersection of compiler analysis and ML, developing LLVM-based tools to study silent data corruption (SDC) and improve resilience in HPC systems.&lt;/p&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Developed &amp; extended LLVM passes to analyze program behavior under diverse execution conditions.&lt;/li&gt;
+      &lt;li&gt;Examined fault tolerance mechanisms, focusing on transient hardware faults and their impact on instruction execution &amp; correctness.&lt;/li&gt;
+      &lt;li&gt;Modeled occurrence &amp; propagation of Silent Data Corruptions (SDCs) across data-dependent sequences.&lt;/li&gt;
+      &lt;li&gt;Applied ML methods to predict, classify, and reduce SDC risks using fault injection campaigns and execution traces.&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;p&gt;&lt;em&gt;Impact&lt;/em&gt;: Built instruction-level pipelines that exposed hidden reliability gaps and guided the design of more dependable HPC systems.&lt;/p&gt;"
                         data-ico="lab" data-sub="Jun 2025 – Aug 2025 · Full-time · Iowa City, IA"
                         data-title="Research Assistant — Dependable Systems Lab, University of Iowa">
                         <div class="logo-box"><img alt="Iowa" src="assets/logo/UIOWA.png" /></div>
                         <div class="copy">
                             <h3 class="exp-head">Research Assistant — Dependable Systems Lab, University of Iowa</h3>
-                            <p class="exp-meta">Jun 2025 – Aug 2025 · Full-time</p>
-                            <p class="exp-desc">LLVM/runtime tools · instruction-level resilience · HPC fault detection
+                            <p class="exp-meta">Jan 2025 – Aug 2025</p>
+                            <p class="exp-desc">Researched fault tolerance at the intersection of compiler analysis and
+                                ML, developing LLVM-based tools to study silent data corruption
                             </p>
                             <div class="proj-actions"><button class="px-btn px-mini more-toggle"
                                     type="button">More</button></div>
                         </div>
                     </article>
-                    <!-- 2025 — Iowa RA (part-time) -->
-                    <article class="history-card" data-body="Resilience tooling &amp; analyses; experiments support."
-                        data-ico="lab" data-sub="Jan 2025 – May 2025 · Part-time · Iowa City, IA"
-                        data-title="Research Assistant — Dependable Systems Lab, University of Iowa">
-                        <div class="logo-box"><img alt="Iowa" src="assets/logo/UIOWA.png" /></div>
-                        <div class="copy">
-                            <h3 class="exp-head">Research Assistant — Dependable Systems Lab, University of Iowa</h3>
-                            <p class="exp-meta">Jan 2025 – May 2025 · Part-time</p>
-                            <p class="exp-desc">Resilience tooling &amp; analyses · experiments support</p>
-                            <div class="proj-actions"><button class="px-btn px-mini more-toggle"
-                                    type="button">More</button></div>
-                        </div>
-                    </article>
+
+
                     <!-- 2024 — TA AI -->
-                    <article class="history-card" data-body="Teaching, autograder; +8% course average." data-ico="teach"
-                        data-sub="Aug 2024 – Dec 2024"
+                    <article class="history-card"
+                        data-body="&lt;p&gt;&lt;strong&gt;Overview&lt;/strong&gt;: Supported delivery of the Artificial Intelligence course, mentoring students and enabling stronger outcomes through hands-on guidance.&lt;/p&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Aided 30+ students via office hours, resolving assignments and course queries to boost comprehension.&lt;/li&gt;
+      &lt;li&gt;Provided personalized feedback, encouragement, and motivation to foster independent problem-solving skills.&lt;/li&gt;
+      &lt;li&gt;Contributed to a +8% improvement in class average through proactive academic support.&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;p&gt;&lt;em&gt;Impact&lt;/em&gt;: Enhanced student learning outcomes and confidence by combining technical expertise with approachable teaching support.&lt;/p&gt;"
+                        data-ico="teach" data-sub="Aug 2024 – Dec 2024"
                         data-title="Teaching Assistant — Artificial Intelligence, University of Iowa">
                         <div class="logo-box"><img alt="UIowa" src="assets/logo/UIOWA.png" /></div>
                         <div class="copy">
                             <h3 class="exp-head">Teaching Assistant — Artificial Intelligence, University of Iowa</h3>
                             <p class="exp-meta">Aug 2024 – Dec 2024</p>
-                            <p class="exp-desc">Teaching · autograder · +8% avg</p>
+                            <p class="exp-desc"> Supported delivery of the Artificial Intelligence course, mentoring
+                                students and enabling stronger outcomes through hands-on guidance.</p>
                             <div class="proj-actions"><button class="px-btn px-mini more-toggle"
                                     type="button">More</button></div>
                         </div>
                     </article>
+
+                    <!-- 2023–2024 — DebloatBench RA -->
                     <!-- 2023–2024 — DebloatBench RA -->
                     <article class="history-card"
-                        data-body="Unified framework to evaluate container debloaters across diverse environments; collaboration with SRI &amp; UArizona."
+                        data-body="&lt;p&gt;&lt;strong&gt;Overview&lt;/strong&gt;: Contributed to DebloatBench, a unified framework for evaluating container debloaters across diverse design and execution environments, in collaboration with SRI and University of Arizona.&lt;/p&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Assessed container debloating paradigms through comprehensive, fair comparison metrics.&lt;/li&gt;
+      &lt;li&gt;Analyzed impact on system calls, measured CVE reductions, and validated correctness of debloated images.&lt;/li&gt;
+      &lt;li&gt;Automated benchmarking processes with reproducible design principles; contributed an open-source tool for future research.&lt;/li&gt;
+      &lt;li&gt;Integrated &quot;CIMPLIFIER&quot; (University of Wisconsin–Madison) into the debloating framework.&lt;/li&gt;
+      &lt;li&gt;Created clear visualizations for intuitive comparison of debloating tools.&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;p&gt;&lt;em&gt;Impact&lt;/em&gt;: Advanced the state of research on container debloating by building reusable tools and fair benchmarking pipelines.&lt;/p&gt;"
                         data-ico="lab" data-sub="Aug 2023 – Aug 2024"
                         data-title="Research Assistant — DebloatBench (SRI • UArizona • LUMS)">
                         <div class="logo-box"><img alt="DebloatBench" src="assets/logo/LUMS.png" /></div>
                         <div class="copy">
                             <h3 class="exp-head">Research Assistant — DebloatBench (SRI • UArizona • LUMS)</h3>
                             <p class="exp-meta">Aug 2023 – Aug 2024</p>
-                            <p class="exp-desc">Container debloating evaluation · cross-env framework</p>
+                            <p class="exp-desc">Contributed to DebloatBench, a unified framework for evaluating
+                                container debloaters across diverse design and execution environments, in collaboration
+                                with SRI and University of Arizona.</p>
                             <div class="proj-actions"><button class="px-btn px-mini more-toggle"
                                     type="button">More</button></div>
                         </div>
                     </article>
+
                     <!-- 2023–2024 — Systems Limited -->
                     <article class="history-card"
-                        data-body="&lt;ul&gt;&lt;li&gt;LLM solutions on Azure (Cognitive Services, RAG, Databricks) · PEFT/LoRA tuning.&lt;/li&gt;&lt;li&gt;Designed &amp; delivered LLM training (Transformers, RAG, NLP basics).&lt;/li&gt;&lt;/ul&gt;"
+                        data-body="&lt;p&gt;&lt;strong&gt;Overview&lt;/strong&gt;: Delivered ML &amp; LLM solutions for global clients while leading training and enablement efforts on modern NLP/LLM practices.&lt;/p&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;LLM solutions&lt;/strong&gt;: Designed and deployed models on Azure Cognitive Services, RAG pipelines, Omni Channel platforms; optimized with PEFT/LoRA fine-tuning.&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Customer segmentation&lt;/strong&gt;: Built supervised ML pipelines with behavioral/demographic features; used ensemble trees, calibration, and SHAP for explainability.&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Churn prediction&lt;/strong&gt;: Modeled customer retention with RFM, tenure, and ticket history; developed full data-cleaning → modeling → uplift pipelines; monitored drift and cohort shifts.&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Training &amp; enablement&lt;/strong&gt;: Conducted sessions on Transformers, RAG, fine-tuning, and NLP basics; created quizzes, labs, and projects for professionals.&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Client delivery&lt;/strong&gt;: Built scalable solutions for international clients (e.g., Etisalat) using PySpark, Databricks, and DataRobot.&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;p&gt;&lt;em&gt;Impact&lt;/em&gt;: Delivered cutting-edge, explainable ML/LLM pipelines that improved client targeting and retention while upskilling teams.&lt;/p&gt;"
                         data-ico="gear" data-sub="Jun 2023 – Jul 2024"
                         data-title="Associate Consultant — AI, Systems Limited">
                         <div class="logo-box"><img alt="Systems" src="assets/logo/SYSTEMS.png" /></div>
                         <div class="copy">
                             <h3 class="exp-head">Associate Consultant — AI, Systems Limited</h3>
                             <p class="exp-meta">Jun 2023 – Jul 2024</p>
-                            <p class="exp-desc">LLM/RAG on Azure · PEFT/LoRA · training sessions</p>
+                            <p class="exp-desc">Delivered ML & LLM solutions for global clients while leading training
+                                and enablement efforts on modern NLP/LLM practices.</p>
                             <div class="proj-actions"><button class="px-btn px-mini more-toggle"
                                     type="button">More</button></div>
                         </div>
                     </article>
+
                     <!-- 2022–2023 — ISPL RA -->
                     <article class="history-card"
-                        data-body="&lt;ul&gt;&lt;li&gt;Fraud detection: ensemble methods, SMOTE, preprocessing.&lt;/li&gt;&lt;li&gt;Snowflake &amp; Dataiku pipelines; literature and EDA.&lt;/li&gt;&lt;/ul&gt;"
-                        data-ico="lab" data-sub="Aug 2022 – Aug 2023" data-title="Research Assistant — ISPL, LUMS">
+                        data-body="&lt;p&gt;&lt;strong&gt;Overview&lt;/strong&gt;: Credit-card fraud detection with Clariba SEIDOR during my time at LUMS (ISPL); built scalable ML pipelines on large, real-world transaction data.&lt;/p&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;Modeling&lt;/strong&gt;: Ensemble learning, data preprocessing, and SMOTE to tackle severe class imbalance.&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Analysis&lt;/strong&gt;: Comprehensive literature review and EDA; compared classification and clustering approaches.&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Platforms&lt;/strong&gt;: Snowflake &amp; Dataiku for scalable pipeline design, training, and assessment.&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Practical constraints&lt;/strong&gt;: Addressed class imbalance and memory limitations; delivered robust, deployment-minded solutions.&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;p&gt;&lt;em&gt;Impact&lt;/em&gt;: Improved fraud-risk detection readiness with explainable models and production-oriented workflows.&lt;/p&gt;"
+                        data-ico="lab" data-sub="Aug 2022 – Aug 2023"
+                        data-title="Fraud Detection — Clariba SEIDOR × LUMS (ISPL)">
                         <div class="logo-box"><img alt="LUMS" src="assets/logo/LUMS.png" /></div>
                         <div class="copy">
-                            <h3 class="exp-head">Research Assistant — ISPL, LUMS</h3>
+                            <h3 class="exp-head">Fraud Detection — Clariba SEIDOR × LUMS</h3>
                             <p class="exp-meta">Aug 2022 – Aug 2023</p>
-                            <p class="exp-desc">Fraud detection · ensemble · Snowflake/Dataiku</p>
+                            <p class="exp-desc">Credit-card fraud detection with Clariba SEIDOR during my time at LUMS
+                                (ISPL); built scalable ML pipelines on large, real-world transaction data.</p>
                             <div class="proj-actions"><button class="px-btn px-mini more-toggle"
                                     type="button">More</button></div>
                         </div>
                     </article>
+
                     <!-- 2022 — VentureDive -->
-                    <article class="history-card" data-body="Selenium scraping · GeoJSON · Flask-based map explorer."
+                    <article class="history-card"
+                        data-body="&lt;p&gt;&lt;strong&gt;Overview&lt;/strong&gt;: Built automated geospatial data pipelines and interactive visualization tools for constituency-level insights in Pakistan.&lt;/p&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Automated Selenium-based scraping of national &amp; provincial constituency datasets; standardized for analysis.&lt;/li&gt;
+      &lt;li&gt;Developed a Flask/HTML map explorer integrating GeoJSON outputs for interactive exploration.&lt;/li&gt;
+      &lt;li&gt;Enhanced user experience with zoom, pan, and detail retrieval features; improved accessibility with plotting tools.&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;p&gt;&lt;em&gt;Impact&lt;/em&gt;: Delivered a functional platform that transformed raw geospatial data into actionable, user-friendly insights.&lt;/p&gt;"
                         data-ico="data" data-sub="Jul 2022 – Oct 2022" data-title="Data Analysis Intern — VentureDive">
                         <div class="logo-box"><img alt="VentureDive" src="assets/logo/venturedive.png" /></div>
                         <div class="copy">
                             <h3 class="exp-head">Data Analysis Intern — VentureDive</h3>
                             <p class="exp-meta">Jul 2022 – Oct 2022</p>
-                            <p class="exp-desc">GeoSpatial data · Flask · GeoJSON</p>
+                            <p class="exp-desc">Built automated geospatial data pipelines and interactive visualization
+                                tools for constituency-level insights in Pakistan.
+                            </p>
                             <div class="proj-actions"><button class="px-btn px-mini more-toggle"
                                     type="button">More</button></div>
                         </div>
                     </article>
+
                     <!-- 2022 — HBL -->
                     <article class="history-card"
-                        data-body="Employee-effectiveness metrics; campaign operations &amp; analytics." data-ico="bank"
-                        data-sub="Jun 2022 – Jul 2022" data-title="Branch Banking Intern — Habib Bank Limited">
+                        data-body="&lt;p&gt;&lt;strong&gt;Overview&lt;/strong&gt;: Applied ML and analytics to measure branch performance and employee effectiveness while supporting internal recognition programs.&lt;/p&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Developed ML models to evaluate employee effectiveness within branch operations.&lt;/li&gt;
+      &lt;li&gt;Analyzed performance metrics, customer interactions, and transactional data to identify patterns.&lt;/li&gt;
+      &lt;li&gt;Generated insights for targeted training and performance improvement initiatives.&lt;/li&gt;
+      &lt;li&gt;Coordinated and executed an internal award campaign to recognize top-performing employees.&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;p&gt;&lt;em&gt;Impact&lt;/em&gt;: Strengthened data-driven HR practices and promoted a culture of performance recognition within branch banking.&lt;/p&gt;"
+                        data-ico="bank" data-sub="Jun 2022 – Jul 2022"
+                        data-title="Branch Banking Intern — Habib Bank Limited">
                         <div class="logo-box"><img alt="HBL" src="assets/logo/hbl.png" /></div>
                         <div class="copy">
                             <h3 class="exp-head">Branch Banking Intern — Habib Bank Limited</h3>
                             <p class="exp-meta">Jun 2022 – Jul 2022</p>
-                            <p class="exp-desc">Employee metrics · campaign analytics</p>
+                            <p class="exp-desc">Applied ML and analytics to measure branch performance and employee
+                                effectiveness while supporting internal recognition programs.</p>
                             <div class="proj-actions"><button class="px-btn px-mini more-toggle"
                                     type="button">More</button></div>
                         </div>
                     </article>
+
                     <!-- 2021–2023 — Peer Advisor -->
-                    <article class="history-card"
-                        data-body="Mentored ~30 students on course planning and academic progress." data-ico="people"
-                        data-sub="Aug 2021 – Jun 2023" data-title="Peer Advisor — LUMS">
-                        <div class="logo-box"><img alt="LUMS" src="assets/logo/LUMS.png" /></div>
-                        <div class="copy">
-                            <h3 class="exp-head">Peer Advisor — LUMS</h3>
-                            <p class="exp-meta">Aug 2021 – Jun 2023</p>
-                            <p class="exp-desc">Mentoring · course planning · progress tracking</p>
-                            <div class="proj-actions"><button class="px-btn px-mini more-toggle"
-                                    type="button">More</button></div>
-                        </div>
-                    </article>
-                    <!-- 2021–2022 — TA CPS -->
-                    <article class="history-card"
-                        data-body="Led tutorials for 100+ students; authored quizzes/exams; grading &amp; office hours."
-                        data-ico="teach" data-sub="Aug 2021 – Dec 2022"
-                        data-title="Teaching Assistant — Computational Problem Solving, LUMS">
-                        <div class="logo-box"><img alt="LUMS" src="assets/logo/LUMS.png" /></div>
-                        <div class="copy">
-                            <h3 class="exp-head">Teaching Assistant — Computational Problem Solving, LUMS</h3>
-                            <p class="exp-meta">Aug 2021 – Dec 2022</p>
-                            <p class="exp-desc">Tutorials · assessments · office hours</p>
-                            <div class="proj-actions"><button class="px-btn px-mini more-toggle"
-                                    type="button">More</button></div>
-                        </div>
-                    </article>
+                   <article class="history-card"
+    data-body="&lt;p&gt;&lt;strong&gt;Overview&lt;/strong&gt;: Served as a Peer Advisor at LUMS, mentoring undergraduate students on course planning and academic success strategies.&lt;/p&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Advised students on course and major selection, aligning academic paths with long-term career goals.&lt;/li&gt;
+      &lt;li&gt;Mentored and supported a cohort of ~30 students, providing personalized direction and motivation.&lt;/li&gt;
+      &lt;li&gt;Encouraged academic growth and confidence through consistent one-on-one guidance.&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;p&gt;&lt;em&gt;Impact&lt;/em&gt;: Helped students make informed academic choices and build sustainable study practices.&lt;/p&gt;" 
+    data-ico="people" data-sub="Aug 2021 – Jun 2023" data-title="Peer Advisor — LUMS">
+    <div class="logo-box"><img alt="LUMS" src="assets/logo/LUMS.png" /></div>
+    <div class="copy">
+        <h3 class="exp-head">Peer Advisor — LUMS</h3>
+        <p class="exp-meta">Aug 2021 – Jun 2023</p>
+        <p class="exp-desc"> Served as a Peer Advisor at LUMS, mentoring undergraduate students on course planning and academic success strategies.</p>
+        <div class="proj-actions"><button class="px-btn px-mini more-toggle"
+                type="button">More</button></div>
+    </div>
+</article>
+
+<!-- 2021–2022 — TA CPS -->
+<article class="history-card"
+    data-body="&lt;p&gt;&lt;strong&gt;Overview&lt;/strong&gt;: Teaching Assistant for Computational Problem Solving at LUMS, supporting over 100 students in programming fundamentals.&lt;/p&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Led tutorials and office hours for 100+ students, clarifying assignments and concepts.&lt;/li&gt;
+      &lt;li&gt;Created exams, weekly quizzes, and assignment tutorials, contributing to assessment design.&lt;/li&gt;
+      &lt;li&gt;Conducted grading and invigilation for final exams and projects, ensuring fairness and academic standards.&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;p&gt;&lt;em&gt;Impact&lt;/em&gt;: Strengthened students’ programming skills and supported course delivery at scale.&lt;/p&gt;" 
+    data-ico="teach" data-sub="Aug 2021 – Dec 2022"
+    data-title="Teaching Assistant — Computational Problem Solving, LUMS">
+    <div class="logo-box"><img alt="LUMS" src="assets/logo/LUMS.png" /></div>
+    <div class="copy">
+        <h3 class="exp-head">Teaching Assistant - LUMS</h3>
+        <p class="exp-meta">Aug 2021 – Dec 2022</p>
+        <p class="exp-desc">Teaching Assistant for Computational Problem Solving at LUMS, supporting over 100 students in programming fundamentals.</p>
+        <div class="proj-actions"><button class="px-btn px-mini more-toggle"
+                type="button">More</button></div>
+    </div>
+</article>
+
                     <!-- 2021 — JS Bank -->
-                    <article class="history-card" data-body="ETL optimization; SQL; predictive analytics."
-                        data-ico="data" data-sub="Jun 2021 – Aug 2021" data-title="Data Science Intern — JS Bank">
-                        <div class="logo-box"><img alt="JS Bank" src="assets/logo/js.png" /></div>
-                        <div class="copy">
-                            <h3 class="exp-head">Data Science Intern — JS Bank</h3>
-                            <p class="exp-meta">Jun 2021 – Aug 2021</p>
-                            <p class="exp-desc">ETL optimization · SQL · predictive analytics</p>
-                            <div class="proj-actions"><button class="px-btn px-mini more-toggle"
-                                    type="button">More</button></div>
-                        </div>
-                    </article>
+  <article class="history-card" 
+    data-body="&lt;p&gt;&lt;strong&gt;Overview&lt;/strong&gt;: Contributed to data science projects by optimizing ETL processes, executing advanced SQL queries, and developing predictive models to support decision-making.&lt;/p&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Executed daily SQL queries to streamline ETL workflows for efficient data extraction, transformation, and loading.&lt;/li&gt;
+      &lt;li&gt;Leveraged existing customer data to design predictive analysis models.&lt;/li&gt;
+      &lt;li&gt;Translated predictive insights into actionable strategies for multiple departments.&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;p&gt;&lt;em&gt;Impact&lt;/em&gt;: Contributed to data science projects by optimizing ETL processes, executing advanced SQL queries, and developing predictive models to support decision-making.&lt;/p&gt;" 
+    data-ico="data" data-sub="Jun 2021 – Aug 2021" data-title="Data Science Intern — JS Bank">
+    <div class="logo-box"><img alt="JS Bank" src="assets/logo/js.png" /></div>
+    <div class="copy">
+        <h3 class="exp-head">Data Science Intern — JS Bank</h3>
+        <p class="exp-meta">Jun 2021 – Aug 2021</p>
+        <p class="exp-desc">ETL optimization · SQL · predictive analytics</p>
+        <div class="proj-actions"><button class="px-btn px-mini more-toggle"
+                type="button">More</button></div>
+    </div>
+</article>
+
                 </div>
                 <div class="xp-endbar"><button class="px-mini px-btn" id="xpBackBtnBottom" type="button">Back to
                         highlights</button></div>
             </details>
         </section>
+
+
+        <!-- ========= certifications ========= -->
+
         <section class="wrap" id="certifications">
             <h2 class="section-title">Certifications</h2>
             <style>
@@ -4047,12 +4161,12 @@
                         </span>
                     </div>
                     <div class="actions">
-                        <a class="px-btn" data-mag="1" href="mailto:ahmerjamil.aj@gmail.com">EMAIL</a>
+                        <!-- <a class="px-btn" data-mag="1" href="mailto:ahmerjamil.aj@gmail.com">EMAIL</a>
                         <a class="px-btn" data-mag="1" href="https://www.linkedin.com/in/ahmer-jamil/"
                             rel="noreferrer noopener" target="_blank">LINKEDIN</a>
                         <a class="px-btn" data-mag="1" href="https://github.com/ahmerjamilAJ" rel="noreferrer noopener"
-                            target="_blank">GITHUB</a>
-                        <a class="px-btn" data-mag="1" href="assets/AhmerJamil_CV.pdf" rel="noreferrer noopener"
+                            target="_blank">GITHUB</a> -->
+                        <a class="px-btn" data-mag="1" href="assets/docs/Ahmer Jamil.pdf" rel="noreferrer noopener"
                             target="_blank">Resume</a>
                         <a class="px-btn" data-mag="1" href="#home">TOP</a>
                     </div>
@@ -4181,8 +4295,8 @@
                 class="fa-solid fa-gamepad"></i><span>Projects</span></a><a class="dock-link" href="#experience"><i
                 class="fa-solid fa-briefcase"></i><span>Experience</span></a></nav>
     <!-- Preload images -->
-    <img alt="" src="assets/hero.jpeg" style="display:none" />
     <img alt="" src="assets/hero2.png" style="display:none" />
+    <img alt="" src="assets/hero.jpeg " style="display:none" />
     <!-- Typed + ONNX Runtime Web -->
     <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
     <script crossorigin="anonymous" src="https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.min.js"></script>
