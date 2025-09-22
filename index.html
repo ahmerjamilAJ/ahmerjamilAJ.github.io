@@ -2808,6 +2808,8 @@
 </head>
 
 <body>
+
+
     <div aria-hidden="true" class="field"></div>
     <!-- ========= FIXED NAV ========= -->
     <header>
@@ -2828,7 +2830,8 @@
                     <span class="slider"> </span>
                 </label></nav>
 
-
+            <canvas id="confetti-layer" aria-hidden="true"
+                style="position:fixed;inset:0;pointer-events:none;z-index:9999"></canvas>
 
 
         </div>
@@ -4219,15 +4222,20 @@
             <!-- toast -->
             <div aria-live="polite" id="toast" role="status">Copied!</div>
         </section>
+       
         <footer class="wrap" style="text-align:center;color:var(--muted);margin-top:64px">
             © <span id="year"></span> Ahmer Jamil <br>
-<small class="footer-easter">
-  This site carries a few secrets for those who linger — quiet tributes to the arcade glow and the joy of small discoveries.  
-  For a trip down memory lane, try <b>SHAKE</b>, wander into my favorite project
-  <a href="snake.html" target="_blank">𓆗</a>, or even tap my name.  
-  Curious hands may find faces that shift with arrows, rains that fall with joy, or lights that dance when the red spark is pressed.  
-  Have fun exploring.
-</small>
+            <small class="footer-easter">
+                This site carries a few secrets for those who linger — quiet tributes to the arcade glow and the joy of
+                small discoveries.
+                For a trip down memory lane, try <b>SHAKE</b>, wander into my favorite project
+                <a href="snake.html" target="_blank">𓆗</a>, or even tap my name.
+                Curious hands may find faces that shift with arrows, rains that fall with joy, or lights that dance when
+                the red spark is pressed.
+                And hmmm… will the <b>Konami code</b> work here too? 🎮
+                Have fun exploring.
+            </small>
+
 
 
         </footer>
@@ -4333,8 +4341,8 @@
     <!-- Bottom Dock Nav -->
     <nav aria-label="Section navigation" class="dock"><a class="dock-link" href="#skills"><i
                 class="fa-solid fa-wrench"></i></a><a class="dock-link" href="#education"><i
-                class="fa-solid fa-graduation-cap"></i></a><a aria-label="Home" class="dock-home"
-            href="#home"><i class="fa-solid fa-house"></i></a><a class="dock-link" href="#projects"><i
+                class="fa-solid fa-graduation-cap"></i></a><a aria-label="Home" class="dock-home" href="#home"><i
+                class="fa-solid fa-house"></i></a><a class="dock-link" href="#projects"><i
                 class="fa-solid fa-gamepad"></i></a><a class="dock-link" href="#experience"><i
                 class="fa-solid fa-briefcase"></i></a></nav>
     <!-- Preload images -->
@@ -5130,6 +5138,105 @@
             if (xs) xs.textContent = 'View full list';
         });
     </script>
+    <script>
+        (function () {
+            // Konami sequence
+            const SEQ = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+            let buf = [];
+
+            // Minimal WebAudio "retro chime"
+            let audioCtx;
+            function playChime() {
+                try {
+                    audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+                    const now = audioCtx.currentTime;
+                    const freqs = [880, 1046.5, 1318.5, 1760]; // A5, C6, E6, A6-ish
+                    let t = 0;
+                    for (let f of freqs) {
+                        const osc = audioCtx.createOscillator();
+                        const g = audioCtx.createGain();
+                        osc.type = 'square';
+                        osc.frequency.value = f;
+                        osc.connect(g); g.connect(audioCtx.destination);
+                        g.gain.setValueAtTime(0, now + t);
+                        g.gain.linearRampToValueAtTime(0.16, now + t + 0.01);
+                        g.gain.exponentialRampToValueAtTime(0.002, now + t + 0.18);
+                        osc.start(now + t);
+                        osc.stop(now + t + 0.2);
+                        t += 0.12;
+                    }
+                } catch (_) { /* autoplay may block until first user gesture – safe to ignore */ }
+            }
+
+            // Tiny inline confetti using the canvas you added
+            const cvs = document.getElementById('confetti-layer');
+            const ctx = cvs.getContext('2d');
+            let W = 0, H = 0;
+            function resize() { W = cvs.width = window.innerWidth; H = cvs.height = window.innerHeight; }
+            window.addEventListener('resize', resize, { passive: true }); resize();
+
+            function confettiBurst(count = 180) {
+                const parts = [];
+                for (let i = 0; i < count; i++) {
+                    parts.push({
+                        x: W * 0.5, y: H * 0.28,
+                        vx: (Math.random() * 2 - 1) * 6.2,
+                        vy: (Math.random() * -1) * 8 - 6.5,
+                        g: 0.18 + Math.random() * 0.12,
+                        s: 2.5 + Math.random() * 3.5,
+                        rot: Math.random() * Math.PI,
+                        spin: (Math.random() * 2 - 1) * 0.24,
+                        shape: Math.random() < 0.5 ? 'rect' : 'circ',
+                        hue: Math.floor(Math.random() * 360),
+                        life: 0, maxLife: 90 + Math.random() * 50
+                    });
+                }
+                const t0 = performance.now();
+                (function frame(now) {
+                    ctx.clearRect(0, 0, W, H);
+                    let alive = 0;
+                    for (const p of parts) {
+                        p.vx *= 0.996;
+                        p.vy += p.g;
+                        p.x += p.vx; p.y += p.vy;
+                        p.rot += p.spin; p.life++;
+                        if (p.y < H && p.life < p.maxLife) {
+                            alive++;
+                            ctx.save();
+                            ctx.translate(p.x, p.y);
+                            ctx.rotate(p.rot);
+                            ctx.fillStyle = `hsl(${p.hue} 85% ${60 - (p.life / p.maxLife) * 20}%)`;
+                            if (p.shape === 'rect') ctx.fillRect(-p.s, -p.s * 0.5, p.s * 2, p.s);
+                            else { ctx.beginPath(); ctx.arc(0, 0, p.s, 0, Math.PI * 2); ctx.fill(); }
+                            ctx.restore();
+                        }
+                    }
+                    if (alive > 0 && (now - t0) < 3200) requestAnimationFrame(frame);
+                    else ctx.clearRect(0, 0, W, H);
+                })(performance.now());
+            }
+
+            // Action when Konami code is detected
+            function onKonami() {
+                playChime();
+                confettiBurst(200);
+                // Optional: tiny visual nudge without touching your CSS
+                document.body.classList.add('shakefx'); setTimeout(() => document.body.classList.remove('shakefx'), 400);
+            }
+
+            // Key handling (ignores inputs/textareas)
+            window.addEventListener('keydown', function (e) {
+                const tag = (e.target && e.target.tagName || '').toLowerCase();
+                if (tag === 'input' || tag === 'textarea' || e.isComposing) return;
+                const k = e.key ? (/^Arrow/.test(e.key) ? e.key : String(e.key).toLowerCase()) : '';
+                if (!k) return;
+                buf.push(k);
+                if (buf.length > SEQ.length) buf.shift();
+                if (buf.length === SEQ.length && buf.every((v, i) => v === SEQ[i])) { buf = []; onKonami(); }
+            }, { passive: true });
+        })();
+    </script>
+
 </body>
 
 </html>
