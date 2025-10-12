@@ -91,7 +91,7 @@
             box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.7);
         }
 
-        /* --- Buttons and Controls --- */
+        /* --- Buttons and Controls (Desktop) --- */
         .control-section {
             display: flex;
             flex-direction: column;
@@ -164,8 +164,8 @@
             display: none; /* Hidden by default on desktop */
             width: 100%;
             max-width: 300px;
-            margin-top: 20px;
-            padding: 15px;
+            margin-top: 15px; /* Reduced top margin */
+            padding: 10px; /* Reduced padding */
             background-color: #111111;
             border: 2px solid var(--color-border);
             border-radius: 4px;
@@ -175,7 +175,7 @@
         .touch-grid {
             display: grid;
             grid-template-columns: 1fr 1fr; /* Split into two main sections */
-            gap: 15px;
+            gap: 10px; /* Reduced gap */
             align-items: center;
         }
         
@@ -184,12 +184,12 @@
             grid-template-areas: 
                 ". up ."
                 "left down right";
-            gap: 5px;
-            max-width: 150px; /* Keep D-pad tight */
+            gap: 4px; /* Reduced gap */
+            max-width: 150px; 
             margin: 0 auto;
         }
 
-        .d-pad .control-btn { grid-area: up; }
+        .d-pad #btnRotate { grid-area: up; }
         .d-pad #btnLeft { grid-area: left; }
         .d-pad #btnRight { grid-area: right; }
         .d-pad #btnSoftDrop { grid-area: down; }
@@ -197,15 +197,15 @@
         .action-buttons {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 8px; /* Reduced gap */
             height: 100%;
             justify-content: space-around;
         }
         
         .control-btn {
-            padding: 15px 10px;
+            padding: 12px 8px; /* Slightly less padding */
             font-family: 'Press Start 2P', monospace;
-            font-size: 10px;
+            font-size: 8px; /* Slightly smaller font for compactness */
             cursor: pointer;
             border: 3px outset #CCCCCC;
             background-color: #555555;
@@ -215,7 +215,7 @@
             border-radius: 2px;
             user-select: none; 
             -webkit-tap-highlight-color: transparent; 
-            min-height: 40px; /* Ensure a good tap size */
+            min-height: 35px; /* Slightly reduced min height */
         }
 
         .control-btn:active {
@@ -229,27 +229,27 @@
             .container {
                 flex-direction: column;
                 gap: 15px;
-                padding: 10px 5px; /* Added some horizontal padding */
-                max-width: 95vw; /* Use viewport width max to prevent overflow */
+                padding: 10px 5px;
+                max-width: 95vw; 
             }
             .info-panel {
                 width: 100%; 
-                max-width: 300px; /* Match canvas width */
+                max-width: 300px; 
                 order: -1; 
                 margin: 0 auto;
             }
             #gameCanvas {
                 width: 100%;
-                max-width: 300px; /* Keep canvas width consistent */
+                max-width: 300px; 
                 margin: 0 auto;
             }
             body {
-                align-items: flex-start; /* Align to top on long mobile pages */
+                align-items: flex-start; 
                 padding: 10px 0;
             }
             .mobile-controls {
-                display: block; /* Show touch controls on small screens */
-                margin: 15px auto 20px; /* Centered, generous bottom margin */
+                display: block; 
+                margin: 10px auto 15px; /* Centered, minimal vertical margins */
             }
         }
     </style>
@@ -306,10 +306,10 @@
             
             <!-- Left Side: D-Pad for Movement and Soft Drop -->
             <div class="d-pad">
-                <button id="btnRotate" class="control-btn" style="grid-area: up;">Rotate</button>
-                <button id="btnLeft" class="control-btn" style="grid-area: left;">&larr;</button>
-                <button id="btnRight" class="control-btn" style="grid-area: right;">&rarr;</button>
-                <button id="btnSoftDrop" class="control-btn" style="grid-area: down;">Drop</button>
+                <button id="btnRotate" class="control-btn">&uarr; Rotate</button>
+                <button id="btnLeft" class="control-btn">&larr; Left</button>
+                <button id="btnRight" class="control-btn">&rarr; Right</button>
+                <button id="btnSoftDrop" class="control-btn">&darr; Drop</button>
             </div>
 
             <!-- Right Side: Action Buttons -->
@@ -350,7 +350,13 @@
         const btnRotate = document.getElementById('btnRotate');
         const btnSoftDrop = document.getElementById('btnSoftDrop');
         const btnHardDrop = document.getElementById('btnHardDrop');
-        const btnPause = document.getElementById('btnPause'); // New Pause button for mobile controls
+        const btnPause = document.getElementById('btnPause'); 
+
+        // Touch Control Variables for Continuous Movement
+        let moveIntervalId = null;
+        const MOVE_DELAY = 150; // Delay before the move repeats on hold (ms)
+        const MOVE_INTERVAL = 50; // Repeat frequency (ms)
+
 
         // Set canvas dimensions
         canvas.width = CANVAS_WIDTH;
@@ -541,12 +547,13 @@
 
         function pieceMove(dir) {
             if (isPaused || isGameOver) return;
-            currentPiece.x += dir;
-            if (collide(board, currentPiece)) {
-                currentPiece.x -= dir; 
-            } else {
-                playMoveSound();
+            // Prevent movement if piece is already locked due to collision check
+            if (collide(board, { ...currentPiece, x: currentPiece.x + dir })) {
+                return;
             }
+            currentPiece.x += dir;
+            playMoveSound();
+            draw();
         }
 
         function pieceRotate() {
@@ -565,29 +572,35 @@
                 }
             }
             playMoveSound();
+            draw();
         }
 
         function pieceDrop() {
             if (isPaused || isGameOver) return;
-            currentPiece.y++;
-            if (collide(board, currentPiece)) {
-                currentPiece.y--;
+            
+            // Check for immediate collision before moving
+            if (collide(board, { ...currentPiece, y: currentPiece.y + 1 })) {
+                // If collision is detected immediately upon drop attempt, merge the piece
                 merge(board, currentPiece);
                 sweepLines();
                 newPiece();
+            } else {
+                // Otherwise, move down one step
+                currentPiece.y++;
                 score += 1; 
             }
-            dropCounter = 0; 
+            dropCounter = 0; // Reset drop counter for both auto and soft drop
         }
 
         function pieceHardDrop() {
             if (isPaused || isGameOver) return;
             let cellsDropped = 0;
-            while (!collide(board, currentPiece)) {
+            // Move piece down as far as possible
+            while (!collide(board, { ...currentPiece, y: currentPiece.y + 1 })) {
                 currentPiece.y++;
                 cellsDropped++;
             }
-            currentPiece.y--;
+            
             merge(board, currentPiece);
             sweepLines();
             newPiece();
@@ -659,8 +672,7 @@
             } else if (clearedLinesY.length > 0) {
                 // Perform the actual line removal and board shift
                 
-                // Iterate over the list of cleared lines (which are stored from bottom to top)
-                // We iterate in reverse on the actual board to ensure splice indices remain valid
+                // Sort coordinates descending to ensure indices are correct when splicing
                 clearedLinesY.sort((a, b) => b - a).forEach(y => {
                     // 1. Remove the full row at index y
                     board.splice(y, 1);
@@ -829,19 +841,80 @@
             draw(); 
         });
         
-        // --- INPUT HANDLING (Touch) ---
+        // --- INPUT HANDLING (Touch - Continuous Movement) ---
+        
+        /**
+         * Executes the action once, then sets up a continuous interval if held.
+         * @param {string} action - 'left', 'right', or 'softdrop'.
+         */
+        function startContinuousAction(action) {
+            if (isPaused || isGameOver) return;
+            
+            // Clear any existing interval to prevent overlap
+            if (moveIntervalId) clearInterval(moveIntervalId);
+
+            // Perform the initial action immediately
+            performAction(action);
+
+            // Set up the interval for continuous movement after a short delay
+            moveIntervalId = setTimeout(() => {
+                moveIntervalId = setInterval(() => performAction(action), MOVE_INTERVAL);
+            }, MOVE_DELAY);
+        }
+        
+        /**
+         * Clears any active continuous movement interval.
+         */
+        function stopContinuousAction() {
+            clearTimeout(moveIntervalId);
+            if (typeof moveIntervalId === 'number') {
+                 clearInterval(moveIntervalId);
+            }
+            moveIntervalId = null;
+        }
+
+        /**
+         * Executes the core game action.
+         * @param {string} action - 'left', 'right', or 'softdrop'.
+         */
+        function performAction(action) {
+            switch (action) {
+                case 'left':
+                    pieceMove(-1);
+                    break;
+                case 'right':
+                    pieceMove(1);
+                    break;
+                case 'softdrop':
+                    // This function manages soft drop logic (down one unit and score update)
+                    pieceDrop(); 
+                    break;
+                case 'rotate':
+                    pieceRotate();
+                    break;
+                case 'harddrop':
+                    pieceHardDrop();
+                    break;
+            }
+            draw();
+        }
+
         function setupTouchControls() {
-            // Passive: false is used to allow preventDefault to stop scrolling/zooming on mobile.
-            btnLeft.addEventListener('touchstart', (e) => { e.preventDefault(); pieceMove(-1); draw(); }, { passive: false });
-            btnRight.addEventListener('touchstart', (e) => { e.preventDefault(); pieceMove(1); draw(); }, { passive: false });
-            btnRotate.addEventListener('touchstart', (e) => { e.preventDefault(); pieceRotate(); draw(); }, { passive: false });
+            // Continuous actions (Move, Soft Drop)
+            btnLeft.addEventListener('touchstart', (e) => { e.preventDefault(); startContinuousAction('left'); }, { passive: false });
+            btnLeft.addEventListener('touchend', stopContinuousAction);
             
-            // Soft drop is now treated as a quick down move, not a sustained drop, to match button UX
-            btnSoftDrop.addEventListener('touchstart', (e) => { e.preventDefault(); pieceDrop(); draw(); }, { passive: false });
+            btnRight.addEventListener('touchstart', (e) => { e.preventDefault(); startContinuousAction('right'); }, { passive: false });
+            btnRight.addEventListener('touchend', stopContinuousAction);
             
-            btnHardDrop.addEventListener('touchstart', (e) => { e.preventDefault(); pieceHardDrop(); draw(); }, { passive: false });
+            btnSoftDrop.addEventListener('touchstart', (e) => { e.preventDefault(); startContinuousAction('softdrop'); }, { passive: false });
+            btnSoftDrop.addEventListener('touchend', stopContinuousAction);
             
-            // Link the new mobile pause button to the pause function
+            // Single press actions (Rotate, Hard Drop)
+            btnRotate.addEventListener('click', (e) => { e.preventDefault(); performAction('rotate'); });
+            btnHardDrop.addEventListener('click', (e) => { e.preventDefault(); performAction('harddrop'); });
+            
+            // Pause button
             btnPause.addEventListener('click', togglePause);
         }
 
