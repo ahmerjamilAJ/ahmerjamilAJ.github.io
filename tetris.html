@@ -19,6 +19,7 @@
         }
 
         body {
+            /* Ensure content is centered both vertically and horizontally */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -27,8 +28,8 @@
             background-color: var(--color-background);
             color: var(--color-primary-text);
             font-family: 'Press Start 2P', monospace;
-            overflow: hidden;
-            font-size: 10px; /* Smaller font for true retro look */
+            overflow-x: hidden; /* Critical: Prevent horizontal scrolling on mobile */
+            font-size: 10px; 
             line-height: 1.6;
         }
 
@@ -126,7 +127,7 @@
 
         /* --- Game Over Modal --- */
         #gameOverModal {
-            position: absolute;
+            position: fixed; /* Use fixed to ensure it covers the whole viewport */
             top: 0;
             left: 0;
             width: 100%;
@@ -158,33 +159,50 @@
             margin-bottom: 25px;
         }
         
-        /* --- Mobile Controls (New Section) --- */
+        /* --- Mobile Controls (Redesigned for better touch UX) --- */
         .mobile-controls {
             display: none; /* Hidden by default on desktop */
             width: 100%;
-            margin-top: 15px;
-            padding: 10px;
+            max-width: 300px;
+            margin-top: 20px;
+            padding: 15px;
             background-color: #111111;
             border: 2px solid var(--color-border);
             border-radius: 4px;
             box-shadow: 0 4px 0 #000;
         }
 
-        .mobile-controls .move-controls {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 10px;
+        .touch-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* Split into two main sections */
+            gap: 15px;
+            align-items: center;
+        }
+        
+        .d-pad {
+            display: grid;
+            grid-template-areas: 
+                ". up ."
+                "left down right";
+            gap: 5px;
+            max-width: 150px; /* Keep D-pad tight */
+            margin: 0 auto;
         }
 
-        .mobile-controls .action-controls {
+        .d-pad .control-btn { grid-area: up; }
+        .d-pad #btnLeft { grid-area: left; }
+        .d-pad #btnRight { grid-area: right; }
+        .d-pad #btnSoftDrop { grid-area: down; }
+        
+        .action-buttons {
             display: flex;
+            flex-direction: column;
+            gap: 10px;
+            height: 100%;
             justify-content: space-around;
-            gap: 5px;
         }
         
         .control-btn {
-            flex-grow: 1;
             padding: 15px 10px;
             font-family: 'Press Start 2P', monospace;
             font-size: 10px;
@@ -195,8 +213,9 @@
             transition: all 0.05s ease;
             box-shadow: 0 4px 0 #333333;
             border-radius: 2px;
-            user-select: none; /* Prevent text selection on touch */
-            -webkit-tap-highlight-color: transparent; /* No ugly highlight box on touch */
+            user-select: none; 
+            -webkit-tap-highlight-color: transparent; 
+            min-height: 40px; /* Ensure a good tap size */
         }
 
         .control-btn:active {
@@ -204,29 +223,33 @@
             box-shadow: 0 1px 0 #333333;
             transform: translateY(3px);
         }
-
-        /* Responsive adjustments */
+        
+        /* Responsive adjustments for mobile */
         @media (max-width: 650px) {
             .container {
                 flex-direction: column;
                 gap: 15px;
-                padding: 10px;
-                max-width: 320px; /* Constrain main container width */
+                padding: 10px 5px; /* Added some horizontal padding */
+                max-width: 95vw; /* Use viewport width max to prevent overflow */
             }
             .info-panel {
-                width: 100%; /* Full width in mobile container */
+                width: 100%; 
                 max-width: 300px; /* Match canvas width */
-                order: -1; /* Move info above canvas on mobile */
+                order: -1; 
+                margin: 0 auto;
+            }
+            #gameCanvas {
+                width: 100%;
+                max-width: 300px; /* Keep canvas width consistent */
+                margin: 0 auto;
             }
             body {
-                align-items: flex-start;
-                padding: 10px 5px;
-                font-size: 8px;
+                align-items: flex-start; /* Align to top on long mobile pages */
+                padding: 10px 0;
             }
             .mobile-controls {
                 display: block; /* Show touch controls on small screens */
-                width: 300px;
-                margin: 15px auto 0;
+                margin: 15px auto 20px; /* Centered, generous bottom margin */
             }
         }
     </style>
@@ -238,7 +261,7 @@
         <!-- Center: Game Canvas -->
         <canvas id="gameCanvas" width="300" height="600"></canvas>
 
-        <!-- Right Panel: Info and Controls -->
+        <!-- Right Panel: Info and Controls (Moves to top on mobile) -->
         <div class="info-panel">
             
             <div class="panel-box">
@@ -277,16 +300,24 @@
         </div>
     </div>
     
-    <!-- Mobile Touch Controls (Hidden on Desktop, Visible on Phone) -->
+    <!-- Mobile Touch Controls (Redesigned with D-Pad style) -->
     <div class="mobile-controls">
-        <div class="move-controls">
-            <button id="btnLeft" class="control-btn">&larr; Move</button>
-            <button id="btnRight" class="control-btn">Move &rarr;</button>
-        </div>
-        <div class="action-controls">
-            <button id="btnRotate" class="control-btn">Rotate</button>
-            <button id="btnSoftDrop" class="control-btn">Drop</button>
-            <button id="btnHardDrop" class="control-btn">Hard Drop</button>
+        <div class="touch-grid">
+            
+            <!-- Left Side: D-Pad for Movement and Soft Drop -->
+            <div class="d-pad">
+                <button id="btnRotate" class="control-btn" style="grid-area: up;">Rotate</button>
+                <button id="btnLeft" class="control-btn" style="grid-area: left;">&larr;</button>
+                <button id="btnRight" class="control-btn" style="grid-area: right;">&rarr;</button>
+                <button id="btnSoftDrop" class="control-btn" style="grid-area: down;">Drop</button>
+            </div>
+
+            <!-- Right Side: Action Buttons -->
+            <div class="action-buttons">
+                <button id="btnHardDrop" class="control-btn">Hard Drop</button>
+                <!-- This button maps to the Start/Pause button in the main UI -->
+                <button id="btnPause" class="control-btn">Pause</button> 
+            </div>
         </div>
     </div>
 
@@ -319,6 +350,7 @@
         const btnRotate = document.getElementById('btnRotate');
         const btnSoftDrop = document.getElementById('btnSoftDrop');
         const btnHardDrop = document.getElementById('btnHardDrop');
+        const btnPause = document.getElementById('btnPause'); // New Pause button for mobile controls
 
         // Set canvas dimensions
         canvas.width = CANVAS_WIDTH;
@@ -706,6 +738,7 @@
             const newLevel = Math.floor(lines / 10) + 1;
             if (newLevel > level) {
                 level = newLevel;
+                // Game speed up: minimum drop interval is 100ms
                 dropInterval = Math.max(100, 1000 - (level - 1) * 70); 
                 levelDisplay.textContent = level;
             }
@@ -731,6 +764,7 @@
             gameOverModal.style.display = 'none';
             statusMessage.textContent = 'PLAYING';
             startButton.textContent = 'PAUSE';
+            btnPause.textContent = 'Pause';
             
             currentPiece = null;
             nextPiece = getRandomPiece();
@@ -748,9 +782,11 @@
             if (isPaused) {
                 statusMessage.textContent = 'PAUSED';
                 startButton.textContent = 'RESUME';
+                btnPause.textContent = 'Resume';
             } else {
                 statusMessage.textContent = 'PLAYING';
                 startButton.textContent = 'PAUSE';
+                btnPause.textContent = 'Pause';
                 update();
             }
         }
@@ -778,7 +814,8 @@
                     break;
                 case 'ArrowDown':
                 case 's':
-                    pieceDrop();
+                    // Soft drop moves piece, but does not reset the drop counter
+                    pieceDrop(); 
                     break;
                 case 'ArrowUp':
                 case 'x':
@@ -794,13 +831,18 @@
         
         // --- INPUT HANDLING (Touch) ---
         function setupTouchControls() {
-            // Passive: false is used to allow preventDefault to function, which is necessary to stop
-            // mobile browsers from scrolling or zooming when tapping near the edges.
+            // Passive: false is used to allow preventDefault to stop scrolling/zooming on mobile.
             btnLeft.addEventListener('touchstart', (e) => { e.preventDefault(); pieceMove(-1); draw(); }, { passive: false });
             btnRight.addEventListener('touchstart', (e) => { e.preventDefault(); pieceMove(1); draw(); }, { passive: false });
             btnRotate.addEventListener('touchstart', (e) => { e.preventDefault(); pieceRotate(); draw(); }, { passive: false });
+            
+            // Soft drop is now treated as a quick down move, not a sustained drop, to match button UX
             btnSoftDrop.addEventListener('touchstart', (e) => { e.preventDefault(); pieceDrop(); draw(); }, { passive: false });
+            
             btnHardDrop.addEventListener('touchstart', (e) => { e.preventDefault(); pieceHardDrop(); draw(); }, { passive: false });
+            
+            // Link the new mobile pause button to the pause function
+            btnPause.addEventListener('click', togglePause);
         }
 
 
