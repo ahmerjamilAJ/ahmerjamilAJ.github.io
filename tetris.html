@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classic 8-Bit Tetris</title>
+    <!-- Importing a true retro/arcade font for maximum authenticity -->
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <!-- Tone.js for sound generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js"></script>
+    
+    <style>
+        :root {
+            --color-primary-text: #E0E0E0; /* Light Gray/White */
+            --color-secondary-text: #FFD700; /* Yellow for highlights */
+            --color-background: #222222; /* Dark Gray Chassis */
+            --color-border: #888888; /* Soft Border Gray */
+            --block-size: 30px;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: var(--color-background);
+            color: var(--color-primary-text);
+            font-family: 'Press Start 2P', monospace;
+            overflow: hidden;
+            font-size: 10px; /* Smaller font for true retro look */
+            line-height: 1.6;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap; 
+            gap: 20px;
+            padding: 20px;
+            border: 4px solid var(--color-border);
+            background-color: #000000;
+            border-radius: 4px;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* --- Game Board and Canvas Styling --- */
+        #gameCanvas {
+            border: 4px ridge #AAAAAA; 
+            background-color: #0A0A0A; 
+            image-rendering: pixelated; 
+        }
+
+        /* --- Info Panel (Right Side) --- */
+        .info-panel {
+            width: 200px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .panel-box {
+            padding: 10px;
+            border: 2px solid var(--color-border);
+            background-color: #111111;
+            border-radius: 2px;
+            box-shadow: 2px 2px 0 #000;
+        }
+
+        .panel-box h3 {
+            margin-top: 0;
+            margin-bottom: 8px;
+            font-size: 12px;
+            text-align: center;
+            color: var(--color-secondary-text);
+        }
+
+        .score-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 3px;
+            font-size: 10px;
+        }
+
+        /* --- Next Piece Display --- */
+        #nextPieceCanvas {
+            display: block;
+            margin: 0 auto 5px;
+            border: 1px solid var(--color-border);
+            background-color: #0A0A0A;
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.7);
+        }
+
+        /* --- Buttons and Controls --- */
+        .control-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .control-section button {
+            width: 100%;
+            padding: 10px 5px;
+            margin-top: 10px;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 10px;
+            cursor: pointer;
+            border: 3px outset #CCCCCC;
+            background-color: #555555;
+            color: var(--color-primary-text);
+            transition: all 0.05s ease;
+            box-shadow: 0 4px 0 #333333;
+            border-radius: 2px;
+        }
+        
+        .control-section button:active {
+            border: 3px inset #CCCCCC;
+            box-shadow: 0 1px 0 #333333;
+            transform: translateY(3px);
+        }
+
+        .controls p {
+            margin: 4px 0;
+            text-align: left;
+            padding-left: 5px;
+        }
+
+        /* --- Game Over Modal --- */
+        #gameOverModal {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            display: none; 
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background-color: #222222;
+            border: 4px solid #FF0000;
+            padding: 30px 50px;
+            text-align: center;
+            border-radius: 4px;
+        }
+
+        .modal-content h2 {
+            font-size: 16px;
+            color: #FF0000;
+            margin-bottom: 15px;
+        }
+
+        .modal-content p {
+            font-size: 12px;
+            margin-bottom: 25px;
+        }
+        
+        /* --- Mobile Controls (New Section) --- */
+        .mobile-controls {
+            display: none; /* Hidden by default on desktop */
+            width: 100%;
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #111111;
+            border: 2px solid var(--color-border);
+            border-radius: 4px;
+            box-shadow: 0 4px 0 #000;
+        }
+
+        .mobile-controls .move-controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .mobile-controls .action-controls {
+            display: flex;
+            justify-content: space-around;
+            gap: 5px;
+        }
+        
+        .control-btn {
+            flex-grow: 1;
+            padding: 15px 10px;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 10px;
+            cursor: pointer;
+            border: 3px outset #CCCCCC;
+            background-color: #555555;
+            color: var(--color-primary-text);
+            transition: all 0.05s ease;
+            box-shadow: 0 4px 0 #333333;
+            border-radius: 2px;
+            user-select: none; /* Prevent text selection on touch */
+            -webkit-tap-highlight-color: transparent; /* No ugly highlight box on touch */
+        }
+
+        .control-btn:active {
+            border: 3px inset #CCCCCC;
+            box-shadow: 0 1px 0 #333333;
+            transform: translateY(3px);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 650px) {
+            .container {
+                flex-direction: column;
+                gap: 15px;
+                padding: 10px;
+                max-width: 320px; /* Constrain main container width */
+            }
+            .info-panel {
+                width: 100%; /* Full width in mobile container */
+                max-width: 300px; /* Match canvas width */
+                order: -1; /* Move info above canvas on mobile */
+            }
+            body {
+                align-items: flex-start;
+                padding: 10px 5px;
+                font-size: 8px;
+            }
+            .mobile-controls {
+                display: block; /* Show touch controls on small screens */
+                width: 300px;
+                margin: 15px auto 0;
+            }
+        }
+    </style>
+    
+</head>
+<body>
+
+    <div class="container">
+        <!-- Center: Game Canvas -->
+        <canvas id="gameCanvas" width="300" height="600"></canvas>
+
+        <!-- Right Panel: Info and Controls -->
+        <div class="info-panel">
+            
+            <div class="panel-box">
+                <h3 id="statusMessage">TETRIS GAME</h3>
+                <div class="score-item"><span>SCORE:</span> <span id="scoreDisplay">0</span></div>
+                <div class="score-item"><span>LINES:</span> <span id="linesDisplay">0</span></div>
+                <div class="score-item"><span>LEVEL:</span> <span id="levelDisplay">1</span></div>
+            </div>
+
+            <div class="panel-box">
+                <h3>NEXT</h3>
+                <canvas id="nextPieceCanvas" width="120" height="120"></canvas>
+            </div>
+            
+            <div class="panel-box controls">
+                <h3>CONTROLS</h3>
+                <p>MOVE: &larr; &rarr;</p>
+                <p>ROTATE: &uarr; / X</p>
+                <p>SOFT DROP: &darr;</p>
+                <p>HARD DROP: SPACE</p>
+                <p>PAUSE: P</p>
+            </div>
+
+            <div class="control-section">
+                <button id="startButton">START GAME</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Over Modal -->
+    <div id="gameOverModal">
+        <div class="modal-content">
+            <h2>G A M E &nbsp; O V E R</h2>
+            <p>FINAL SCORE: <span id="finalScoreDisplay">0</span></p>
+            <button id="restartButton">RESTART</button>
+        </div>
+    </div>
+    
+    <!-- Mobile Touch Controls (Hidden on Desktop, Visible on Phone) -->
+    <div class="mobile-controls">
+        <div class="move-controls">
+            <button id="btnLeft" class="control-btn">&larr; Move</button>
+            <button id="btnRight" class="control-btn">Move &rarr;</button>
+        </div>
+        <div class="action-controls">
+            <button id="btnRotate" class="control-btn">Rotate</button>
+            <button id="btnSoftDrop" class="control-btn">Drop</button>
+            <button id="btnHardDrop" class="control-btn">Hard Drop</button>
+        </div>
+    </div>
+
+
+    <script>
+        // --- GAME CONSTANTS ---
+        const COLS = 10;
+        const ROWS = 20;
+        const BLOCK_SIZE = 30;
+        const CANVAS_WIDTH = COLS * BLOCK_SIZE;
+        const CANVAS_HEIGHT = ROWS * BLOCK_SIZE;
+        const FLASH_DURATION = 2; // Duration in frames for the line clear flash
+
+        // --- DOM Elements ---
+        const canvas = document.getElementById('gameCanvas');
+        const nextCanvas = document.getElementById('nextPieceCanvas');
+        const ctx = canvas.getContext('2d');
+        const nextCtx = nextCanvas.getContext('2d');
+        const scoreDisplay = document.getElementById('scoreDisplay');
+        const linesDisplay = document.getElementById('linesDisplay');
+        const levelDisplay = document.getElementById('levelDisplay');
+        const statusMessage = document.getElementById('statusMessage');
+        const gameOverModal = document.getElementById('gameOverModal');
+        const finalScoreDisplay = document.getElementById('finalScoreDisplay');
+        const startButton = document.getElementById('startButton');
+
+        // New Mobile Controls DOM Elements
+        const btnLeft = document.getElementById('btnLeft');
+        const btnRight = document.getElementById('btnRight');
+        const btnRotate = document.getElementById('btnRotate');
+        const btnSoftDrop = document.getElementById('btnSoftDrop');
+        const btnHardDrop = document.getElementById('btnHardDrop');
+
+        // Set canvas dimensions
+        canvas.width = CANVAS_WIDTH;
+        canvas.height = CANVAS_HEIGHT;
+
+        // --- TONE.JS AUDIO SETUP ---
+        let moveSynth = null;
+        let lineClearPluck = null;
+
+        /**
+         * Initializes and configures Tone.js synths.
+         */
+        function initAudio() {
+            // Simple synth for movement and rotation
+            moveSynth = new Tone.Synth({
+                oscillator: { type: "square" },
+                envelope: {
+                    attack: 0.001,
+                    decay: 0.05,
+                    sustain: 0,
+                    release: 0.05
+                }
+            }).toDestination();
+
+            // PluckSynth for the satisfying line clear sound
+            lineClearPluck = new Tone.PluckSynth({
+                attackNoise: 1,
+                dampening: 4000,
+                resonance: 0.9
+            }).toDestination();
+
+            console.log("Audio synths initialized.");
+        }
+
+        /**
+         * Plays a simple beep for movement/rotation.
+         */
+        function playMoveSound() {
+            if (Tone.context.state === 'running' && moveSynth) {
+                moveSynth.triggerAttackRelease("C4", "8n");
+            }
+        }
+
+        /**
+         * Plays the line clear effect sound.
+         */
+        function playLineClearSound() {
+            if (Tone.context.state === 'running' && lineClearPluck) {
+                // Ascending melodic sequence (C5, E5, G5)
+                lineClearPluck.triggerAttackRelease("C5", "16n", Tone.now());
+                lineClearPluck.triggerAttackRelease("E5", "16n", Tone.now() + 0.05);
+                lineClearPluck.triggerAttackRelease("G5", "16n", Tone.now() + 0.1);
+            }
+        }
+
+        // --- GAME STATE ---
+        let board = [];
+        let score = 0;
+        let lines = 0;
+        let level = 1;
+        let currentPiece = null;
+        let nextPiece = null;
+        let lastTime = 0;
+        let dropCounter = 0;
+        let dropInterval = 1000; // milliseconds
+        let animationFrameId = null;
+        let isPaused = false;
+        let isGameOver = true; 
+        let clearedLinesY = []; // Array of Y coordinates of recently cleared lines
+        let flashFrameCount = 0; // Counter for the flash effect
+
+        // --- TETROMINO SHAPES AND COLORS (Classic Palette) ---
+        const SHAPES = [
+            [[0, 0, 0, 0], [1, 1, 1, 1], [0, 0, 0, 0], [0, 0, 0, 0]], // I (Cyan)
+            [[2, 2], [2, 2]],                                        // O (Yellow)
+            [[0, 3, 0], [3, 3, 3], [0, 0, 0]],                       // T (Purple)
+            [[4, 4, 0], [0, 4, 4], [0, 0, 0]],                       // S (Green)
+            [[0, 5, 5], [5, 5, 0], [0, 0, 0]],                       // Z (Red)
+            [[6, 6, 6], [6, 0, 0], [0, 0, 0]],                       // J (Blue)
+            [[7, 7, 7], [0, 0, 7], [0, 0, 0]],                       // L (Orange)
+        ];
+
+        // The colors array is indexed by the shape value (1-7)
+        const COLORS = [
+            null,       // 0: Empty
+            '#00FFFF',  // 1: I - Cyan
+            '#FFFF00',  // 2: O - Yellow
+            '#AA00AA',  // 3: T - Purple
+            '#00CC00',  // 4: S - Green 
+            '#CC0000',  // 5: Z - Red
+            '#0000FF',  // 6: J - Blue
+            '#FF8000',  // 7: L - Orange
+        ];
+
+        // --- UTILITY FUNCTIONS ---
+
+        function createBoard() {
+            return Array.from({ length: ROWS }, () => Array(COLS).fill(0));
+        }
+
+        function getRandomPiece() {
+            const type = Math.floor(Math.random() * SHAPES.length);
+            const shape = SHAPES[type];
+            return {
+                matrix: shape,
+                x: Math.floor(COLS / 2) - Math.ceil(shape[0].length / 2),
+                y: 0,
+                colorIndex: type + 1
+            };
+        }
+
+        function rotate(matrix, dir) {
+            // Transpose
+            for (let y = 0; y < matrix.length; ++y) {
+                for (let x = 0; x < y; ++x) {
+                    [matrix[x][y], matrix[y][x]] = [matrix[y][x], matrix[x][y]];
+                }
+            }
+
+            // Reverse columns
+            if (dir > 0) {
+                matrix.forEach(row => row.reverse());
+            } else {
+                matrix.reverse();
+            }
+        }
+
+        function collide(board, piece) {
+            const m = piece.matrix;
+            const o = { x: piece.x, y: piece.y };
+            for (let y = 0; y < m.length; ++y) {
+                for (let x = 0; x < m[y].length; ++x) {
+                    if (m[y][x] !== 0 && (
+                        (board[y + o.y] && board[y + o.y][x + o.x]) !== 0 ||
+                        o.x + x < 0 || o.x + x >= COLS || o.y + y >= ROWS
+                    )) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        function merge(board, piece) {
+            piece.matrix.forEach((row, y) => {
+                row.forEach((value, x) => {
+                    if (value !== 0) {
+                        board[y + piece.y][x + piece.x] = piece.colorIndex;
+                    }
+                });
+            });
+        }
+
+        /**
+         * Clears completed lines, updates score, triggers sound and visual flash.
+         */
+        function sweepLines() {
+            let linesCleared = 0;
+            const clearedYCoords = [];
+            outer: for (let y = board.length - 1; y >= 0; --y) {
+                for (let x = 0; x < board[y].length; ++x) {
+                    if (board[y][x] === 0) {
+                        continue outer; 
+                    }
+                }
+                
+                // If line is full, record its Y coordinate.
+                clearedYCoords.push(y); 
+                linesCleared++;
+            }
+            
+            if (linesCleared > 0) {
+                clearedLinesY = clearedYCoords;
+                flashFrameCount = FLASH_DURATION; // Start the flash animation
+                playLineClearSound(); 
+
+                // Update score/lines
+                const scoreTable = [0, 100, 300, 500, 800]; 
+                score += scoreTable[linesCleared] * level;
+                lines += linesCleared;
+                updateScore();
+            }
+            // IMPORTANT: The actual row removal and board shifting happens in the draw() loop 
+            // after the flash animation has completed.
+        }
+        
+        // --- GAME ACTIONS ---
+
+        function pieceMove(dir) {
+            if (isPaused || isGameOver) return;
+            currentPiece.x += dir;
+            if (collide(board, currentPiece)) {
+                currentPiece.x -= dir; 
+            } else {
+                playMoveSound();
+            }
+        }
+
+        function pieceRotate() {
+            if (isPaused || isGameOver) return;
+            const pos = currentPiece.x;
+            let offset = 1;
+            rotate(currentPiece.matrix, 1);
+
+            while (collide(board, currentPiece)) {
+                currentPiece.x += offset;
+                offset = -(offset + (offset > 0 ? 1 : -1)); 
+                if (offset > currentPiece.matrix[0].length) {
+                    rotate(currentPiece.matrix, -1); 
+                    currentPiece.x = pos;
+                    return;
+                }
+            }
+            playMoveSound();
+        }
+
+        function pieceDrop() {
+            if (isPaused || isGameOver) return;
+            currentPiece.y++;
+            if (collide(board, currentPiece)) {
+                currentPiece.y--;
+                merge(board, currentPiece);
+                sweepLines();
+                newPiece();
+                score += 1; 
+            }
+            dropCounter = 0; 
+        }
+
+        function pieceHardDrop() {
+            if (isPaused || isGameOver) return;
+            let cellsDropped = 0;
+            while (!collide(board, currentPiece)) {
+                currentPiece.y++;
+                cellsDropped++;
+            }
+            currentPiece.y--;
+            merge(board, currentPiece);
+            sweepLines();
+            newPiece();
+            score += cellsDropped * 2; 
+            updateScore();
+        }
+
+        function newPiece() {
+            currentPiece = nextPiece;
+            nextPiece = getRandomPiece();
+            drawNextPiece();
+
+            if (collide(board, currentPiece)) {
+                isGameOver = true;
+                cancelAnimationFrame(animationFrameId);
+                showGameOver();
+            }
+        }
+
+        // --- DRAWING FUNCTIONS ---
+
+        /**
+         * Draws a single block with a pronounced 3D pixel effect.
+         */
+        function drawBlock(x, y, color, context, size) {
+            // 1. Base color fill
+            context.fillStyle = color;
+            context.fillRect(x * size, y * size, size, size);
+
+            // 2. Dark shadow (right and bottom) - 8-bit aesthetic
+            const shadowColor = 'rgba(0, 0, 0, 0.7)';
+            context.fillStyle = shadowColor;
+            context.fillRect(x * size, y * size + size - 3, size, 3); // Bottom line
+            context.fillRect(x * size + size - 3, y * size, 3, size); // Right line
+            
+            // 3. Highlight (top and left) - inner edge highlight
+            const highlightColor = 'rgba(255, 255, 255, 0.5)'; 
+            context.fillStyle = highlightColor;
+            context.fillRect(x * size, y * size, size - 3, 3); // Top line
+            context.fillRect(x * size, y * size + 3, 3, size - 6); // Left line (inner)
+        }
+
+        /**
+         * Draws the game board and current piece, handling the line flash effect.
+         */
+        function draw() {
+            // Clear the canvas with the background color
+            ctx.fillStyle = '#0A0A0A';
+            ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+
+            // Draw the board (static blocks)
+            board.forEach((row, y) => {
+                row.forEach((value, x) => {
+                    // Only draw the block if it's not a line scheduled for removal
+                    if (value !== 0 && !clearedLinesY.includes(y)) {
+                        drawBlock(x, y, COLORS[value], ctx, BLOCK_SIZE);
+                    }
+                });
+            });
+
+            // --- Line Clear Flash Effect ---
+            if (flashFrameCount > 0) {
+                // If flashing, draw solid white lines over the cleared rows
+                ctx.fillStyle = 'rgba(255, 255, 255, 1)'; // Solid white flash
+                clearedLinesY.forEach(y => {
+                    ctx.fillRect(0, y * BLOCK_SIZE, CANVAS_WIDTH, BLOCK_SIZE);
+                });
+                flashFrameCount--;
+            } else if (clearedLinesY.length > 0) {
+                // Perform the actual line removal and board shift
+                
+                // Iterate over the list of cleared lines (which are stored from bottom to top)
+                // We iterate in reverse on the actual board to ensure splice indices remain valid
+                clearedLinesY.sort((a, b) => b - a).forEach(y => {
+                    // 1. Remove the full row at index y
+                    board.splice(y, 1);
+                    // 2. Insert a new empty row at the top (index 0) to shift blocks down
+                    board.unshift(Array(COLS).fill(0));
+                });
+                
+                // Clear the list so the next frame doesn't re-execute the removal
+                clearedLinesY = [];
+            }
+
+            // Draw the current piece
+            if (currentPiece) {
+                currentPiece.matrix.forEach((row, y) => {
+                    row.forEach((value, x) => {
+                        if (value !== 0) {
+                            drawBlock(currentPiece.x + x, currentPiece.y + y, COLORS[currentPiece.colorIndex], ctx, BLOCK_SIZE);
+                        }
+                    });
+                });
+            }
+        }
+
+        function drawNextPiece() {
+            nextCtx.fillStyle = '#0A0A0A';
+            nextCtx.fillRect(0, 0, 120, 120);
+
+            if (nextPiece) {
+                const matrix = nextPiece.matrix;
+                const size = 120 / 6; 
+
+                const offsetX = (120 - matrix[0].length * size) / 2;
+                const offsetY = (120 - matrix.length * size) / 2;
+
+                matrix.forEach((row, y) => {
+                    row.forEach((value, x) => {
+                        if (value !== 0) {
+                            drawBlock(
+                                (x * size + offsetX) / size, 
+                                (y * size + offsetY) / size, 
+                                COLORS[nextPiece.colorIndex], 
+                                nextCtx, 
+                                size
+                            );
+                        }
+                    });
+                });
+            }
+        }
+
+        // --- GAME LOOP ---
+
+        function update(time = 0) {
+            if (isGameOver) return;
+
+            const deltaTime = time - lastTime;
+            lastTime = time;
+
+            if (!isPaused) {
+                dropCounter += deltaTime;
+                if (dropCounter > dropInterval) {
+                    pieceDrop();
+                }
+            }
+            
+            draw();
+
+            animationFrameId = requestAnimationFrame(update);
+        }
+
+        function updateScore() {
+            scoreDisplay.textContent = score;
+            linesDisplay.textContent = lines;
+            
+            const newLevel = Math.floor(lines / 10) + 1;
+            if (newLevel > level) {
+                level = newLevel;
+                dropInterval = Math.max(100, 1000 - (level - 1) * 70); 
+                levelDisplay.textContent = level;
+            }
+        }
+
+        function showGameOver() {
+            gameOverModal.style.display = 'flex';
+            finalScoreDisplay.textContent = score;
+        }
+
+        function resetGame() {
+            isGameOver = false;
+            isPaused = false;
+            score = 0;
+            lines = 0;
+            level = 1;
+            dropInterval = 1000;
+            board = createBoard();
+            clearedLinesY = [];
+            flashFrameCount = 0;
+            
+            updateScore(); 
+            gameOverModal.style.display = 'none';
+            statusMessage.textContent = 'PLAYING';
+            startButton.textContent = 'PAUSE';
+            
+            currentPiece = null;
+            nextPiece = getRandomPiece();
+            newPiece();
+            
+            if (animationFrameId) {
+                cancelAnimationFrame(animationFrameId);
+            }
+            update();
+        }
+
+        function togglePause() {
+            if (isGameOver) return;
+            isPaused = !isPaused;
+            if (isPaused) {
+                statusMessage.textContent = 'PAUSED';
+                startButton.textContent = 'RESUME';
+            } else {
+                statusMessage.textContent = 'PLAYING';
+                startButton.textContent = 'PAUSE';
+                update();
+            }
+        }
+
+        // --- INPUT HANDLING (Keyboard) ---
+
+        document.addEventListener('keydown', event => {
+            if (isGameOver) return;
+            if (event.key === 'p' || event.key === 'P') {
+                togglePause();
+                return;
+            }
+            
+            if (!currentPiece || isPaused) return;
+
+
+            switch (event.key) {
+                case 'ArrowLeft':
+                case 'a':
+                    pieceMove(-1);
+                    break;
+                case 'ArrowRight':
+                case 'd':
+                    pieceMove(1);
+                    break;
+                case 'ArrowDown':
+                case 's':
+                    pieceDrop();
+                    break;
+                case 'ArrowUp':
+                case 'x':
+                    pieceRotate();
+                    break;
+                case ' ': // Spacebar for Hard Drop
+                    event.preventDefault(); 
+                    pieceHardDrop();
+                    break;
+            }
+            draw(); 
+        });
+        
+        // --- INPUT HANDLING (Touch) ---
+        function setupTouchControls() {
+            // Passive: false is used to allow preventDefault to function, which is necessary to stop
+            // mobile browsers from scrolling or zooming when tapping near the edges.
+            btnLeft.addEventListener('touchstart', (e) => { e.preventDefault(); pieceMove(-1); draw(); }, { passive: false });
+            btnRight.addEventListener('touchstart', (e) => { e.preventDefault(); pieceMove(1); draw(); }, { passive: false });
+            btnRotate.addEventListener('touchstart', (e) => { e.preventDefault(); pieceRotate(); draw(); }, { passive: false });
+            btnSoftDrop.addEventListener('touchstart', (e) => { e.preventDefault(); pieceDrop(); draw(); }, { passive: false });
+            btnHardDrop.addEventListener('touchstart', (e) => { e.preventDefault(); pieceHardDrop(); draw(); }, { passive: false });
+        }
+
+
+        // --- INITIALIZATION ---
+        initAudio(); // Initialize audio synths
+        setupTouchControls(); // Setup mobile touch inputs
+
+        startButton.addEventListener('click', () => {
+            // Start the audio context on user interaction (required by browsers)
+            if (Tone.context.state !== 'running') {
+                Tone.start();
+                console.log("Audio context started.");
+            }
+            
+            if (isGameOver) {
+                resetGame();
+            } else {
+                togglePause();
+            }
+        });
+        
+        document.getElementById('restartButton').addEventListener('click', resetGame);
+        
+        // Initial draw to show the empty board
+        draw(); 
+        drawNextPiece();
+
+    </script>
+</body>
+</html>
